@@ -1,0 +1,747 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 52;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4910BE9B257D868B0053AE88 /* Likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4910BE9A257D868B0053AE88 /* Likes.json */; };
+		4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3C8257CFA7F0048E29B /* NuageApp.swift */; };
+		4969F3CD257CFA800048E29B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4969F3CC257CFA800048E29B /* Assets.xcassets */; };
+		4969F3D0257CFA800048E29B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4969F3CF257CFA800048E29B /* Preview Assets.xcassets */; };
+		4969F3DC257CFA800048E29B /* NuageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3DB257CFA800048E29B /* NuageTests.swift */; };
+		4969F3E7257CFA800048E29B /* NuageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3E6257CFA800048E29B /* NuageUITests.swift */; };
+		4969F41E257CFB100048E29B /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F400257CFB100048E29B /* Preview.swift */; };
+		4969F41F257CFB100048E29B /* SoundCloudIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F402257CFB100048E29B /* SoundCloudIdentifiable.swift */; };
+		4969F420257CFB100048E29B /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F403257CFB100048E29B /* Track.swift */; };
+		4969F421257CFB100048E29B /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F404257CFB100048E29B /* Like.swift */; };
+		4969F422257CFB100048E29B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F405257CFB100048E29B /* User.swift */; };
+		4969F423257CFB100048E29B /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F406257CFB100048E29B /* HistoryItem.swift */; };
+		4969F424257CFB100048E29B /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F407257CFB100048E29B /* Playlist.swift */; };
+		4969F425257CFB100048E29B /* Slice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F408257CFB100048E29B /* Slice.swift */; };
+		4969F426257CFB100048E29B /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F409257CFB100048E29B /* Post.swift */; };
+		4969F427257CFB100048E29B /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40A257CFB100048E29B /* Recommendation.swift */; };
+		4969F428257CFB100048E29B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40B257CFB100048E29B /* Helpers.swift */; };
+		4969F429257CFB100048E29B /* SoundCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40C257CFB100048E29B /* SoundCloud.swift */; };
+		4969F42A257CFB100048E29B /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40E257CFB100048E29B /* Stream.swift */; };
+		4969F42B257CFB100048E29B /* StreamPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40F257CFB100048E29B /* StreamPlayer.swift */; };
+		4969F42C257CFB100048E29B /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F411257CFB100048E29B /* TrackView.swift */; };
+		4969F42D257CFB100048E29B /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F412257CFB100048E29B /* ProfileView.swift */; };
+		4969F42E257CFB100048E29B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F413257CFB100048E29B /* LoginView.swift */; };
+		4969F431257CFB100048E29B /* TrackContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F416257CFB100048E29B /* TrackContextMenu.swift */; };
+		4969F433257CFB100048E29B /* TrackList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F418257CFB100048E29B /* TrackList.swift */; };
+		4969F434257CFB100048E29B /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F419257CFB100048E29B /* PlayerView.swift */; };
+		4969F435257CFB100048E29B /* SliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41A257CFB100048E29B /* SliceView.swift */; };
+		4969F436257CFB100048E29B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41B257CFB100048E29B /* MainView.swift */; };
+		4969F437257CFB100048E29B /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41C257CFB100048E29B /* UserList.swift */; };
+		4969F438257CFB100048E29B /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41D257CFB100048E29B /* APIRequest.swift */; };
+		49C5229C258C238C00F2D18C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */; };
+		49FA14BB2589635800CEF925 /* ArrayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14BA2589635800CEF925 /* ArrayList.swift */; };
+		49FA14C62589693E00CEF925 /* SliceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* SliceList.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4969F3D8257CFA800048E29B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4969F3BD257CFA7F0048E29B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4969F3C4257CFA7F0048E29B;
+			remoteInfo = Nuage;
+		};
+		4969F3E3257CFA800048E29B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4969F3BD257CFA7F0048E29B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4969F3C4257CFA7F0048E29B;
+			remoteInfo = Nuage;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4910BE9A257D868B0053AE88 /* Likes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Likes.json; sourceTree = "<group>"; };
+		4969F3C5257CFA7F0048E29B /* Nuage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nuage.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4969F3C8257CFA7F0048E29B /* NuageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuageApp.swift; sourceTree = "<group>"; };
+		4969F3CC257CFA800048E29B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4969F3CF257CFA800048E29B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		4969F3D1257CFA800048E29B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4969F3D2257CFA800048E29B /* Nuage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Nuage.entitlements; sourceTree = "<group>"; };
+		4969F3D7257CFA800048E29B /* NuageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NuageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4969F3DB257CFA800048E29B /* NuageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuageTests.swift; sourceTree = "<group>"; };
+		4969F3DD257CFA800048E29B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4969F3E2257CFA800048E29B /* NuageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NuageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4969F3E6257CFA800048E29B /* NuageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuageUITests.swift; sourceTree = "<group>"; };
+		4969F3E8257CFA800048E29B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4969F400257CFB100048E29B /* Preview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
+		4969F402257CFB100048E29B /* SoundCloudIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudIdentifiable.swift; sourceTree = "<group>"; };
+		4969F403257CFB100048E29B /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		4969F404257CFB100048E29B /* Like.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		4969F405257CFB100048E29B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		4969F406257CFB100048E29B /* HistoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
+		4969F407257CFB100048E29B /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		4969F408257CFB100048E29B /* Slice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slice.swift; sourceTree = "<group>"; };
+		4969F409257CFB100048E29B /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		4969F40A257CFB100048E29B /* Recommendation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
+		4969F40B257CFB100048E29B /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		4969F40C257CFB100048E29B /* SoundCloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloud.swift; sourceTree = "<group>"; };
+		4969F40E257CFB100048E29B /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
+		4969F40F257CFB100048E29B /* StreamPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamPlayer.swift; sourceTree = "<group>"; };
+		4969F411257CFB100048E29B /* TrackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
+		4969F412257CFB100048E29B /* ProfileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		4969F413257CFB100048E29B /* LoginView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4969F416257CFB100048E29B /* TrackContextMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackContextMenu.swift; sourceTree = "<group>"; };
+		4969F418257CFB100048E29B /* TrackList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackList.swift; sourceTree = "<group>"; };
+		4969F419257CFB100048E29B /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
+		4969F41A257CFB100048E29B /* SliceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceView.swift; sourceTree = "<group>"; };
+		4969F41B257CFB100048E29B /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		4969F41C257CFB100048E29B /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
+		4969F41D257CFB100048E29B /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
+		49FA14BA2589635800CEF925 /* ArrayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayList.swift; sourceTree = "<group>"; };
+		49FA14C52589693E00CEF925 /* SliceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliceList.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4969F3C2257CFA7F0048E29B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C5229C258C238C00F2D18C /* SDWebImageSwiftUI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4969F3D4257CFA800048E29B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4969F3DF257CFA800048E29B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4910BE99257D868B0053AE88 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4910BE9A257D868B0053AE88 /* Likes.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		4969F3BC257CFA7F0048E29B = {
+			isa = PBXGroup;
+			children = (
+				4969F3C7257CFA7F0048E29B /* Nuage */,
+				4969F3DA257CFA800048E29B /* NuageTests */,
+				4969F3E5257CFA800048E29B /* NuageUITests */,
+				4969F3C6257CFA7F0048E29B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4969F3C6257CFA7F0048E29B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4969F3C5257CFA7F0048E29B /* Nuage.app */,
+				4969F3D7257CFA800048E29B /* NuageTests.xctest */,
+				4969F3E2257CFA800048E29B /* NuageUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4969F3C7257CFA7F0048E29B /* Nuage */ = {
+			isa = PBXGroup;
+			children = (
+				4969F40C257CFB100048E29B /* SoundCloud.swift */,
+				4969F41D257CFB100048E29B /* APIRequest.swift */,
+				4969F401257CFB100048E29B /* Models */,
+				4969F3C8257CFA7F0048E29B /* NuageApp.swift */,
+				4969F410257CFB100048E29B /* Views */,
+				4969F40D257CFB100048E29B /* Audio */,
+				4910BE99257D868B0053AE88 /* Resources */,
+				4969F40B257CFB100048E29B /* Helpers.swift */,
+				4969F400257CFB100048E29B /* Preview.swift */,
+				4969F3CC257CFA800048E29B /* Assets.xcassets */,
+				4969F3D1257CFA800048E29B /* Info.plist */,
+				4969F3D2257CFA800048E29B /* Nuage.entitlements */,
+				4969F3CE257CFA800048E29B /* Preview Content */,
+			);
+			path = Nuage;
+			sourceTree = "<group>";
+		};
+		4969F3CE257CFA800048E29B /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				4969F3CF257CFA800048E29B /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4969F3DA257CFA800048E29B /* NuageTests */ = {
+			isa = PBXGroup;
+			children = (
+				4969F3DB257CFA800048E29B /* NuageTests.swift */,
+				4969F3DD257CFA800048E29B /* Info.plist */,
+			);
+			path = NuageTests;
+			sourceTree = "<group>";
+		};
+		4969F3E5257CFA800048E29B /* NuageUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4969F3E6257CFA800048E29B /* NuageUITests.swift */,
+				4969F3E8257CFA800048E29B /* Info.plist */,
+			);
+			path = NuageUITests;
+			sourceTree = "<group>";
+		};
+		4969F401257CFB100048E29B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4969F402257CFB100048E29B /* SoundCloudIdentifiable.swift */,
+				4969F403257CFB100048E29B /* Track.swift */,
+				4969F404257CFB100048E29B /* Like.swift */,
+				4969F405257CFB100048E29B /* User.swift */,
+				4969F406257CFB100048E29B /* HistoryItem.swift */,
+				4969F407257CFB100048E29B /* Playlist.swift */,
+				4969F408257CFB100048E29B /* Slice.swift */,
+				4969F409257CFB100048E29B /* Post.swift */,
+				4969F40A257CFB100048E29B /* Recommendation.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4969F40D257CFB100048E29B /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				4969F40E257CFB100048E29B /* Stream.swift */,
+				4969F40F257CFB100048E29B /* StreamPlayer.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		4969F410257CFB100048E29B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				4969F41B257CFB100048E29B /* MainView.swift */,
+				4969F41A257CFB100048E29B /* SliceView.swift */,
+				49FA14C52589693E00CEF925 /* SliceList.swift */,
+				49FA14BA2589635800CEF925 /* ArrayList.swift */,
+				4969F418257CFB100048E29B /* TrackList.swift */,
+				4969F411257CFB100048E29B /* TrackView.swift */,
+				4969F416257CFB100048E29B /* TrackContextMenu.swift */,
+				4969F412257CFB100048E29B /* ProfileView.swift */,
+				4969F413257CFB100048E29B /* LoginView.swift */,
+				4969F419257CFB100048E29B /* PlayerView.swift */,
+				4969F41C257CFB100048E29B /* UserList.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4969F3C4257CFA7F0048E29B /* Nuage */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4969F3EB257CFA800048E29B /* Build configuration list for PBXNativeTarget "Nuage" */;
+			buildPhases = (
+				4969F3C1257CFA7F0048E29B /* Sources */,
+				4969F3C2257CFA7F0048E29B /* Frameworks */,
+				4969F3C3257CFA7F0048E29B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Nuage;
+			packageProductDependencies = (
+				49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */,
+			);
+			productName = Nuage;
+			productReference = 4969F3C5257CFA7F0048E29B /* Nuage.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4969F3D6257CFA800048E29B /* NuageTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4969F3EE257CFA800048E29B /* Build configuration list for PBXNativeTarget "NuageTests" */;
+			buildPhases = (
+				4969F3D3257CFA800048E29B /* Sources */,
+				4969F3D4257CFA800048E29B /* Frameworks */,
+				4969F3D5257CFA800048E29B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4969F3D9257CFA800048E29B /* PBXTargetDependency */,
+			);
+			name = NuageTests;
+			productName = NuageTests;
+			productReference = 4969F3D7257CFA800048E29B /* NuageTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		4969F3E1257CFA800048E29B /* NuageUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4969F3F1257CFA800048E29B /* Build configuration list for PBXNativeTarget "NuageUITests" */;
+			buildPhases = (
+				4969F3DE257CFA800048E29B /* Sources */,
+				4969F3DF257CFA800048E29B /* Frameworks */,
+				4969F3E0257CFA800048E29B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				4969F3E4257CFA800048E29B /* PBXTargetDependency */,
+			);
+			name = NuageUITests;
+			productName = NuageUITests;
+			productReference = 4969F3E2257CFA800048E29B /* NuageUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4969F3BD257CFA7F0048E29B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1220;
+				LastUpgradeCheck = 1230;
+				TargetAttributes = {
+					4969F3C4257CFA7F0048E29B = {
+						CreatedOnToolsVersion = 12.2;
+					};
+					4969F3D6257CFA800048E29B = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = 4969F3C4257CFA7F0048E29B;
+					};
+					4969F3E1257CFA800048E29B = {
+						CreatedOnToolsVersion = 12.2;
+						TestTargetID = 4969F3C4257CFA7F0048E29B;
+					};
+				};
+			};
+			buildConfigurationList = 4969F3C0257CFA7F0048E29B /* Build configuration list for PBXProject "Nuage" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4969F3BC257CFA7F0048E29B;
+			packageReferences = (
+				49C5229A258C238C00F2D18C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
+			productRefGroup = 4969F3C6257CFA7F0048E29B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4969F3C4257CFA7F0048E29B /* Nuage */,
+				4969F3D6257CFA800048E29B /* NuageTests */,
+				4969F3E1257CFA800048E29B /* NuageUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4969F3C3257CFA7F0048E29B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4969F3D0257CFA800048E29B /* Preview Assets.xcassets in Resources */,
+				4910BE9B257D868B0053AE88 /* Likes.json in Resources */,
+				4969F3CD257CFA800048E29B /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4969F3D5257CFA800048E29B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4969F3E0257CFA800048E29B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4969F3C1257CFA7F0048E29B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4969F427257CFB100048E29B /* Recommendation.swift in Sources */,
+				4969F425257CFB100048E29B /* Slice.swift in Sources */,
+				4969F438257CFB100048E29B /* APIRequest.swift in Sources */,
+				4969F433257CFB100048E29B /* TrackList.swift in Sources */,
+				4969F435257CFB100048E29B /* SliceView.swift in Sources */,
+				49FA14BB2589635800CEF925 /* ArrayList.swift in Sources */,
+				4969F426257CFB100048E29B /* Post.swift in Sources */,
+				4969F421257CFB100048E29B /* Like.swift in Sources */,
+				4969F42A257CFB100048E29B /* Stream.swift in Sources */,
+				4969F434257CFB100048E29B /* PlayerView.swift in Sources */,
+				4969F42B257CFB100048E29B /* StreamPlayer.swift in Sources */,
+				4969F42C257CFB100048E29B /* TrackView.swift in Sources */,
+				4969F437257CFB100048E29B /* UserList.swift in Sources */,
+				4969F424257CFB100048E29B /* Playlist.swift in Sources */,
+				4969F420257CFB100048E29B /* Track.swift in Sources */,
+				4969F42D257CFB100048E29B /* ProfileView.swift in Sources */,
+				4969F431257CFB100048E29B /* TrackContextMenu.swift in Sources */,
+				4969F41E257CFB100048E29B /* Preview.swift in Sources */,
+				4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */,
+				4969F436257CFB100048E29B /* MainView.swift in Sources */,
+				4969F429257CFB100048E29B /* SoundCloud.swift in Sources */,
+				4969F423257CFB100048E29B /* HistoryItem.swift in Sources */,
+				4969F428257CFB100048E29B /* Helpers.swift in Sources */,
+				49FA14C62589693E00CEF925 /* SliceList.swift in Sources */,
+				4969F42E257CFB100048E29B /* LoginView.swift in Sources */,
+				4969F41F257CFB100048E29B /* SoundCloudIdentifiable.swift in Sources */,
+				4969F422257CFB100048E29B /* User.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4969F3D3257CFA800048E29B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4969F3DC257CFA800048E29B /* NuageTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4969F3DE257CFA800048E29B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4969F3E7257CFA800048E29B /* NuageUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4969F3D9257CFA800048E29B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4969F3C4257CFA7F0048E29B /* Nuage */;
+			targetProxy = 4969F3D8257CFA800048E29B /* PBXContainerItemProxy */;
+		};
+		4969F3E4257CFA800048E29B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4969F3C4257CFA7F0048E29B /* Nuage */;
+			targetProxy = 4969F3E3257CFA800048E29B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		4969F3E9257CFA800048E29B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4969F3EA257CFA800048E29B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		4969F3EC257CFA800048E29B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Nuage/Nuage.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Nuage/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Nuage/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = laurinbrandner.Nuage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		4969F3ED257CFA800048E29B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Nuage/Nuage.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_ASSET_PATHS = "\"Nuage/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = Nuage/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = laurinbrandner.Nuage;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		4969F3EF257CFA800048E29B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = NuageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = laurinbrandner.NuageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nuage.app/Contents/MacOS/Nuage";
+			};
+			name = Debug;
+		};
+		4969F3F0257CFA800048E29B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = NuageTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = laurinbrandner.NuageTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nuage.app/Contents/MacOS/Nuage";
+			};
+			name = Release;
+		};
+		4969F3F2257CFA800048E29B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = NuageUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = laurinbrandner.NuageUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Nuage;
+			};
+			name = Debug;
+		};
+		4969F3F3257CFA800048E29B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = NuageUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = laurinbrandner.NuageUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Nuage;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4969F3C0257CFA7F0048E29B /* Build configuration list for PBXProject "Nuage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4969F3E9257CFA800048E29B /* Debug */,
+				4969F3EA257CFA800048E29B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4969F3EB257CFA800048E29B /* Build configuration list for PBXNativeTarget "Nuage" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4969F3EC257CFA800048E29B /* Debug */,
+				4969F3ED257CFA800048E29B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4969F3EE257CFA800048E29B /* Build configuration list for PBXNativeTarget "NuageTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4969F3EF257CFA800048E29B /* Debug */,
+				4969F3F0257CFA800048E29B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4969F3F1257CFA800048E29B /* Build configuration list for PBXNativeTarget "NuageUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4969F3F2257CFA800048E29B /* Debug */,
+				4969F3F3257CFA800048E29B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		49C5229A258C238C00F2D18C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 49C5229A258C238C00F2D18C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 4969F3BD257CFA7F0048E29B /* Project object */;
+}

@@ -1,0 +1,74 @@
+//
+//  PlayerView.swift
+//  Nuage
+//
+//  Created by Laurin Brandner on 26.12.19.
+//  Copyright © 2019 Laurin Brandner. All rights reserved.
+//
+
+import SwiftUI
+import SDWebImageSwiftUI
+
+struct PlayerView: View {
+    
+    @EnvironmentObject private var player: StreamPlayer
+    
+    var body: some View {
+        let duration = TimeInterval(player.currentStream?.duration ?? 0)
+        
+        return HStack {
+            WebImage(url: player.currentStream?.artworkURL)
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 50, height: 50)
+                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+            VStack {
+                Text(player.currentStream?.title ?? "")
+                    .frame(maxWidth: 100, alignment: .leading)
+            }
+            
+            HStack {
+                Text(format(duration: player.progress))
+                    .multilineTextAlignment(.trailing)
+                Slider(value: $player.progress, in: 0...duration)
+                    .accentColor(.black)
+                Text(format(duration: duration))
+            }
+            Button(action: self.player.advanceBackward) {}
+                .buttonStyle(FillableSysteImageStyle(systemImageName: "backward.end"))
+                .frame(width: 20, height: 20)
+            
+            let playStateImageName = self.player.isPlaying ? "pause" : "play"
+            Button(action: self.player.togglePlayback) {}
+                .buttonStyle(FillableSysteImageStyle(systemImageName: playStateImageName))
+                .frame(width: 20, height: 20)
+            
+            Button(action: self.player.advanceForward) {}
+                .buttonStyle(FillableSysteImageStyle(systemImageName: "forward.end"))
+                .frame(width: 20, height: 20)
+            Spacer()
+                .frame(width: 30)
+            Button(action: {
+                player.volume = 0
+            }, label: {
+                Image(systemName: "speaker.fill")
+            }).buttonStyle(BorderlessButtonStyle())
+            Slider(value: $player.volume, in: 0...1)
+                .accentColor(.black)
+                .frame(width: 100)
+            Button(action: {
+                player.volume = 1
+            }, label: {
+                Image(systemName: "speaker.wave.3.fill")
+            }).buttonStyle(BorderlessButtonStyle())
+        }
+        .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        .frame(height: 60)
+    }
+    
+}
+
+struct PlayerView_Previews: PreviewProvider {
+    static var previews: some View {
+        PlayerView().environmentObject(StreamPlayer())
+    }
+}
