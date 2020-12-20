@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
+import SoundCloud
 
 struct TrackView: View {
     

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import SoundCloud
 
 struct SliceList<Element: Decodable&Identifiable, Row: View>: View {
     

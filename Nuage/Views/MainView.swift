@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 import SDWebImageSwiftUI
+import SoundCloud
 
 struct MainView: View {
     

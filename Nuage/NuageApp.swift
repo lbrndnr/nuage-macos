@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SoundCloud
 
 @main
 struct NuageApp: App {

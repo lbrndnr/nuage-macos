@@ -9,23 +9,14 @@
 /* Begin PBXBuildFile section */
 		4910BE9B257D868B0053AE88 /* Likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4910BE9A257D868B0053AE88 /* Likes.json */; };
 		492AF079258F877E0079035F /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492AF078258F877E0079035F /* PostList.swift */; };
+		492AF0C1258FA5130079035F /* SoundCloud in Frameworks */ = {isa = PBXBuildFile; productRef = 492AF0C0258FA5130079035F /* SoundCloud */; };
 		4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3C8257CFA7F0048E29B /* NuageApp.swift */; };
 		4969F3CD257CFA800048E29B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4969F3CC257CFA800048E29B /* Assets.xcassets */; };
 		4969F3D0257CFA800048E29B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4969F3CF257CFA800048E29B /* Preview Assets.xcassets */; };
 		4969F3DC257CFA800048E29B /* NuageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3DB257CFA800048E29B /* NuageTests.swift */; };
 		4969F3E7257CFA800048E29B /* NuageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3E6257CFA800048E29B /* NuageUITests.swift */; };
 		4969F41E257CFB100048E29B /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F400257CFB100048E29B /* Preview.swift */; };
-		4969F41F257CFB100048E29B /* SoundCloudIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F402257CFB100048E29B /* SoundCloudIdentifiable.swift */; };
-		4969F420257CFB100048E29B /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F403257CFB100048E29B /* Track.swift */; };
-		4969F421257CFB100048E29B /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F404257CFB100048E29B /* Like.swift */; };
-		4969F422257CFB100048E29B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F405257CFB100048E29B /* User.swift */; };
-		4969F423257CFB100048E29B /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F406257CFB100048E29B /* HistoryItem.swift */; };
-		4969F424257CFB100048E29B /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F407257CFB100048E29B /* Playlist.swift */; };
-		4969F425257CFB100048E29B /* Slice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F408257CFB100048E29B /* Slice.swift */; };
-		4969F426257CFB100048E29B /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F409257CFB100048E29B /* Post.swift */; };
-		4969F427257CFB100048E29B /* Recommendation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40A257CFB100048E29B /* Recommendation.swift */; };
 		4969F428257CFB100048E29B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40B257CFB100048E29B /* Helpers.swift */; };
-		4969F429257CFB100048E29B /* SoundCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40C257CFB100048E29B /* SoundCloud.swift */; };
 		4969F42A257CFB100048E29B /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40E257CFB100048E29B /* Stream.swift */; };
 		4969F42B257CFB100048E29B /* StreamPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40F257CFB100048E29B /* StreamPlayer.swift */; };
 		4969F42C257CFB100048E29B /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F411257CFB100048E29B /* TrackView.swift */; };
@@ -37,7 +28,6 @@
 		4969F435257CFB100048E29B /* SliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41A257CFB100048E29B /* SliceView.swift */; };
 		4969F436257CFB100048E29B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41B257CFB100048E29B /* MainView.swift */; };
 		4969F437257CFB100048E29B /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41C257CFB100048E29B /* UserList.swift */; };
-		4969F438257CFB100048E29B /* APIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41D257CFB100048E29B /* APIRequest.swift */; };
 		49C5229C258C238C00F2D18C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */; };
 		49FA14BB2589635800CEF925 /* ArrayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14BA2589635800CEF925 /* ArrayList.swift */; };
 		49FA14C62589693E00CEF925 /* SliceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* SliceList.swift */; };
@@ -76,17 +66,7 @@
 		4969F3E6257CFA800048E29B /* NuageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuageUITests.swift; sourceTree = "<group>"; };
 		4969F3E8257CFA800048E29B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4969F400257CFB100048E29B /* Preview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
-		4969F402257CFB100048E29B /* SoundCloudIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudIdentifiable.swift; sourceTree = "<group>"; };
-		4969F403257CFB100048E29B /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
-		4969F404257CFB100048E29B /* Like.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
-		4969F405257CFB100048E29B /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		4969F406257CFB100048E29B /* HistoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
-		4969F407257CFB100048E29B /* Playlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
-		4969F408257CFB100048E29B /* Slice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slice.swift; sourceTree = "<group>"; };
-		4969F409257CFB100048E29B /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		4969F40A257CFB100048E29B /* Recommendation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recommendation.swift; sourceTree = "<group>"; };
 		4969F40B257CFB100048E29B /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		4969F40C257CFB100048E29B /* SoundCloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloud.swift; sourceTree = "<group>"; };
 		4969F40E257CFB100048E29B /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		4969F40F257CFB100048E29B /* StreamPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamPlayer.swift; sourceTree = "<group>"; };
 		4969F411257CFB100048E29B /* TrackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
@@ -98,7 +78,6 @@
 		4969F41A257CFB100048E29B /* SliceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceView.swift; sourceTree = "<group>"; };
 		4969F41B257CFB100048E29B /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4969F41C257CFB100048E29B /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
-		4969F41D257CFB100048E29B /* APIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		49FA14BA2589635800CEF925 /* ArrayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayList.swift; sourceTree = "<group>"; };
 		49FA14C52589693E00CEF925 /* SliceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliceList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -108,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				492AF0C1258FA5130079035F /* SoundCloud in Frameworks */,
 				49C5229C258C238C00F2D18C /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -160,9 +140,6 @@
 		4969F3C7257CFA7F0048E29B /* Nuage */ = {
 			isa = PBXGroup;
 			children = (
-				4969F40C257CFB100048E29B /* SoundCloud.swift */,
-				4969F41D257CFB100048E29B /* APIRequest.swift */,
-				4969F401257CFB100048E29B /* Models */,
 				4969F3C8257CFA7F0048E29B /* NuageApp.swift */,
 				4969F410257CFB100048E29B /* Views */,
 				4969F40D257CFB100048E29B /* Audio */,
@@ -201,22 +178,6 @@
 				4969F3E8257CFA800048E29B /* Info.plist */,
 			);
 			path = NuageUITests;
-			sourceTree = "<group>";
-		};
-		4969F401257CFB100048E29B /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				4969F402257CFB100048E29B /* SoundCloudIdentifiable.swift */,
-				4969F403257CFB100048E29B /* Track.swift */,
-				4969F404257CFB100048E29B /* Like.swift */,
-				4969F405257CFB100048E29B /* User.swift */,
-				4969F406257CFB100048E29B /* HistoryItem.swift */,
-				4969F407257CFB100048E29B /* Playlist.swift */,
-				4969F408257CFB100048E29B /* Slice.swift */,
-				4969F409257CFB100048E29B /* Post.swift */,
-				4969F40A257CFB100048E29B /* Recommendation.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		4969F40D257CFB100048E29B /* Audio */ = {
@@ -265,6 +226,7 @@
 			name = Nuage;
 			packageProductDependencies = (
 				49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */,
+				492AF0C0258FA5130079035F /* SoundCloud */,
 			);
 			productName = Nuage;
 			productReference = 4969F3C5257CFA7F0048E29B /* Nuage.app */;
@@ -339,6 +301,7 @@
 			mainGroup = 4969F3BC257CFA7F0048E29B;
 			packageReferences = (
 				49C5229A258C238C00F2D18C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				492AF0BF258FA5130079035F /* XCRemoteSwiftPackageReference "SoundCloud" */,
 			);
 			productRefGroup = 4969F3C6257CFA7F0048E29B /* Products */;
 			projectDirPath = "";
@@ -383,33 +346,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4969F427257CFB100048E29B /* Recommendation.swift in Sources */,
-				4969F425257CFB100048E29B /* Slice.swift in Sources */,
-				4969F438257CFB100048E29B /* APIRequest.swift in Sources */,
 				4969F433257CFB100048E29B /* TrackList.swift in Sources */,
 				4969F435257CFB100048E29B /* SliceView.swift in Sources */,
 				49FA14BB2589635800CEF925 /* ArrayList.swift in Sources */,
-				4969F426257CFB100048E29B /* Post.swift in Sources */,
-				4969F421257CFB100048E29B /* Like.swift in Sources */,
 				4969F42A257CFB100048E29B /* Stream.swift in Sources */,
 				4969F434257CFB100048E29B /* PlayerView.swift in Sources */,
 				4969F42B257CFB100048E29B /* StreamPlayer.swift in Sources */,
 				4969F42C257CFB100048E29B /* TrackView.swift in Sources */,
 				4969F437257CFB100048E29B /* UserList.swift in Sources */,
-				4969F424257CFB100048E29B /* Playlist.swift in Sources */,
-				4969F420257CFB100048E29B /* Track.swift in Sources */,
 				4969F42D257CFB100048E29B /* ProfileView.swift in Sources */,
 				4969F431257CFB100048E29B /* TrackContextMenu.swift in Sources */,
 				4969F41E257CFB100048E29B /* Preview.swift in Sources */,
 				4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */,
 				4969F436257CFB100048E29B /* MainView.swift in Sources */,
-				4969F429257CFB100048E29B /* SoundCloud.swift in Sources */,
-				4969F423257CFB100048E29B /* HistoryItem.swift in Sources */,
 				4969F428257CFB100048E29B /* Helpers.swift in Sources */,
 				49FA14C62589693E00CEF925 /* SliceList.swift in Sources */,
 				4969F42E257CFB100048E29B /* LoginView.swift in Sources */,
-				4969F41F257CFB100048E29B /* SoundCloudIdentifiable.swift in Sources */,
-				4969F422257CFB100048E29B /* User.swift in Sources */,
 				492AF079258F877E0079035F /* PostList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -729,6 +681,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		492AF0BF258FA5130079035F /* XCRemoteSwiftPackageReference "SoundCloud" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "file:///Users/Laurin/Development/Libraries/SoundCloud";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		49C5229A258C238C00F2D18C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -740,6 +700,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		492AF0C0258FA5130079035F /* SoundCloud */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 492AF0BF258FA5130079035F /* XCRemoteSwiftPackageReference "SoundCloud" */;
+			productName = SoundCloud;
+		};
 		49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 49C5229A258C238C00F2D18C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;

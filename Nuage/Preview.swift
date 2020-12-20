@@ -8,6 +8,7 @@
 
 import Foundation
 import Combine
+import SoundCloud
 
 let previewUser = User(id: 139004098, name: "La", username: "lbrndnr", avatarURL: URL(string: "https://i1.sndcdn.com/avatars-000322614854-ttkl8d-large.jpg")!)
 

@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import SoundCloud
 
 struct LoginView: View {
     

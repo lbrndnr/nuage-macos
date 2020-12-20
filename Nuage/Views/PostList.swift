@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import SDWebImageSwiftUI
+import SoundCloud
 
 struct PostList: View {
     
