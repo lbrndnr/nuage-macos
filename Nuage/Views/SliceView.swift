@@ -12,24 +12,22 @@ import SwiftUI
 private let subjectSubcription = -1
 private let initialSliceSubscription = 0
 
-struct SliceView<Element: Decodable&Identifiable, ViewElement, ContentView: View>: View {
+struct SliceView<Element: Decodable&Identifiable, ContentView: View>: View {
     
     var elements: [Element] {
         return slices.map { $0.collection }
             .reduce([], +)
     }
-    private var transform: (Element) -> ViewElement?
     @State private var slices = [Slice<Element>]()
     
     private var subject = PassthroughSubject<Slice<Element>, Error>()
     private var publisher: AnyPublisher<Slice<Element>, Error>
     @State private var subscriptions = [Int: AnyCancellable]()
     
-    private var content: ([ViewElement], @escaping () -> ()) -> ContentView
+    private var content: ([Element], @escaping () -> ()) -> ContentView
     
     var body: some View {
-        let viewElements = elements.compactMap(self.transform)
-        return content(viewElements, getNextSlice).onAppear {
+        return content(elements, getNextSlice).onAppear {
             self.publisher.subscribe(subject)
                 .store(in: &subscriptions, key: subjectSubcription)
             
@@ -42,10 +40,8 @@ struct SliceView<Element: Decodable&Identifiable, ViewElement, ContentView: View
     }
     
     init(publisher: AnyPublisher<Slice<Element>, Error>,
-         transform: @escaping (Element) -> ViewElement?,
-         @ViewBuilder content: @escaping ([ViewElement], @escaping () -> ()) -> ContentView) {
+         @ViewBuilder content: @escaping ([Element], @escaping () -> ()) -> ContentView) {
         self.publisher = publisher
-        self.transform = transform
         self.content = content
     }
     

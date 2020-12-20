@@ -55,24 +55,24 @@ struct APIRequest<T: Decodable> {
         return APIRequest<[Track]>(url: .tracks(ids))
     }
     
-    static func trackLikes(of id: Int) -> APIRequest<Slice<Like<Track>>> {
-        return APIRequest<Slice<Like<Track>>>(url: .trackLikes(id))
+    static func trackLikes(of user: User) -> APIRequest<Slice<Like<Track>>> {
+        return APIRequest<Slice<Like<Track>>>(url: .trackLikes(user.id))
     }
     
-    static func likeTrack(_ trackID: Int) -> APIRequest<String> {
-        return APIRequest<String>(url: .likeTrack(trackID))
+    static func like(_ track: Track) -> APIRequest<String> {
+        return APIRequest<String>(url: .likeTrack(track.id))
     }
     
-    static func unlikeTrack(_ trackID: Int) -> APIRequest<String> {
-        return APIRequest<String>(url: .unlikeTrack(trackID))
+    static func unlike(_ track: Track) -> APIRequest<String> {
+        return APIRequest<String>(url: .unlikeTrack(track.id))
     }
     
     static func playlist(_ id: Int) -> APIRequest<Playlist> {
         return APIRequest<Playlist>(url: .playlist(id))
     }
     
-    static func addToPlaylist(_ id: Int, trackIDs: [Int]) -> APIRequest<Playlist> {
-        return APIRequest<Playlist>(url: .addToPlaylist(id, trackIDs))
+    static func add(to playlist: Playlist, trackIDs: [Int]) -> APIRequest<Playlist> {
+        return APIRequest<Playlist>(url: .addToPlaylist(playlist.id, trackIDs))
     }
     
     var path: String {

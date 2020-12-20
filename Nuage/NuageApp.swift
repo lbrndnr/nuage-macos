@@ -18,8 +18,7 @@ struct NuageApp: App {
                 LoginView {}
             }
             else {
-                MainView()
-                    .environmentObject(player)
+                MainView().environmentObject(player)
             }
         }
         .commands {

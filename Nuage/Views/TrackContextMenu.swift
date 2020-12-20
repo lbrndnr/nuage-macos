@@ -11,24 +11,17 @@ import Combine
 
 struct TrackContextMenu: ViewModifier {
     
-    private var player: StreamPlayer
-    private var tracks: [Track]
-    private var track: Track {
-        return tracks[idx]
-    }
-    
-    private var idx: Int
+    @EnvironmentObject private var player: StreamPlayer
     @State private var subscriptions = Set<AnyCancellable>()
+    
+    private var track: Track
+    private var onPlay: () -> ()
     
     func body(content: Content) -> some View {
         content.contextMenu {
-            Button("Play") {
-                self.player.reset()
-                self.player.enqueue(tracks)
-                self.player.resume(from: idx)
-            }
+            Button("Play", action: onPlay)
             Button("Add to Queue") {
-                self.player.enqueue([track])
+                player.enqueue([track])
             }
             Divider()
             Button("Go to User") {
@@ -67,14 +60,13 @@ struct TrackContextMenu: ViewModifier {
         }
     }
     
-    init(idx: Int, tracks: [Track], player: StreamPlayer) {
-        self.idx = idx
-        self.tracks = tracks
-        self.player = player
+    init(track: Track, onPlay: @escaping () -> ()) {
+        self.track = track
+        self.onPlay = onPlay
     }
     
     private func toggleLike() {
-        SoundCloud.shared.perform(.likeTrack(track.id))
+        SoundCloud.shared.perform(.like(track))
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { _ in
             }, receiveValue: { success in
@@ -90,8 +82,8 @@ struct TrackContextMenu: ViewModifier {
 
 extension View {
     
-    func trackContextMenu(idx: Int, tracks: [Track], player: StreamPlayer) -> some View {
-        return self.modifier(TrackContextMenu(idx: idx, tracks: tracks, player: player))
+    func trackContextMenu(track: Track, onPlay: @escaping () -> ()) -> some View {
+        return self.modifier(TrackContextMenu(track: track, onPlay: onPlay))
     }
     
 }

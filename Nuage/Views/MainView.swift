@@ -18,19 +18,6 @@ struct MainView: View {
     
     var body: some View {
         let stream = SoundCloud.shared.get(.stream())
-            .map { slice -> Slice<Track> in
-                let collection = slice.collection.map { post -> Track? in
-                    switch post.kind {
-                    case .track(let track): return track
-                    case .trackRepost(let track): return track
-                    default: return nil
-                    }
-                }
-                .filter { $0 != nil }
-                .map { $0! }
-                
-                return Slice(collection: collection, next: slice.next)
-            }
             .eraseToAnyPublisher()
 //            .map { $0.sorted { $0.date > $1.date }
 //                .compactMap { post -> Track? in
@@ -48,15 +35,14 @@ struct MainView: View {
 //            .eraseToAnyPublisher()
         
         let likes = SoundCloud.shared.$user.filter { $0 != nil}
-            .flatMap { SoundCloud.shared.get(.trackLikes(of: $0!.id)) }
+            .flatMap { SoundCloud.shared.get(.trackLikes(of: $0!)) }
             .map { $0}
             .eraseToAnyPublisher()
 //            .map { $0.sorted { $0.date > $1.date }
 //                     .map { $0.item }}
 //            .eraseToAnyPublisher()
         
-//        let streamView = TrackList(publisher: stream)
-        let streamView = TrackList(publisher: likes)
+        let streamView = PostList(publisher: stream)
         
         return VStack {
             NavigationView {
@@ -68,18 +54,18 @@ struct MainView: View {
                         NavigationLink(destination: UserList()) { Text("Following") }
                     }
                     Section(header: Text("Playlists")) {
-                        ForEach(playlists) { playlist in
-                            let tracks = SoundCloud.shared.get(.playlist(playlist.id))
-                                .flatMap { playlist -> AnyPublisher<Slice<Track>, Error> in
-                                    let ids = Array(playlist.trackIDs!.prefix(16))
-                                    return SoundCloud.shared.get(.tracks(ids))
-                                        .map { Slice(collection: $0, next: nil) }
-                                        .eraseToAnyPublisher()
-                                }
-                                .eraseToAnyPublisher()
-
-                            NavigationLink(destination:  TrackList(publisher: tracks)) { Text(playlist.title) }
-                        }
+//                        List(playlists) { playlist in
+//                            let tracks = SoundCloud.shared.get(.playlist(playlist.id))
+//                                .flatMap { playlist -> AnyPublisher<Slice<Track>, Error> in
+//                                    let ids = Array(playlist.trackIDs!.prefix(16))
+//                                    return SoundCloud.shared.get(.tracks(ids))
+//                                        .map { Slice(collection: $0, next: nil) }
+//                                        .eraseToAnyPublisher()
+//                                }
+//                                .eraseToAnyPublisher()
+//
+//                            NavigationLink(destination:  TrackList(publisher: tracks)) { Text(playlist.title) }
+//                        }
                     }
                 }
                 .listStyle(SidebarListStyle())

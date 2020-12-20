@@ -17,12 +17,55 @@ struct Post: SoundCloudIdentifiable {
         case playlistRepost(Playlist)
     }
     
+    enum Item {
+        case track(Track)
+        case playlist(Playlist)
+    }
+    
     var id: Int
     var date: Date
     var caption: String?
     
     var kind: Kind
     var user: User
+    
+    var isRepost: Bool {
+        switch kind {
+        case .trackRepost(_): return true
+        case .playlistRepost(_): return true
+        default: return false
+        }
+    }
+    
+    var isTrack: Bool {
+        switch kind {
+        case .track(_): return true
+        case .trackRepost(_): return true
+        default: return false
+        }
+    }
+    
+    var tracks: [Track] {
+        switch kind {
+        case .track(let track): return [track]
+        case .trackRepost(let track): return [track]
+        case .playlist(let playlist): fallthrough
+        case .playlistRepost(let playlist):
+            if case let Tracks.full(tracks) = playlist.tracks {
+                return tracks
+            }
+            return []
+        }
+    }
+    
+    var item: Item {
+        switch kind {
+        case .track(let track): return .track(track)
+        case .trackRepost(let track): return .track(track)
+        case .playlist(let playlist): return .playlist(playlist)
+        case .playlistRepost(let playlist): return .playlist(playlist)
+        }
+    }
     
 }
 

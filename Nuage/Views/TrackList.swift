@@ -13,47 +13,53 @@ import SDWebImageSwiftUI
 struct TrackList<Element: Decodable&Identifiable>: View {
     
     var publisher: AnyPublisher<Slice<Element>, Error>
-    private var transform: (Element) -> Track?
+    private var transform: (Element) -> Track
     
     @EnvironmentObject private var player: StreamPlayer
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
-        SliceList(publisher: publisher, transform: transform) { tracks, idx -> AnyView in
-            let track = tracks[idx]
+        SliceList(publisher: publisher) { elements, idx -> AnyView in
+            let track = transform(elements[idx])
             
             let toggleLikeCurrentTrack = {
                 self.toggleLike(track)
             }
             let repostCurrentTrack = {
-                print("reblog")
+//                onRepost(track)
+            }
+            let play = {
+                let tracks = elements.map(transform)
+                self.play(tracks, from: idx)
             }
 
             return AnyView(VStack(alignment: .leading) {
                 TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
                 Divider()
             }
-            .onTapGesture(count: 2) {
-                self.player.reset()
-                self.player.enqueue(tracks)
-                self.player.resume(from: idx)
-            }
-            .trackContextMenu(idx: idx, tracks: tracks, player: player))
+            .onTapGesture(count: 2, perform: play)
+            .trackContextMenu(track: track, onPlay: play))
         }
     }
     
-    init(publisher: AnyPublisher<Slice<Element>, Error>, transform: @escaping (Element) -> Track?) {
+    init(publisher: AnyPublisher<Slice<Element>, Error>, transform: @escaping (Element) -> Track) {
         self.publisher = publisher
         self.transform = transform
     }
     
-    private func toggleLike(_ track: Track) {
-        SoundCloud.shared.perform(.likeTrack(track.id))
+    private func toggleLike(_ track: Track)  {
+        SoundCloud.shared.perform(.like(track))
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { _ in
             }, receiveValue: { success in
                 print("liked track:", success)
             }).store(in: &subscriptions)
+    }
+
+    private func play(_ tracks: [Track], from idx: Int) {
+        player.reset()
+        player.enqueue(tracks)
+        player.resume(from: idx)
     }
     
 }
@@ -61,8 +67,7 @@ struct TrackList<Element: Decodable&Identifiable>: View {
 extension TrackList where Element == Track {
     
     init(publisher: AnyPublisher<Slice<Track>, Error>) {
-        self.publisher = publisher
-        self.transform = { $0 }
+        self.init(publisher: publisher) { $0 }
     }
     
 }
@@ -70,8 +75,7 @@ extension TrackList where Element == Track {
 extension TrackList where Element == Like<Track> {
     
     init(publisher: AnyPublisher<Slice<Like<Track>>, Error>) {
-        self.publisher = publisher
-        self.transform = { $0.item }
+        self.init(publisher: publisher) { $0.item }
     }
     
 }
@@ -79,8 +83,7 @@ extension TrackList where Element == Like<Track> {
 extension TrackList where Element == HistoryItem {
     
     init(publisher: AnyPublisher<Slice<HistoryItem>, Error>) {
-        self.publisher = publisher
-        self.transform = { $0.track }
+        self.init(publisher: publisher) { $0.track }
     }
     
 }
@@ -134,10 +137,11 @@ struct TrackRow: View {
                 Spacer()
                     .frame(height: 8)
 
-                let text = (track.description ?? "")
-                    .trimmingCharacters(in: .whitespacesAndNewlines)
-                    .replacingOccurrences(of: "\n", with: " ")
-                Text(text)
+                if let description = track.description {
+                    let text = description.trimmingCharacters(in: .whitespacesAndNewlines)
+                        .replacingOccurrences(of: "\n", with: " ")
+                    Text(text)
+                }
             }
         }.frame(height: 120)
         .fixedSize(horizontal: false, vertical: true)
