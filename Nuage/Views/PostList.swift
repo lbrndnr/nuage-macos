@@ -20,17 +20,18 @@ struct PostList: View {
     var body: some View {
         InfinteList(publisher: publisher) { posts, idx -> AnyView in
             let post = posts[idx]
-            let tracks = post.tracks
-            guard let track = tracks.first else { return AnyView(EmptyView()) }
             
             let toggleLikeCurrentTrack = {
-                self.toggleLike(track)
+//                self.toggleLike(track)
             }
             let repostCurrentTrack = {
                 print("reblog")
             }
             let play = {
-    //            self.play(tracks, from: idx)
+                let allTracks = posts.flatMap { $0.tracks }
+                let trackCounts = posts.map { $0.tracks.count }
+                let startIndex = trackCounts[0..<idx].reduce(0, +)
+                self.play(allTracks, from: startIndex)
             }
             
             let action = post.isRepost ? "reposted" : "posted"
@@ -54,8 +55,8 @@ struct PostList: View {
                 
                 Divider()
             }
-            .onTapGesture(count: 2, perform: play)
-            .trackContextMenu(track: track, onPlay: play))
+            .onTapGesture(count: 2, perform: play))
+//            .trackContextMenu(track: track, onPlay: play))
         }
     }
     
@@ -120,7 +121,7 @@ struct PlaylistRow: View {
                 if let description = playlist.description {
                     let text = description.trimmingCharacters(in: .whitespacesAndNewlines)
                         .replacingOccurrences(of: "\n", with: " ")
-                    Text(text)
+                    Text(text).lineLimit(3)
                 }
                 
                 if let wrapper = playlist.tracks,

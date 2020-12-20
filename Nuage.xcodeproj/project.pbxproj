@@ -117,6 +117,16 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		492AF0CE258FC4A10079035F /* InfiniteList */ = {
+			isa = PBXGroup;
+			children = (
+				4969F41A257CFB100048E29B /* SliceView.swift */,
+				49FA14BA2589635800CEF925 /* ArrayView.swift */,
+				49FA14C52589693E00CEF925 /* InfinteList.swift */,
+			);
+			path = InfiniteList;
+			sourceTree = "<group>";
+		};
 		4969F3BC257CFA7F0048E29B = {
 			isa = PBXGroup;
 			children = (
@@ -193,9 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				4969F41B257CFB100048E29B /* MainView.swift */,
-				4969F41A257CFB100048E29B /* SliceView.swift */,
-				49FA14BA2589635800CEF925 /* ArrayView.swift */,
-				49FA14C52589693E00CEF925 /* InfinteList.swift */,
+				492AF0CE258FC4A10079035F /* InfiniteList */,
 				4969F418257CFB100048E29B /* TrackList.swift */,
 				492AF078258F877E0079035F /* PostList.swift */,
 				4969F411257CFB100048E29B /* TrackView.swift */,

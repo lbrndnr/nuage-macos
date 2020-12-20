@@ -153,11 +153,10 @@ struct TrackRow: View {
                 if let description = track.description {
                     let text = description.trimmingCharacters(in: .whitespacesAndNewlines)
                         .replacingOccurrences(of: "\n", with: " ")
-                    Text(text)
+                    Text(text).lineLimit(3)
                 }
             }
-        }.frame(height: 120)
-        .fixedSize(horizontal: false, vertical: true)
+        }
         .padding(6)
     }
 
