@@ -13,14 +13,14 @@ import SoundCloud
 
 struct TrackList<Element: Decodable&Identifiable>: View {
     
-    var publisher: AnyPublisher<Slice<Element>, Error>
+    var publisher: InfinitePublisher<Element>
     private var transform: (Element) -> Track
     
     @EnvironmentObject private var player: StreamPlayer
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
-        SliceList(publisher: publisher) { elements, idx -> AnyView in
+        InfinteList(publisher: publisher) { elements, idx -> AnyView in
             let track = transform(elements[idx])
             
             let toggleLikeCurrentTrack = {
@@ -44,7 +44,14 @@ struct TrackList<Element: Decodable&Identifiable>: View {
     }
     
     init(publisher: AnyPublisher<Slice<Element>, Error>, transform: @escaping (Element) -> Track) {
-        self.publisher = publisher
+        self.publisher = .slice(publisher)
+        self.transform = transform
+    }
+    
+    init(arrayPublisher: AnyPublisher<[Int], Error>,
+         slicePublisher: @escaping ([Int]) -> AnyPublisher<[Element], Error>,
+         transform: @escaping (Element) -> Track) {
+        self.publisher = .array(arrayPublisher, slicePublisher)
         self.transform = transform
     }
     
@@ -69,6 +76,11 @@ extension TrackList where Element == Track {
     
     init(publisher: AnyPublisher<Slice<Track>, Error>) {
         self.init(publisher: publisher) { $0 }
+    }
+    
+    init(arrayPublisher: AnyPublisher<[Int], Error>,
+         slicePublisher: @escaping ([Int]) -> AnyPublisher<[Track], Error>) {
+        self.init(arrayPublisher: arrayPublisher, slicePublisher: slicePublisher, transform: { $0 })
     }
     
 }

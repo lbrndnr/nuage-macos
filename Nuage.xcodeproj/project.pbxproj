@@ -29,8 +29,8 @@
 		4969F436257CFB100048E29B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41B257CFB100048E29B /* MainView.swift */; };
 		4969F437257CFB100048E29B /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41C257CFB100048E29B /* UserList.swift */; };
 		49C5229C258C238C00F2D18C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */; };
-		49FA14BB2589635800CEF925 /* ArrayList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14BA2589635800CEF925 /* ArrayList.swift */; };
-		49FA14C62589693E00CEF925 /* SliceList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* SliceList.swift */; };
+		49FA14BB2589635800CEF925 /* ArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14BA2589635800CEF925 /* ArrayView.swift */; };
+		49FA14C62589693E00CEF925 /* InfinteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* InfinteList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,8 +78,8 @@
 		4969F41A257CFB100048E29B /* SliceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceView.swift; sourceTree = "<group>"; };
 		4969F41B257CFB100048E29B /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		4969F41C257CFB100048E29B /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
-		49FA14BA2589635800CEF925 /* ArrayList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayList.swift; sourceTree = "<group>"; };
-		49FA14C52589693E00CEF925 /* SliceList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliceList.swift; sourceTree = "<group>"; };
+		49FA14BA2589635800CEF925 /* ArrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayView.swift; sourceTree = "<group>"; };
+		49FA14C52589693E00CEF925 /* InfinteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinteList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,8 +194,8 @@
 			children = (
 				4969F41B257CFB100048E29B /* MainView.swift */,
 				4969F41A257CFB100048E29B /* SliceView.swift */,
-				49FA14C52589693E00CEF925 /* SliceList.swift */,
-				49FA14BA2589635800CEF925 /* ArrayList.swift */,
+				49FA14BA2589635800CEF925 /* ArrayView.swift */,
+				49FA14C52589693E00CEF925 /* InfinteList.swift */,
 				4969F418257CFB100048E29B /* TrackList.swift */,
 				492AF078258F877E0079035F /* PostList.swift */,
 				4969F411257CFB100048E29B /* TrackView.swift */,
@@ -348,7 +348,7 @@
 			files = (
 				4969F433257CFB100048E29B /* TrackList.swift in Sources */,
 				4969F435257CFB100048E29B /* SliceView.swift in Sources */,
-				49FA14BB2589635800CEF925 /* ArrayList.swift in Sources */,
+				49FA14BB2589635800CEF925 /* ArrayView.swift in Sources */,
 				4969F42A257CFB100048E29B /* Stream.swift in Sources */,
 				4969F434257CFB100048E29B /* PlayerView.swift in Sources */,
 				4969F42B257CFB100048E29B /* StreamPlayer.swift in Sources */,
@@ -360,7 +360,7 @@
 				4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */,
 				4969F436257CFB100048E29B /* MainView.swift in Sources */,
 				4969F428257CFB100048E29B /* Helpers.swift in Sources */,
-				49FA14C62589693E00CEF925 /* SliceList.swift in Sources */,
+				49FA14C62589693E00CEF925 /* InfinteList.swift in Sources */,
 				4969F42E257CFB100048E29B /* LoginView.swift in Sources */,
 				492AF079258F877E0079035F /* PostList.swift in Sources */,
 			);

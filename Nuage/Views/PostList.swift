@@ -18,7 +18,7 @@ struct PostList: View {
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
-        SliceList(publisher: publisher) { posts, idx -> AnyView in
+        InfinteList(publisher: publisher) { posts, idx -> AnyView in
             let post = posts[idx]
             let tracks = post.tracks
             guard let track = tracks.first else { return AnyView(EmptyView()) }
@@ -123,7 +123,8 @@ struct PlaylistRow: View {
                     Text(text)
                 }
                 
-                if case let Tracks.full(tracks) = playlist.tracks {
+                if let wrapper = playlist.tracks,
+                   case let Tracks.full(tracks) = wrapper {
                     Divider()
                     ForEach(tracks, id: \.self) { track in
                         HStack {
