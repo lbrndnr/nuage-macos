@@ -21,7 +21,6 @@ struct SliceView<Element: Decodable&Identifiable, ContentView: View>: View {
     }
     @State private var slices = [Slice<Element>]()
     
-    private var subject = PassthroughSubject<Slice<Element>, Error>()
     private var publisher: AnyPublisher<Slice<Element>, Error>
     @State private var subscriptions = [Int: AnyCancellable]()
     
@@ -29,14 +28,11 @@ struct SliceView<Element: Decodable&Identifiable, ContentView: View>: View {
     
     var body: some View {
         return content(elements, getNextSlice).onAppear {
-            self.publisher.subscribe(subject)
-                .store(in: &subscriptions, key: subjectSubcription)
-            
-            self.subject.receive(on: RunLoop.main)
+            publisher.receive(on: RunLoop.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { slice in
-                    self.slices.append(slice)
+                    slices.append(slice)
                 })
-                .store(in: &self.subscriptions, key: initialSliceSubscription)
+                .store(in: &subscriptions, key: initialSliceSubscription)
         }
     }
     
@@ -47,21 +43,21 @@ struct SliceView<Element: Decodable&Identifiable, ContentView: View>: View {
     }
     
     private func getNextSlice() {
-        guard subscriptions[self.elements.count] == nil else { return }
-        
-        let limit = (self.slices.last?.collection.count ?? initialSliceSubscription) * 2
+        guard subscriptions[elements.count] == nil else { return }
+
+        let limit = (slices.last?.collection.count ?? initialSliceSubscription) * 2
         let currentSlicePublisher = slices.publisher
             .last()
             .mapError{ $0 as Error }
-        
-        subject.merge(with: currentSlicePublisher)
-            .receive(on: RunLoop.main)
+
+        publisher.merge(with: currentSlicePublisher)
             .first()
             .flatMap { SoundCloud.shared.get(next: $0, limit: limit) }
+            .receive(on: RunLoop.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { slice in
-                self.slices.append(slice)
+                slices.append(slice)
             })
-            .store(in: &subscriptions, key: self.elements.count)
+            .store(in: &subscriptions, key: elements.count)
     }
     
 }

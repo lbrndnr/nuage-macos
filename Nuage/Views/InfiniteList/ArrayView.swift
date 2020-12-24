@@ -10,7 +10,6 @@ import SwiftUI
 import SoundCloud
 
 private let idSubcription = -1
-private let initialSliceSubscription = 0
 
 struct ArrayView<ID, Element: Decodable&Identifiable, ContentView: View>: View {
     
@@ -28,11 +27,11 @@ struct ArrayView<ID, Element: Decodable&Identifiable, ContentView: View>: View {
         return content(elements, getNextSlice).onAppear {
             arrayPublisher.receive(on: RunLoop.main)
                 .replaceError(with: [])
-                .sink { ids in
-                    self.ids = ids
-                    self.getNextSlice()
+                .sink { elementIDs in
+                    ids = elementIDs
+                    getNextSlice()
                 }
-                .store(in: &self.subscriptions, key: idSubcription)
+                .store(in: &subscriptions, key: idSubcription)
             
             getNextSlice()
         }
@@ -53,13 +52,13 @@ struct ArrayView<ID, Element: Decodable&Identifiable, ContentView: View>: View {
         
         let slice = Array(ids[range])
         
-        self.slicePublisher(slice)
+        slicePublisher(slice)
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { slice in
-                self.elements.insert(contentsOf: slice, at: range.startIndex)
-                self.elementRange = range.endIndex..<min(ids.count, range.endIndex+min(range.count*2, 50))
+                elements.insert(contentsOf: slice, at: range.startIndex)
+                elementRange = range.endIndex..<min(ids.count, range.endIndex+min(range.count*2, 50))
             })
-            .store(in: &self.subscriptions, key: elements.count)
+            .store(in: &subscriptions, key: elements.count)
     }
     
 }

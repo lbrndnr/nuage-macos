@@ -9,16 +9,17 @@ import SwiftUI
 import Combine
 import SoundCloud
 
-enum InfinitePublisher<Element: Decodable&Identifiable> {
+enum InfinitePublisher<Element: Decodable&Identifiable&Filterable> {
     case slice(AnyPublisher<Slice<Element>, Error>)
     case array(AnyPublisher<[Int], Error>, ([Int]) -> AnyPublisher<[Element], Error>)
 }
 
-struct InfinteList<Element: Decodable&Identifiable, Row: View>: View {
+struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View {
     
     @State private var tracks = [Track]()
     private var publisher: InfinitePublisher<Element>
     private var row: ([Element], Int) -> Row
+    @State private var filter = ""
     
     var body: some View {
         if case let .slice(publisher) = publisher {
@@ -30,10 +31,20 @@ struct InfinteList<Element: Decodable&Identifiable, Row: View>: View {
     }
     
     @ViewBuilder func list(for elements: [Element], getNextSlice: @escaping () -> ()) -> some View {
-        List(0..<elements.count, id: \.self) { idx in
-            row(elements, idx).onAppear {
-                if idx == elements.count/2 {
+        let displayedElmeents = (filter.count > 0) ? elements.filter { $0.contains(filter) } : elements
+        
+        VStack {
+            TextField("Filter", text: $filter)
+                .onChange(of: filter, perform: { _ in
                     getNextSlice()
+                })
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            List(0..<displayedElmeents.count, id: \.self) { idx in
+                row(displayedElmeents, idx).onAppear {
+                    if idx == elements.count/2 {
+                        getNextSlice()
+                    }
                 }
             }
         }
@@ -57,5 +68,5 @@ struct InfinteList<Element: Decodable&Identifiable, Row: View>: View {
         self.publisher = .array(arrayPublisher, slicePublisher)
         self.row = row
     }
-    
+
 }

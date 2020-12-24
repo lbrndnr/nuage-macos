@@ -22,16 +22,16 @@ struct PostList: View {
             let post = posts[idx]
             
             let toggleLikeCurrentTrack = {
-//                self.toggleLike(track)
+//                toggleLike(track)
             }
             let repostCurrentTrack = {
                 print("reblog")
             }
-            let play = {
+            let onPlay = {
                 let allTracks = posts.flatMap { $0.tracks }
                 let trackCounts = posts.map { $0.tracks.count }
                 let startIndex = trackCounts[0..<idx].reduce(0, +)
-                self.play(allTracks, from: startIndex)
+                play(allTracks, from: startIndex)
             }
             
             let action = post.isRepost ? "reposted" : "posted"
@@ -55,7 +55,7 @@ struct PostList: View {
                 
                 Divider()
             }
-            .onTapGesture(count: 2, perform: play))
+            .onTapGesture(count: 2, perform: onPlay))
 //            .trackContextMenu(track: track, onPlay: play))
         }
     }

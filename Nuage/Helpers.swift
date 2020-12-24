@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import SoundCloud
 
 struct FillableSysteImageStyle: ButtonStyle {
     
@@ -57,3 +58,68 @@ extension AnyCancellable {
     
 }
 
+protocol Filterable {
+    
+    func contains(_ text: String) -> Bool
+    
+}
+
+extension User: Filterable {
+    
+    func contains(_ text: String) -> Bool {
+        return username.containsCaseInsensitive(text) || name.containsCaseInsensitive(text)
+    }
+    
+}
+
+extension Track: Filterable {
+    
+    func contains(_ text: String) -> Bool {
+        return title.containsCaseInsensitive(text) || (description?.containsCaseInsensitive(text) ?? false)
+    }
+    
+}
+
+extension Post: Filterable {
+    
+    func contains(_ text: String) -> Bool {
+        return user.contains(text) || tracks.contains { $0.contains(text) }
+    }
+    
+}
+
+extension Playlist: Filterable {
+    
+    func contains(_ text: String) -> Bool {
+        let contained = title.containsCaseInsensitive(text) || (description?.containsCaseInsensitive(text) ?? false)
+        if case let .full(tracks) = tracks {
+            return contained || tracks.contains { $0.contains(text) }
+        }
+        return contained
+        
+    }
+}
+
+extension Like: Filterable where T: Filterable {
+    
+    func contains(_ text: String) -> Bool {
+        return item.contains(text)
+    }
+    
+}
+
+extension HistoryItem: Filterable {
+    
+    func contains(_ text: String) -> Bool {
+        return track.contains(text)
+    }
+    
+}
+
+extension String {
+    
+    fileprivate func containsCaseInsensitive(_ text: String) -> Bool {
+        return range(of: text, options: .caseInsensitive) != nil
+    }
+    
+}
