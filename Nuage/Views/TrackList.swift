@@ -11,7 +11,7 @@ import Combine
 import SDWebImageSwiftUI
 import SoundCloud
 
-struct TrackList<Element: Decodable&Identifiable>: View {
+struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
     
     var publisher: InfinitePublisher<Element>
     private var transform: (Element) -> Track
@@ -24,22 +24,22 @@ struct TrackList<Element: Decodable&Identifiable>: View {
             let track = transform(elements[idx])
             
             let toggleLikeCurrentTrack = {
-                self.toggleLike(track)
+                toggleLike(track)
             }
             let repostCurrentTrack = {
 //                onRepost(track)
             }
-            let play = {
+            let onPlay = {
                 let tracks = elements.map(transform)
-                self.play(tracks, from: idx)
+                play(tracks, from: idx)
             }
 
             return AnyView(VStack(alignment: .leading) {
                 TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
                 Divider()
             }
-            .onTapGesture(count: 2, perform: play)
-            .trackContextMenu(track: track, onPlay: play))
+            .onTapGesture(count: 2, perform: onPlay)
+            .trackContextMenu(track: track, onPlay: onPlay))
         }
     }
     

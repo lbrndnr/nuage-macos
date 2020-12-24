@@ -84,7 +84,7 @@ struct TrackContextMenu: ViewModifier {
 extension View {
     
     func trackContextMenu(track: Track, onPlay: @escaping () -> ()) -> some View {
-        return self.modifier(TrackContextMenu(track: track, onPlay: onPlay))
+        return modifier(TrackContextMenu(track: track, onPlay: onPlay))
     }
     
 }

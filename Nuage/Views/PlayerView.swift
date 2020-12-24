@@ -19,7 +19,7 @@ struct PlayerView: View {
         
         return HStack {
             WebImage(url: player.currentStream?.artworkURL)
-                .aspectRatio(contentMode: .fit)
+                .resizable()
                 .frame(width: 50, height: 50)
                 .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
             VStack {
@@ -31,7 +31,6 @@ struct PlayerView: View {
                 Text(format(duration: player.progress))
                     .multilineTextAlignment(.trailing)
                 Slider(value: $player.progress, in: 0...duration)
-                    .accentColor(.black)
                 Text(format(duration: duration))
             }
             Button(action: self.player.advanceBackward) {}
@@ -54,7 +53,6 @@ struct PlayerView: View {
                 Image(systemName: "speaker.fill")
             }).buttonStyle(BorderlessButtonStyle())
             Slider(value: $player.volume, in: 0...1)
-                .accentColor(.black)
                 .frame(width: 100)
             Button(action: {
                 player.volume = 1
