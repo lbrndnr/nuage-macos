@@ -8,18 +8,25 @@
 import SwiftUI
 import SoundCloud
 
+private let accessTokenKey = "accessToken"
+
 @main
 struct NuageApp: App {
     
     private let player = StreamPlayer()
+    @State private var loggedIn: Bool
     
     var body: some Scene {
         WindowGroup {
-            if SoundCloud.shared.accessToken == nil {
-                LoginView {}
+            if loggedIn {
+                MainView().environmentObject(player)
             }
             else {
-                MainView().environmentObject(player)
+                LoginView { accessToken in
+                    UserDefaults.standard.set(accessToken, forKey: accessTokenKey)
+                    SoundCloud.shared.accessToken = accessToken
+                    loggedIn = true
+                }
             }
         }
         .commands {
@@ -63,18 +70,14 @@ struct NuageApp: App {
         if let data = defaults.data(forKey: "user") {
             SoundCloud.shared.user = try? JSONDecoder().decode(User.self, from: data)
         }
-        let token = defaults.object(forKey: "access_token") as? String
+        let token = defaults.object(forKey: accessTokenKey)
         
-        if let token = token {
+        if let token = token as? String {
             SoundCloud.shared.accessToken = token
-//            showMainWindow()
+            _loggedIn = State(initialValue: true)
         }
         else {
-//            showLoginWindow {
-//                self.window?.close()
-//                self.window = nil
-//                self.showMainWindow()
-//            }
+            _loggedIn = State(initialValue: false)
         }
     }
     
