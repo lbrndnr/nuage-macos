@@ -56,17 +56,17 @@ struct MainView: View {
             PlayerView()
         }
         .frame(minWidth: 400, minHeight: 400)
-//        .toolbar {
-//            ToolbarItem {
-//                HStack {
-//                    Text(SoundCloud.shared.user?.username ?? " ")
-//                        .bold()
+        .toolbar {
+            ToolbarItem {
+                HStack {
+                    Text("Profile")
+                        .bold()
 //                    WebImage(url: SoundCloud.shared.user?.avatarURL)
 //                        .frame(width: 30, height: 30)
 //                        .cornerRadius(15)
-//                }
-//            }
-//        }
+                }
+            }
+        }
         .onAppear {            
             SoundCloud.shared.get(.albumsAndPlaylists())
                 .map { $0.collection }

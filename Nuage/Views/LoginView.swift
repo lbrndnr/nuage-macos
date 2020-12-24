@@ -15,7 +15,7 @@ struct LoginView: View {
     @State private var username = ""
     @State private var password = ""
     
-    private var onLogin: () -> ()
+    private var onLogin: (String) -> ()
     
     @State private var subscriptions = Set<AnyCancellable>()
     
@@ -28,15 +28,13 @@ struct LoginView: View {
                 SoundCloud.login(username: username, password: password)
                     .receive(on: RunLoop.main)
                     .sink(receiveCompletion: { completion in
-                }, receiveValue: { accessToken in
-                    SoundCloud.shared.accessToken = accessToken
-                    onLogin()
-                }).store(in: &subscriptions)
+                }, receiveValue: onLogin)
+                .store(in: &subscriptions)
             }
         }
     }
     
-    init(onLogin: @escaping () -> ()) {
+    init(onLogin: @escaping (String) -> ()) {
         self.onLogin = onLogin
     }
     
@@ -44,6 +42,6 @@ struct LoginView: View {
 
 struct LoginView_Previews: PreviewProvider {
     static var previews: some View {
-        LoginView { }
+        LoginView { _ in }
     }
 }
