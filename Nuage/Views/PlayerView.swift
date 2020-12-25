@@ -33,16 +33,16 @@ struct PlayerView: View {
                 Slider(value: $player.progress, in: 0...duration)
                 Text(format(duration: duration))
             }
-            Button(action: self.player.advanceBackward) {}
+            Button(action: player.advanceBackward) {}
                 .buttonStyle(FillableSysteImageStyle(systemImageName: "backward.end"))
                 .frame(width: 20, height: 20)
             
-            let playStateImageName = self.player.isPlaying ? "pause" : "play"
-            Button(action: self.player.togglePlayback) {}
+            let playStateImageName = player.isPlaying ? "pause" : "play"
+            Button(action: player.togglePlayback) {}
                 .buttonStyle(FillableSysteImageStyle(systemImageName: playStateImageName))
                 .frame(width: 20, height: 20)
             
-            Button(action: self.player.advanceForward) {}
+            Button(action: player.advanceForward) {}
                 .buttonStyle(FillableSysteImageStyle(systemImageName: "forward.end"))
                 .frame(width: 20, height: 20)
             Spacer()

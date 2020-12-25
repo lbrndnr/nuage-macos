@@ -13,7 +13,9 @@ import SoundCloud
 
 struct MainView: View {
     
+    @State private var navigationSelection: Int? = 0
     @State private var playlists = [Playlist]()
+    @State private var searchQuery = ""
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
@@ -24,18 +26,18 @@ struct MainView: View {
             .map { $0}
             .eraseToAnyPublisher()
         
-        let streamView = PostList(publisher: stream)
         return VStack {
             NavigationView {
                 List {
-                    NavigationLink(destination: streamView) { Text("Stream") }
+                    NavigationLink("Stream", destination: PostList(for: stream), tag: 0, selection: $navigationSelection)
                     Section(header: Text("Library")) {
-                        NavigationLink(destination: TrackList(publisher: likes)) { Text("Likes") }
-                        NavigationLink(destination: TrackList(publisher: history)) { Text("History") }
-                        NavigationLink(destination: UserList()) { Text("Following") }
+                        NavigationLink("Likes", destination: TrackList(for: likes), tag: 1, selection: $navigationSelection)
+                        NavigationLink("History", destination: TrackList(for: history), tag: 2, selection: $navigationSelection)
+                        NavigationLink("Following", destination: UserList(), tag: 3, selection: $navigationSelection)
                     }
                     Section(header: Text("Playlists")) {
-                        ForEach(playlists) { playlist in
+                        ForEach(0..<playlists.count, id: \.self) { idx in
+                            let playlist = playlists[idx]
                             let ids = SoundCloud.shared.get(.playlist(playlist.id))
                                 .map { $0.trackIDs ?? [] }
                                 .eraseToAnyPublisher()
@@ -43,25 +45,32 @@ struct MainView: View {
                                 return SoundCloud.shared.get(.tracks(ids))
                             }
 
-                            let playlistView = TrackList(arrayPublisher: ids,
-                                                         slicePublisher: slice)
-                            NavigationLink(destination: playlistView) { Text(playlist.title) }
+                            let playlistView = TrackList(for: ids, slice: slice)
+                            NavigationLink(playlist.title, destination: playlistView, tag: idx+4, selection: $navigationSelection)
                         }
                     }
                 }
                 .listStyle(SidebarListStyle())
-                .frame(minWidth: 100)
-                streamView
+                if searchQuery.count > 0 {
+                    let search = SoundCloud.shared.get(.search(searchQuery))
+                    SearchList(for: search)
+                }
             }
             PlayerView()
         }
-        .frame(minWidth: 400, minHeight: 400)
+        .frame(minWidth: 800, minHeight: 400)
         .toolbar {
             ToolbarItem {
+                TextField("Search", text: $searchQuery)
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .frame(minWidth: 150)
+            }
+            ToolbarItem {
                 HStack {
-                    Text("Profile")
+                    Text(SoundCloud.shared.user?.username ?? "Profile")
                         .bold()
 //                    WebImage(url: SoundCloud.shared.user?.avatarURL)
+//                        .resizable()
 //                        .frame(width: 30, height: 30)
 //                        .cornerRadius(15)
                 }

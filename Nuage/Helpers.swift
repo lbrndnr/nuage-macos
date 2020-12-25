@@ -108,6 +108,18 @@ extension Like: Filterable where T: Filterable {
     
 }
 
+extension Some: Filterable {
+    
+    func contains(_ text: String) -> Bool {
+        switch self {
+        case .track(let track): return track.contains(text)
+        case .playlist(let playlist): return playlist.contains(text)
+        case .user(let user): return user.contains(text)
+        }
+    }
+    
+}
+
 extension HistoryItem: Filterable {
     
     func contains(_ text: String) -> Bool {

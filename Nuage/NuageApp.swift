@@ -6,15 +6,18 @@
 //
 
 import SwiftUI
+import Combine
 import SoundCloud
 
 private let accessTokenKey = "accessToken"
+private let userKey = "user"
 
 @main
 struct NuageApp: App {
     
     private let player = StreamPlayer()
     @State private var loggedIn: Bool
+    private var subscriptions = Set<AnyCancellable>()
     
     var body: some Scene {
         WindowGroup {
@@ -67,7 +70,8 @@ struct NuageApp: App {
     
     init() {
         let defaults = UserDefaults.standard
-        if let data = defaults.data(forKey: "user") {
+        
+        if let data = defaults.data(forKey: userKey) {
             SoundCloud.shared.user = try? JSONDecoder().decode(User.self, from: data)
         }
         let token = defaults.object(forKey: accessTokenKey)
@@ -79,6 +83,17 @@ struct NuageApp: App {
         else {
             _loggedIn = State(initialValue: false)
         }
+        
+        SoundCloud.shared.$user.sink { user in
+            if let user = user {
+                let data = try? JSONEncoder().encode(user)
+                defaults.set(data, forKey: userKey)
+            }
+            else {
+                defaults.set(nil, forKey: userKey)
+            }
+        }
+        .store(in: &subscriptions)
     }
     
 }
