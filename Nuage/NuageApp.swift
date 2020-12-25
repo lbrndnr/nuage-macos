@@ -12,17 +12,27 @@ import SoundCloud
 private let accessTokenKey = "accessToken"
 private let userKey = "user"
 
+class Commands: ObservableObject {
+    
+    var filter = PassthroughSubject<(), Never>()
+    var search = PassthroughSubject<(), Never>()
+    
+}
+
 @main
 struct NuageApp: App {
     
-    private let player = StreamPlayer()
+    private var player = StreamPlayer()
+    private var commands = Commands()
     @State private var loggedIn: Bool
     private var subscriptions = Set<AnyCancellable>()
     
     var body: some Scene {
         WindowGroup {
             if loggedIn {
-                MainView().environmentObject(player)
+                MainView()
+                    .environmentObject(player)
+                    .environmentObject(commands)
             }
             else {
                 LoginView { accessToken in
@@ -34,6 +44,14 @@ struct NuageApp: App {
         }
         .commands {
             SidebarCommands()
+            CommandGroup(after: .textEditing) {
+                Button("Filter") {
+                    commands.filter.send()
+                }.keyboardShortcut("f", modifiers: .command)
+                Button("Search") {
+                    commands.search.send()
+                }.keyboardShortcut("l", modifiers: .command)
+            }
             CommandMenu("Playback") {
                 let playbackToggleTitle = player.isPlaying ? "Pause" : "Play"
                 Button(playbackToggleTitle, action: player.togglePlayback)

@@ -32,6 +32,7 @@
 		4969F435257CFB100048E29B /* SliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41A257CFB100048E29B /* SliceView.swift */; };
 		4969F436257CFB100048E29B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41B257CFB100048E29B /* MainView.swift */; };
 		4969F437257CFB100048E29B /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41C257CFB100048E29B /* UserList.swift */; };
+		498286F825969AE800147DBE /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 498286F725969AE800147DBE /* Introspect */; };
 		49C5229C258C238C00F2D18C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */; };
 		49FA14BB2589635800CEF925 /* ArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14BA2589635800CEF925 /* ArrayView.swift */; };
 		49FA14C62589693E00CEF925 /* InfinteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* InfinteList.swift */; };
@@ -96,6 +97,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				492AF0C1258FA5130079035F /* SoundCloud in Frameworks */,
+				498286F825969AE800147DBE /* Introspect in Frameworks */,
 				49C5229C258C238C00F2D18C /* SDWebImageSwiftUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -263,6 +265,7 @@
 			packageProductDependencies = (
 				49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */,
 				492AF0C0258FA5130079035F /* SoundCloud */,
+				498286F725969AE800147DBE /* Introspect */,
 			);
 			productName = Nuage;
 			productReference = 4969F3C5257CFA7F0048E29B /* Nuage.app */;
@@ -338,6 +341,7 @@
 			packageReferences = (
 				49C5229A258C238C00F2D18C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				492AF0BF258FA5130079035F /* XCRemoteSwiftPackageReference "SoundCloud" */,
+				498286F625969AE800147DBE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 			);
 			productRefGroup = 4969F3C6257CFA7F0048E29B /* Products */;
 			projectDirPath = "";
@@ -729,6 +733,14 @@
 				kind = branch;
 			};
 		};
+		498286F625969AE800147DBE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.1.2;
+			};
+		};
 		49C5229A258C238C00F2D18C /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
@@ -744,6 +756,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 492AF0BF258FA5130079035F /* XCRemoteSwiftPackageReference "SoundCloud" */;
 			productName = SoundCloud;
+		};
+		498286F725969AE800147DBE /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 498286F625969AE800147DBE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */;
+			productName = Introspect;
 		};
 		49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */ = {
 			isa = XCSwiftPackageProductDependency;
