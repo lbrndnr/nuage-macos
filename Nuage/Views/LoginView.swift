@@ -21,9 +21,24 @@ struct LoginView: View {
     
     var body: some View {
         VStack {
+            ZStack {
+                Image(systemName: "app")
+                    .resizable()
+                    .frame(width: 200, height: 200)
+                Text("N")
+                    .font(.system(size: 40))
+                    .bold()
+            }
+            
+            Spacer().frame(height: 20)
+            
             TextField("Username", text: $username)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
             SecureField("Password", text: $password)
-                
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+            
+            Spacer().frame(height: 20)
+            
             Button("Login") {
                 SoundCloud.login(username: username, password: password)
                     .receive(on: RunLoop.main)
@@ -31,7 +46,11 @@ struct LoginView: View {
                 }, receiveValue: onLogin)
                 .store(in: &subscriptions)
             }
+            .keyboardShortcut(.defaultAction)
         }
+        .frame(width: 300)
+        .fixedSize()
+        .padding()
     }
     
     init(onLogin: @escaping (String) -> ()) {
