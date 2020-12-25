@@ -61,7 +61,7 @@ struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View 
                     }
                 }
             }
-            .onReceive(commands.filter) { shouldFilter = true }
+            .onReceive(commands.filter) { withAnimation { shouldFilter = true } }
             .onExitCommand {
                 shouldFilter = false
                 filter = ""
