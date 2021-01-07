@@ -9,7 +9,8 @@
 import SwiftUI
 import Combine
 import SDWebImageSwiftUI
-import SoundCloud
+import Introspect
+import AppKit
 
 struct MainView: View {
     
@@ -17,6 +18,8 @@ struct MainView: View {
     @State private var playlists = [Playlist]()
     @State private var searchQuery = ""
     @State private var subscriptions = Set<AnyCancellable>()
+    
+    @EnvironmentObject private var commands: Commands
     
     var body: some View {
         let stream = SoundCloud.shared.get(.stream())
@@ -32,13 +35,20 @@ struct MainView: View {
         let historyView = TrackList(for: history).navigationTitle("History")
         
         return VStack {
-            NavigationView {
+            let presentModal = Binding(get: { searchQuery.count > 0 },
+                                       set: { presented in
+                                        if !presented {
+                                            searchQuery = ""
+                                        }
+                                       })
+            
+            StackNavigationView(selection: $navigationSelection) {
                 List {
-                    NavigationLink("Stream", destination: streamView, tag: 0, selection: $navigationSelection)
+                    SidebarNavigationLink("Stream", destination: streamView, tag: 0, selection: $navigationSelection)
                     Section(header: Text("Library")) {
-                        NavigationLink("Likes", destination: likesView, tag: 1, selection: $navigationSelection)
-                        NavigationLink("History", destination: historyView, tag: 2, selection: $navigationSelection)
-                        NavigationLink("Following", destination: UserList(), tag: 3, selection: $navigationSelection)
+                        SidebarNavigationLink("Likes", destination: likesView, tag: 1, selection: $navigationSelection)
+                        SidebarNavigationLink("History", destination: historyView, tag: 2, selection: $navigationSelection)
+                        SidebarNavigationLink("Following", destination: UserList(), tag: 3, selection: $navigationSelection)
                     }
                     Section(header: Text("Playlists")) {
                         ForEach(0..<playlists.count, id: \.self) { idx in
@@ -51,11 +61,15 @@ struct MainView: View {
                             }
 
                             let playlistView = TrackList(for: ids, slice: slice).navigationTitle(playlist.title)
-                            NavigationLink(playlist.title, destination: playlistView, tag: idx+4, selection: $navigationSelection)
+                            SidebarNavigationLink(playlist.title, destination: playlistView, tag: idx+4, selection: $navigationSelection)
                         }
                     }
                 }
                 .listStyle(SidebarListStyle())
+            }
+            .modal(isPresented: presentModal) {
+                let search = SoundCloud.shared.get(.search(searchQuery))
+                SearchList(for: search)
             }
             PlayerView()
         }
@@ -63,9 +77,17 @@ struct MainView: View {
         .toolbar {
             ToolbarItem {
                 TextField("Search", text: $searchQuery)
+                    .onExitCommand { searchQuery = "" }
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(minWidth: 150)
+                
             }
+//            ToolbarItem {
+//                MenuButton(label: Image(systemName: "arrow.up.arrow.down")) {
+//                    Text("Recently Added")
+//
+//                }
+//            }
             ToolbarItem {
                 HStack {
                     Text(SoundCloud.shared.user?.username ?? "Profile")

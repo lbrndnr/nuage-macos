@@ -8,7 +8,6 @@
 
 import Combine
 import SwiftUI
-import SoundCloud
 
 private let subjectSubcription = -1
 private let initialSliceSubscription = 0

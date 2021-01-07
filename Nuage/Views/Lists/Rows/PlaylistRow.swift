@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SoundCloud
 import SDWebImageSwiftUI
 
 struct PlaylistRow: View {
@@ -72,5 +71,14 @@ struct PlaylistRow: View {
         }
         .padding(6)
     }
+
+}
+
+extension PlaylistRow: Equatable {
+
+    static func == (lhs: PlaylistRow, rhs: PlaylistRow) -> Bool {
+        return lhs.playlist == rhs.playlist
+    }
+
 
 }

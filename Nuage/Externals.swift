@@ -9,7 +9,6 @@
 import Foundation
 import SwiftUI
 import Combine
-import SoundCloud
 
 struct FillableSysteImageStyle: ButtonStyle {
     
@@ -135,3 +134,22 @@ extension String {
     }
     
 }
+
+protocol DateComparable: Comparable {
+    
+    var date: Date { get }
+    
+}
+
+extension DateComparable {
+    
+    public static func < (lhs: Self, rhs: Self) -> Bool {
+        return lhs.date < rhs.date
+    }
+    
+}
+
+extension HistoryItem: DateComparable {}
+extension Post: DateComparable {}
+extension Track: DateComparable {}
+extension Playlist: DateComparable {}

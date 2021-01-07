@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import SoundCloud
 
 private let accessTokenKey = "accessToken"
 private let userKey = "user"
@@ -87,8 +86,11 @@ struct NuageApp: App {
     }
     
     init() {
-        let defaults = UserDefaults.standard
+        let size = 500*1024*1024
+        URLCache.shared = URLCache(memoryCapacity: size, diskCapacity: size)
+        URLSession.shared.configuration.requestCachePolicy = .returnCacheDataElseLoad
         
+        let defaults = UserDefaults.standard
         if let data = defaults.data(forKey: userKey) {
             SoundCloud.shared.user = try? JSONDecoder().decode(User.self, from: data)
         }

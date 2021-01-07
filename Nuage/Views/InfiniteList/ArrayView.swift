@@ -7,7 +7,6 @@
 
 import Combine
 import SwiftUI
-import SoundCloud
 
 private let idSubcription = -1
 

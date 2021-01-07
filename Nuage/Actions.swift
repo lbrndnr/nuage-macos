@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import SoundCloud
 
 private var subscriptions = Set<AnyCancellable>()
 

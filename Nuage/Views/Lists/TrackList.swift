@@ -9,7 +9,6 @@
 import SwiftUI
 import Combine
 import SDWebImageSwiftUI
-import SoundCloud
 
 struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
     
@@ -33,12 +32,14 @@ struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
                 play(tracks, from: idx, on: player)
             }
 
-            return AnyView(VStack(alignment: .leading) {
-                TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
-                Divider()
-            }
-            .onTapGesture(count: 2, perform: onPlay)
-            .trackContextMenu(track: track, onPlay: onPlay))
+            return AnyView(StackNavigationLink(destination: TrackView(track: track)) {
+                VStack(alignment: .leading) {
+                    TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
+                    Divider()
+                }
+                .onTapGesture(count: 2, perform: onPlay)
+                .trackContextMenu(track: track, onPlay: onPlay)
+            })
         }
     }
     

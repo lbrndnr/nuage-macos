@@ -8,7 +8,6 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-import SoundCloud
 
 struct PlayerView: View {
     
@@ -18,13 +17,17 @@ struct PlayerView: View {
         let duration = TimeInterval(player.currentStream?.duration ?? 0)
         
         return HStack {
-            WebImage(url: player.currentStream?.artworkURL)
-                .resizable()
-                .frame(width: 50, height: 50)
-                .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
-            VStack {
-                Text(player.currentStream?.title ?? "")
-                    .frame(maxWidth: 100, alignment: .leading)
+            if let track = player.currentStream {
+                StackNavigationLink(destination: TrackView(track: track)) {
+                    WebImage(url: player.currentStream?.artworkURL)
+                        .resizable()
+                        .frame(width: 50, height: 50)
+                        .cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/)
+                    VStack {
+                        Text(player.currentStream?.title ?? "")
+                            .frame(maxWidth: 100, alignment: .leading)
+                    }
+                }
             }
             
             HStack {

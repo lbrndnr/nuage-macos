@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 import SDWebImageSwiftUI
-import SoundCloud
 
 struct PostList: View {
     
@@ -36,25 +35,30 @@ struct PostList: View {
             let action = post.isRepost ? "reposted" : "posted"
             return AnyView(VStack(alignment: .leading) {
                 HStack(spacing: 10) {
-                    WebImage(url: post.user.avatarURL)
-                        .resizable()
-                        .frame(width: 30, height: 30)
-                        .cornerRadius(15)
-                    Text("\(post.user.username) \(action)")
+                    StackNavigationLink(destination: UserView(user: post.user)) {
+                        WebImage(url: post.user.avatarURL)
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .cornerRadius(15)
+                        Text("\(post.user.username) \(action)")
+                    }
                 }
                 Spacer()
                     .frame(height: 18)
                 
                 if case let .track(track) = post.item {
-                    TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
+                    StackNavigationLink(destination: TrackView(track: track)) {
+                        TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
+                            .onTapGesture(count: 2, perform: onPlay)
+                    }
                 }
                 else if case let .playlist(playlist) = post.item {
                     PlaylistRow(playlist: playlist, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
+                        .onTapGesture(count: 2, perform: onPlay)
                 }
                 
                 Divider()
-            }
-            .onTapGesture(count: 2, perform: onPlay))
+            })
 //            .trackContextMenu(track: track, onPlay: play))
         }
     }

@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 import SDWebImageSwiftUI
-import SoundCloud
 
 struct SearchList: View {
     
@@ -50,6 +49,7 @@ struct SearchList: View {
                 return AnyView(UserRow(user: user))
             }
         }
+        .navigationTitle("Search")
     }
     
     init(for publisher: AnyPublisher<Slice<Some>, Error>) {

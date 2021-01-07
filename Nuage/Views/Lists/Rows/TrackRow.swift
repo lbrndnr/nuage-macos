@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SoundCloud
 import SDWebImageSwiftUI
 
 struct TrackRow: View {
@@ -24,7 +23,7 @@ struct TrackRow: View {
     var body: some View {
         let duration = format(duration: TimeInterval(track.duration))
         
-        return HStack(alignment: .top, spacing: 10) {
+        HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading) {
                 WebImage(url: track.artworkURL)
                     .resizable()
@@ -70,11 +69,11 @@ struct TrackRow: View {
 
 }
 
-//extension TrackRow: Equatable {
-//
-//    static func == (lhs: TrackRow, rhs: TrackRow) -> Bool {
-//        return lhs.track == rhs.track
-//    }
-//
-//
-//}
+extension TrackRow: Equatable {
+
+    static func == (lhs: TrackRow, rhs: TrackRow) -> Bool {
+        return lhs.track == rhs.track
+    }
+
+
+}
