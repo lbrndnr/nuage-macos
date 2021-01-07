@@ -28,7 +28,7 @@ struct UserList: View {
                 .receive(on: RunLoop.main)
                 .map { $0.map { $0.user } }
                 .assign(to: \.users, on: self)
-                .store(in: &self.subscriptions)
+                .store(in: &subscriptions)
         }
     }
     

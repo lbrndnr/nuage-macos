@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-let previewUser = User(id: 139004098, name: "La", username: "lbrndnr", avatarURL: URL(string: "https://i1.sndcdn.com/avatars-000322614854-ttkl8d-large.jpg")!)
+let previewUser = User(id: 139004098, username: "lerboe", firstName: "la", lastName: "la", avatarURL: URL(string: "https://i1.sndcdn.com/avatars-000322614854-ttkl8d-large.jpg")!)
 
 #if DEBUG
 let previewLikes: [Like<Track>] = load("Likes.json")
