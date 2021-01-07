@@ -17,6 +17,8 @@ protocol Streamable {
     func prepare() -> AnyPublisher<AVURLAsset, Error>
     
 }
+
+private let volumeKey = "volume"
     
 class StreamPlayer: ObservableObject {
     
@@ -32,12 +34,13 @@ class StreamPlayer: ObservableObject {
     
     @Published private(set) var currentStream: Track?
     
-    @Published var volume: Float = 1.0 {
+    @Published var volume: Float = 0.5 {
         didSet {
             if volume > 1 { volume = 1 }
             else if volume < 0 { volume = 0 }
             
             player.volume = volume
+            UserDefaults.standard.set(volume, forKey: volumeKey)
         }
     }
     
@@ -59,8 +62,13 @@ class StreamPlayer: ObservableObject {
     // MARK: - Initialization
     
     init() {
-        player = AVPlayer()
-        player.allowsExternalPlayback = false
+        self.player = AVPlayer()
+        self.player.allowsExternalPlayback = false
+        
+        let defaults = UserDefaults.standard
+        if defaults.object(forKey: volumeKey) != nil {
+            self.volume = defaults.float(forKey: volumeKey)
+        }
         
         let interval = CMTime(value: 1, timescale: 1)
         player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
