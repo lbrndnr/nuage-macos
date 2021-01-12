@@ -11,7 +11,7 @@ import SDWebImageSwiftUI
 
 struct UserView: View {
     
-    @State var user: User
+    @State private var user: User
     @State private var selection = 0
     @State private var subscriptions = Set<AnyCancellable>()
     
@@ -58,8 +58,8 @@ struct UserView: View {
         }
     }
     
-//    init(user: User) {
-//        self.user = user
-//    }
+    init(user: User) {
+        self._user = State(initialValue: user)
+    }
     
 }

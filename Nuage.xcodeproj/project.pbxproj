@@ -13,8 +13,8 @@
 		49332BAE25961A3B0034A161 /* PlaylistRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BAD25961A3B0034A161 /* PlaylistRow.swift */; };
 		49332BBE2596260A0034A161 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BBD2596260A0034A161 /* Actions.swift */; };
 		49332BCF25962E910034A161 /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BCE25962E910034A161 /* SearchList.swift */; };
+		493B8FA425ACBE4200EF64DA /* ModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493B8FA325ACBE4200EF64DA /* ModalView.swift */; };
 		496362FC25A4E1C500C7F1AF /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496362EE25A4E1C500C7F1AF /* Helpers.swift */; };
-		496362FD25A4E1C500C7F1AF /* SoundCloudIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496362F025A4E1C500C7F1AF /* SoundCloudIdentifiable.swift */; };
 		496362FE25A4E1C500C7F1AF /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496362F125A4E1C500C7F1AF /* Track.swift */; };
 		496362FF25A4E1C500C7F1AF /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496362F225A4E1C500C7F1AF /* Like.swift */; };
 		4963630025A4E1C500C7F1AF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496362F325A4E1C500C7F1AF /* User.swift */; };
@@ -50,6 +50,7 @@
 		49825E7525A26C420066F24C /* NavigationLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49825E7125A26C420066F24C /* NavigationLink.swift */; };
 		498286F825969AE800147DBE /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 498286F725969AE800147DBE /* Introspect */; };
 		4988D84625A1C62E0092BAFF /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988D84525A1C62E0092BAFF /* UserView.swift */; };
+		49978AF725AE3E8F00D5C30F /* SoundCloudIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49978AF625AE3E8F00D5C30F /* SoundCloudIdentifiable.swift */; };
 		49C5229C258C238C00F2D18C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */; };
 		49FA14BB2589635800CEF925 /* ArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14BA2589635800CEF925 /* ArrayView.swift */; };
 		49FA14C62589693E00CEF925 /* InfinteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* InfinteList.swift */; };
@@ -79,8 +80,8 @@
 		49332BAD25961A3B0034A161 /* PlaylistRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRow.swift; sourceTree = "<group>"; };
 		49332BBD2596260A0034A161 /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		49332BCE25962E910034A161 /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
+		493B8FA325ACBE4200EF64DA /* ModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalView.swift; sourceTree = "<group>"; };
 		496362EE25A4E1C500C7F1AF /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		496362F025A4E1C500C7F1AF /* SoundCloudIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudIdentifiable.swift; sourceTree = "<group>"; };
 		496362F125A4E1C500C7F1AF /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		496362F225A4E1C500C7F1AF /* Like.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		496362F325A4E1C500C7F1AF /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -122,6 +123,7 @@
 		49825E7025A26C420066F24C /* StackNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackNavigationView.swift; sourceTree = "<group>"; };
 		49825E7125A26C420066F24C /* NavigationLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationLink.swift; sourceTree = "<group>"; };
 		4988D84525A1C62E0092BAFF /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
+		49978AF625AE3E8F00D5C30F /* SoundCloudIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudIdentifiable.swift; sourceTree = "<group>"; };
 		49FA14BA2589635800CEF925 /* ArrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayView.swift; sourceTree = "<group>"; };
 		49FA14C52589693E00CEF925 /* InfinteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinteList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -206,7 +208,7 @@
 		496362EF25A4E1C500C7F1AF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				496362F025A4E1C500C7F1AF /* SoundCloudIdentifiable.swift */,
+				49978AF625AE3E8F00D5C30F /* SoundCloudIdentifiable.swift */,
 				496362F125A4E1C500C7F1AF /* Track.swift */,
 				496362F225A4E1C500C7F1AF /* Like.swift */,
 				496362F325A4E1C500C7F1AF /* User.swift */,
@@ -319,6 +321,7 @@
 				49825E6F25A26C420066F24C /* CurrentView.swift */,
 				49825E7025A26C420066F24C /* StackNavigationView.swift */,
 				49825E7125A26C420066F24C /* NavigationLink.swift */,
+				493B8FA325ACBE4200EF64DA /* ModalView.swift */,
 			);
 			name = StackNavigationView;
 			path = ../../../Libraries/StackNavigationView/Sources/StackNavigationView;
@@ -471,7 +474,6 @@
 				4969F42A257CFB100048E29B /* Stream.swift in Sources */,
 				4969F434257CFB100048E29B /* PlayerView.swift in Sources */,
 				49332BBE2596260A0034A161 /* Actions.swift in Sources */,
-				496362FD25A4E1C500C7F1AF /* SoundCloudIdentifiable.swift in Sources */,
 				4963630425A4E1C500C7F1AF /* Slice.swift in Sources */,
 				4963630725A4E1C500C7F1AF /* SoundCloud.swift in Sources */,
 				49825E7425A26C420066F24C /* StackNavigationView.swift in Sources */,
@@ -494,8 +496,10 @@
 				4963630625A4E1C500C7F1AF /* Recommendation.swift in Sources */,
 				49FA14C62589693E00CEF925 /* InfinteList.swift in Sources */,
 				496362FC25A4E1C500C7F1AF /* Helpers.swift in Sources */,
+				49978AF725AE3E8F00D5C30F /* SoundCloudIdentifiable.swift in Sources */,
 				4963630125A4E1C500C7F1AF /* Some.swift in Sources */,
 				496362FF25A4E1C500C7F1AF /* Like.swift in Sources */,
+				493B8FA425ACBE4200EF64DA /* ModalView.swift in Sources */,
 				4969F42E257CFB100048E29B /* LoginView.swift in Sources */,
 				49825E7525A26C420066F24C /* NavigationLink.swift in Sources */,
 				496362FE25A4E1C500C7F1AF /* Track.swift in Sources */,

@@ -17,6 +17,7 @@ struct MainView: View {
     @State private var navigationSelection: Int? = 0
     @State private var playlists = [Playlist]()
     @State private var searchQuery = ""
+    @State private var presentProfile = false
     @State private var subscriptions = Set<AnyCancellable>()
     
     @EnvironmentObject private var commands: Commands
@@ -35,12 +36,19 @@ struct MainView: View {
         let historyView = TrackList(for: history).navigationTitle("History")
         
         return VStack {
-            let presentModal = Binding(get: { searchQuery.count > 0 },
-                                       set: { presented in
-                                        if !presented {
-                                            searchQuery = ""
-                                        }
-                                       })
+//            let presentSearch = Binding(get: { searchQuery.count > 0 },
+//                                        set: { presented in
+//                                            if !presented {
+//                                                searchQuery = ""
+//                                            }
+//                                        })
+            let stackItem: Binding<Int?> = Binding(get: { presentProfile ? 1 : (searchQuery.count > 0 ? 2 : nil) },
+                                                      set: { value in
+                                                        if value == nil {
+                                                            presentProfile = false
+                                                            searchQuery = ""
+                                                        }
+                                                      })
             
             StackNavigationView(selection: $navigationSelection) {
                 List {
@@ -67,9 +75,14 @@ struct MainView: View {
                 }
                 .listStyle(SidebarListStyle())
             }
-            .modal(isPresented: presentModal) {
-                let search = SoundCloud.shared.get(.search(searchQuery))
-                SearchList(for: search)
+            .stack(item: stackItem) {
+                if presentProfile {
+                    UserView(user: SoundCloud.shared.user!)
+                }
+                else {
+                    let search = SoundCloud.shared.get(.search(searchQuery))
+                    SearchList(for: search)
+                }
             }
             PlayerView()
         }
@@ -80,7 +93,7 @@ struct MainView: View {
                     .onExitCommand { searchQuery = "" }
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(minWidth: 150)
-                
+
             }
 //            ToolbarItem {
 //                MenuButton(label: Image(systemName: "arrow.up.arrow.down")) {
@@ -89,14 +102,18 @@ struct MainView: View {
 //                }
 //            }
             ToolbarItem {
-                HStack {
-                    Text(SoundCloud.shared.user?.username ?? "Profile")
-                        .bold()
-//                    WebImage(url: SoundCloud.shared.user?.avatarURL)
-//                        .resizable()
-//                        .frame(width: 30, height: 30)
-//                        .cornerRadius(15)
+                Button(action: { presentProfile = true }) {
+                    HStack {
+                        Text(SoundCloud.shared.user?.username ?? "Profile")
+                            .bold()
+                            .foregroundColor(.secondary)
+                        WebImage(url: SoundCloud.shared.user?.avatarURL)
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .cornerRadius(15)
+                    }
                 }
+                .buttonStyle(PlainButtonStyle())
             }
         }
         .onAppear {            

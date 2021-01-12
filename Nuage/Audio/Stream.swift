@@ -9,10 +9,13 @@
 import AVFoundation
 import Combine
 
+struct NoStreamError: Error {}
+
 extension Track: Streamable {
     
     func prepare() -> AnyPublisher<AVURLAsset, Error> {
-        return SoundCloud.shared.getMediaURL(with: self.streamURL)
+        guard let url = streamURL else { return Fail(error: NoStreamError()).eraseToAnyPublisher() }
+        return SoundCloud.shared.getMediaURL(with: url)
             .mapError { $0 as Error }
             .map { AVURLAsset(url: $0) }
             .eraseToAnyPublisher()
