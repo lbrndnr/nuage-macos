@@ -21,9 +21,11 @@ struct PlaylistRow: View {
     }
     
     var body: some View {
+        let artworkURL = playlist.artworkURL ?? playlist.tracks?.first?.artworkURL
+        
         return HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading) {
-                WebImage(url: playlist.artworkURL)
+                WebImage(url: artworkURL)
                     .resizable()
                     .placeholder { Rectangle().foregroundColor(.gray) }
                     .frame(width: 100, height: 100)
@@ -51,8 +53,7 @@ struct PlaylistRow: View {
                     Text(text).lineLimit(3)
                 }
                 
-                if let wrapper = playlist.tracks,
-                   case let .full(tracks) = wrapper {
+                if let tracks = playlist.tracks {
                     Divider()
                     ForEach(tracks, id: \.self) { track in
                         HStack {

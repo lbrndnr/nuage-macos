@@ -51,6 +51,7 @@ struct PostList: View {
                         TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
                             .onTapGesture(count: 2, perform: onPlay)
                     }
+                    .trackContextMenu(track: track, onPlay: onPlay)
                 }
                 else if case let .playlist(playlist) = post.item {
                     PlaylistRow(playlist: playlist, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
@@ -59,7 +60,6 @@ struct PostList: View {
                 
                 Divider()
             })
-//            .trackContextMenu(track: track, onPlay: play))
         }
     }
     

@@ -35,12 +35,14 @@ struct TrackContextMenu: ViewModifier {
                     print("new playlist lel")
                 }
 
-                if let playlists = SoundCloud.shared.user?.playlists,
+                let playlists = SoundCloud.shared.user?.playlists?
+                    .filter { $0.secretToken != nil }
+                if let playlists = playlists,
                    playlists.count > 0 {
                     Divider()
                     ForEach(playlists) { playlist in
                         Button(playlist.title) {
-//                            SoundCloud.shared.get(.addToPlaylist(playlist.id, trackIDs: [track.id]))
+//                            SoundCloud.shared.get(.add(to: playlist, trackIDs: [track.id]))
 //                                .receive(on: RunLoop.main)
 //                                .sink(receiveCompletion: { _ in
 //                                }, receiveValue: { success in

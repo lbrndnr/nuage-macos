@@ -91,7 +91,7 @@ extension Playlist: Filterable {
     
     func contains(_ text: String) -> Bool {
         let contained = title.containsCaseInsensitive(text) || (description?.containsCaseInsensitive(text) ?? false)
-        if case let .full(tracks) = tracks {
+        if let tracks = tracks {
             return contained || tracks.contains { $0.contains(text) }
         }
         return contained
