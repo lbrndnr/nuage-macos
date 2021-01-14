@@ -15,8 +15,7 @@ extension Track: Streamable {
     
     func prepare() -> AnyPublisher<AVURLAsset, Error> {
         guard let url = streamURL else { return Fail(error: NoStreamError()).eraseToAnyPublisher() }
-        return SoundCloud.shared.getMediaURL(with: url)
-            .mapError { $0 as Error }
+        return SoundCloud.shared.get(.audioFile(url))
             .map { AVURLAsset(url: $0) }
             .eraseToAnyPublisher()
     }
