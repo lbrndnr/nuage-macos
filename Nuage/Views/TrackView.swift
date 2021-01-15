@@ -12,8 +12,8 @@ import SDWebImageSwiftUI
 
 struct TrackView: View {
     
-    var track: Track
-    @State private var waveform: Waveform?
+    @State private var track: Track
+    @State private var waveform: Waveform
     
     @State private var subscriptions = Set<AnyCancellable>()
     
@@ -21,9 +21,19 @@ struct TrackView: View {
         let duration = format(duration: TimeInterval(track.duration))
         
         VStack(alignment: .leading) {
-            Text(track.title)
-                .font(.title3)
-                .bold()
+            HStack(alignment: .bottom, spacing: 10) {
+                VStack(alignment: .leading) {
+                    WebImage(url: track.artworkURL)
+                        .resizable()
+                        .placeholder { Rectangle().foregroundColor(.gray) }
+                        .frame(width: 100, height: 100)
+                        .cornerRadius(6)
+                }
+                if let waveform = waveform {
+                    WaveformView(waveform: waveform)
+                        .frame(height: 80)
+                }
+            }
             HStack {
                 Image(systemName: "play.fill")
                 Text(String(track.playbackCount))
@@ -33,26 +43,13 @@ struct TrackView: View {
                 Text(String(track.repostCount))
             }.foregroundColor(Color(NSColor.secondaryLabelColor))
             
-            HStack(alignment: .top, spacing: 10) {
-                VStack(alignment: .leading) {
-                    WebImage(url: track.artworkURL)
-                        .resizable()
-                        .placeholder { Rectangle().foregroundColor(.gray) }
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(6)
-                    HStack {
-                        Button(action: { }) {
-                            Image(systemName: "heart")
-                        }.buttonStyle(BorderlessButtonStyle())
-                        Button(action: { }) {
-                            Image(systemName: "arrow.triangle.2.circlepath")
-                        }.buttonStyle(BorderlessButtonStyle())
-                    }
-                }
-                if let waveform = waveform {
-                    WaveformView(waveform: waveform)
-                        .frame(height: 100)
-                }
+            HStack {
+                Button(action: { }) {
+                    Image(systemName: "heart")
+                }.buttonStyle(BorderlessButtonStyle())
+                Button(action: { }) {
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                }.buttonStyle(BorderlessButtonStyle())
             }
             
             Text(duration)
@@ -72,12 +69,16 @@ struct TrackView: View {
         .navigationTitle(track.title)
         .onAppear {
             SoundCloud.shared.get(.waveform(of: track))
-                .map { Optional($0) }
-                .replaceError(with: nil)
+                .replaceError(with: waveform)
                 .receive(on: RunLoop.main)
                 .assign(to: \.waveform, on: self)
                 .store(in: &subscriptions)
         }
+    }
+    
+    init(track: Track) {
+        self._track = State(initialValue: track)
+        self._waveform = State(initialValue: Waveform(width: 1800, height: 80, repeatedSample: 2))
     }
     
 }

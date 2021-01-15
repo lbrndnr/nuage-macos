@@ -33,11 +33,10 @@ struct SearchList: View {
             
             switch element {
             case .track(let track):
-                return AnyView(VStack(alignment: .leading) {
+                return AnyView(StackNavigationLink(destination: TrackView(track: track)) {
                     TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
-                    Divider()
+                        .onTapGesture(count: 2, perform: onPlay)
                 }
-                .onTapGesture(count: 2, perform: onPlay)
                 .trackContextMenu(track: track, onPlay: onPlay))
             case .playlist(let playlist):
                 return AnyView(VStack(alignment: .leading) {

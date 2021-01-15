@@ -21,7 +21,8 @@ struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View 
     private var publisher: InfinitePublisher<Element>
     private var row: ([Element], Int) -> Row
     @State private var filter = ""
-    @State private var shouldFilter = false
+    @State private var isSearching = false
+    
     @EnvironmentObject private var commands: Commands
     
     var body: some View {
@@ -37,7 +38,7 @@ struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View 
         let displayedElements = (filter.count > 0) ? elements.filter { $0.contains(filter) } : elements
         
         VStack {
-            if shouldFilter {
+            if isSearching {
                 TextField("Filter", text: $filter)
                     .onChange(of: filter, perform: { _ in
                         getNextSlice()
@@ -54,7 +55,7 @@ struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View 
                     }
                 }
             }
-            .onReceive(commands.filter) { withAnimation { shouldFilter = true } }
+            .onReceive(commands.filter) { withAnimation { isSearching = true } }
             .onExitCommand(perform: stopFiltering)
         }
     }
@@ -66,7 +67,7 @@ struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View 
     
     private func stopFiltering() {
         withAnimation {
-            shouldFilter = false
+            isSearching = false
             filter = ""
         }
     }

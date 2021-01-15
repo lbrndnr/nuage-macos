@@ -44,6 +44,8 @@ struct TrackRow: View {
                 Text(track.title)
                     .font(.title3)
                     .bold()
+                StackNavigationLink(track.user.displayName, destination: UserView(user: track.user))
+                    .buttonStyle(PlainButtonStyle())
                 HStack {
                     Image(systemName: "play.fill")
                     Text(String(track.playbackCount))

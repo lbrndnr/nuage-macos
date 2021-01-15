@@ -153,3 +153,22 @@ extension HistoryItem: DateComparable {}
 extension Post: DateComparable {}
 extension Track: DateComparable {}
 extension Playlist: DateComparable {}
+
+extension Waveform {
+    
+    init(width: Int, height: Int, repeatedSample: Int) {
+        self.width = width
+        self.height = height
+        self.samples = Array(repeating: repeatedSample, count: width)
+    }
+    
+}
+
+extension User {
+    
+    var displayName: String {
+        if name.count > 0 { return name }
+        return username
+    }
+    
+}

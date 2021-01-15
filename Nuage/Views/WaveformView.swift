@@ -7,14 +7,14 @@
 
 import SwiftUI
 
+private let spacing: CGFloat = 2
+private let barWidth: CGFloat = 2
+
 struct WaveformView: View {
     
     var waveform: Waveform
     
     var body: some View {
-        let spacing: CGFloat = 2
-        let barWidth: CGFloat = 3
-        
         GeometryReader { geometry in
             let numberOfBars = CGFloat(geometry.size.width+spacing)/CGFloat(spacing+barWidth)
             let samplesPerBar = CGFloat(waveform.samples.count-1)/numberOfBars
@@ -35,7 +35,7 @@ struct WaveformView: View {
     }
     
     private func interpolate(from: CGFloat, to: CGFloat) -> CGFloat {
-        let lhs = Int(from)+1
+        let lhs = Int(ceil(from))
         let rhs = Int(to)
         let sum = waveform.samples[lhs...rhs].reduce(0, +)
         let cnt = rhs-lhs+1

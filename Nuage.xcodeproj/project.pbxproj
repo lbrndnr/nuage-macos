@@ -51,7 +51,10 @@
 		498286F825969AE800147DBE /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 498286F725969AE800147DBE /* Introspect */; };
 		4988D84625A1C62E0092BAFF /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988D84525A1C62E0092BAFF /* UserView.swift */; };
 		49978AF725AE3E8F00D5C30F /* SoundCloudIdentifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49978AF625AE3E8F00D5C30F /* SoundCloudIdentifiable.swift */; };
+		4999998525B0844A00F42D9B /* Waveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4999998425B0844A00F42D9B /* Waveform.swift */; };
+		4999998D25B0886700F42D9B /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4999998C25B0886700F42D9B /* WaveformView.swift */; };
 		49C5229C258C238C00F2D18C /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 49C5229B258C238C00F2D18C /* SDWebImageSwiftUI */; };
+		49E1DB6C25B0BBF0009B1D41 /* ResourceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E1DB6B25B0BBF0009B1D41 /* ResourceRequest.swift */; };
 		49FA14BB2589635800CEF925 /* ArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14BA2589635800CEF925 /* ArrayView.swift */; };
 		49FA14C62589693E00CEF925 /* InfinteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* InfinteList.swift */; };
 /* End PBXBuildFile section */
@@ -124,6 +127,9 @@
 		49825E7125A26C420066F24C /* NavigationLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationLink.swift; sourceTree = "<group>"; };
 		4988D84525A1C62E0092BAFF /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		49978AF625AE3E8F00D5C30F /* SoundCloudIdentifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudIdentifiable.swift; sourceTree = "<group>"; };
+		4999998425B0844A00F42D9B /* Waveform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waveform.swift; sourceTree = "<group>"; };
+		4999998C25B0886700F42D9B /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
+		49E1DB6B25B0BBF0009B1D41 /* ResourceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceRequest.swift; sourceTree = "<group>"; };
 		49FA14BA2589635800CEF925 /* ArrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayView.swift; sourceTree = "<group>"; };
 		49FA14C52589693E00CEF925 /* InfinteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinteList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -200,6 +206,7 @@
 				496362EF25A4E1C500C7F1AF /* Models */,
 				496362FA25A4E1C500C7F1AF /* SoundCloud.swift */,
 				496362FB25A4E1C500C7F1AF /* APIRequest.swift */,
+				49E1DB6B25B0BBF0009B1D41 /* ResourceRequest.swift */,
 			);
 			name = SoundCloud;
 			path = ../../../Libraries/SoundCloud/Sources/SoundCloud;
@@ -218,6 +225,7 @@
 				496362F725A4E1C500C7F1AF /* Slice.swift */,
 				496362F825A4E1C500C7F1AF /* Post.swift */,
 				496362F925A4E1C500C7F1AF /* Recommendation.swift */,
+				4999998425B0844A00F42D9B /* Waveform.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -304,6 +312,7 @@
 				492AF0CE258FC4A10079035F /* InfiniteList */,
 				49332BA025961A120034A161 /* Lists */,
 				4969F411257CFB100048E29B /* TrackView.swift */,
+				4999998C25B0886700F42D9B /* WaveformView.swift */,
 				4969F416257CFB100048E29B /* TrackContextMenu.swift */,
 				4969F412257CFB100048E29B /* ProfileView.swift */,
 				4969F413257CFB100048E29B /* LoginView.swift */,
@@ -466,12 +475,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				49332BA525961A260034A161 /* TrackRow.swift in Sources */,
+				4999998525B0844A00F42D9B /* Waveform.swift in Sources */,
 				4963630325A4E1C500C7F1AF /* Playlist.swift in Sources */,
 				4969F433257CFB100048E29B /* TrackList.swift in Sources */,
 				4969F435257CFB100048E29B /* SliceView.swift in Sources */,
 				49FA14BB2589635800CEF925 /* ArrayView.swift in Sources */,
 				4963630025A4E1C500C7F1AF /* User.swift in Sources */,
 				4969F42A257CFB100048E29B /* Stream.swift in Sources */,
+				49E1DB6C25B0BBF0009B1D41 /* ResourceRequest.swift in Sources */,
 				4969F434257CFB100048E29B /* PlayerView.swift in Sources */,
 				49332BBE2596260A0034A161 /* Actions.swift in Sources */,
 				4963630425A4E1C500C7F1AF /* Slice.swift in Sources */,
@@ -487,6 +498,7 @@
 				4988D84625A1C62E0092BAFF /* UserView.swift in Sources */,
 				4969F431257CFB100048E29B /* TrackContextMenu.swift in Sources */,
 				49825E7225A26C420066F24C /* Environment.swift in Sources */,
+				4999998D25B0886700F42D9B /* WaveformView.swift in Sources */,
 				49332BAE25961A3B0034A161 /* PlaylistRow.swift in Sources */,
 				4969F41E257CFB100048E29B /* Preview.swift in Sources */,
 				4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */,
