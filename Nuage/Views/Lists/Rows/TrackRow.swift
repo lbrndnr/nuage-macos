@@ -44,6 +44,7 @@ struct TrackRow: View {
                 Text(track.title)
                     .font(.title3)
                     .bold()
+                    .lineLimit(1)
                 StackNavigationLink(track.user.displayName, destination: UserView(user: track.user))
                     .buttonStyle(PlainButtonStyle())
                 HStack {

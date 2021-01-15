@@ -44,6 +44,7 @@ struct PlaylistRow: View {
                 Text(playlist.title)
                     .font(.title3)
                     .bold()
+                    .lineLimit(1)
                 StackNavigationLink(playlist.user.displayName, destination: UserView(user: playlist.user))
                     .buttonStyle(PlainButtonStyle())
                 
