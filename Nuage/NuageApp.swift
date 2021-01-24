@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 
 private let accessTokenKey = "accessToken"
+private let accessTokenExpiryDateKey = "accessTokenExpiryDate"
 private let userKey = "user"
 
 class Commands: ObservableObject {
@@ -34,8 +35,10 @@ struct NuageApp: App {
                     .environmentObject(commands)
             }
             else {
-                LoginView { accessToken in
-                    UserDefaults.standard.set(accessToken, forKey: accessTokenKey)
+                LoginView { accessToken, expiryDate in
+                    let defaults = UserDefaults.standard
+                    defaults.set(accessToken, forKey: accessTokenKey)
+                    defaults.set(expiryDate, forKey: accessTokenExpiryDateKey)
                     SoundCloud.shared.accessToken = accessToken
                     loggedIn = true
                 }
@@ -95,13 +98,18 @@ struct NuageApp: App {
             SoundCloud.shared.user = try? JSONDecoder().decode(User.self, from: data)
         }
         let token = defaults.object(forKey: accessTokenKey)
+        let expiryDate = defaults.object(forKey: accessTokenExpiryDateKey)
         
+        _loggedIn = State(initialValue: false)
         if let token = token as? String {
-            SoundCloud.shared.accessToken = token
-            _loggedIn = State(initialValue: true)
-        }
-        else {
-            _loggedIn = State(initialValue: false)
+            if let exipryDate = expiryDate as? Date, exipryDate < Date() {
+                defaults.set(nil, forKey: accessTokenKey)
+                defaults.set(nil, forKey: accessTokenExpiryDateKey)
+            }
+            else {
+                SoundCloud.shared.accessToken = token
+                _loggedIn = State(initialValue: true)
+            }
         }
         
         SoundCloud.shared.$user.sink { user in
