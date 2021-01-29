@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		4910BE9B257D868B0053AE88 /* Likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4910BE9A257D868B0053AE88 /* Likes.json */; };
 		492AF079258F877E0079035F /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492AF078258F877E0079035F /* PostList.swift */; };
-		49328E9325C4B1B200A2A34D /* StackNavigationView in Frameworks */ = {isa = PBXBuildFile; productRef = 49328E9225C4B1B200A2A34D /* StackNavigationView */; };
-		49328E9C25C4B22200A2A34D /* SoundCloud in Frameworks */ = {isa = PBXBuildFile; productRef = 49328E9B25C4B22200A2A34D /* SoundCloud */; };
+		49328ECF25C4B71500A2A34D /* SoundCloud in Frameworks */ = {isa = PBXBuildFile; productRef = 49328ECE25C4B71500A2A34D /* SoundCloud */; };
+		49328ED125C4B71500A2A34D /* StackNavigationView in Frameworks */ = {isa = PBXBuildFile; productRef = 49328ED025C4B71500A2A34D /* StackNavigationView */; };
 		49332BA525961A260034A161 /* TrackRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BA425961A260034A161 /* TrackRow.swift */; };
 		49332BAE25961A3B0034A161 /* PlaylistRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BAD25961A3B0034A161 /* PlaylistRow.swift */; };
 		49332BBE2596260A0034A161 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BBD2596260A0034A161 /* Actions.swift */; };
@@ -62,6 +62,8 @@
 /* Begin PBXFileReference section */
 		4910BE9A257D868B0053AE88 /* Likes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Likes.json; sourceTree = "<group>"; };
 		492AF078258F877E0079035F /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
+		49328EC225C4B6F300A2A34D /* StackNavigationView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = StackNavigationView; sourceTree = "<group>"; };
+		49328EC625C4B6F900A2A34D /* SoundCloud */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SoundCloud; sourceTree = "<group>"; };
 		49332BA425961A260034A161 /* TrackRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRow.swift; sourceTree = "<group>"; };
 		49332BAD25961A3B0034A161 /* PlaylistRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRow.swift; sourceTree = "<group>"; };
 		49332BBD2596260A0034A161 /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
@@ -103,9 +105,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49328E9325C4B1B200A2A34D /* StackNavigationView in Frameworks */,
+				49328ED125C4B71500A2A34D /* StackNavigationView in Frameworks */,
 				498286F825969AE800147DBE /* Introspect in Frameworks */,
-				49328E9C25C4B22200A2A34D /* SoundCloud in Frameworks */,
+				49328ECF25C4B71500A2A34D /* SoundCloud in Frameworks */,
 				49B154C525C4685D00CE9511 /* URLImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -145,6 +147,13 @@
 			path = InfiniteList;
 			sourceTree = "<group>";
 		};
+		49328EB325C4B57D00A2A34D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		49332BA025961A120034A161 /* Lists */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,10 +177,13 @@
 		4969F3BC257CFA7F0048E29B = {
 			isa = PBXGroup;
 			children = (
+				49328EC625C4B6F900A2A34D /* SoundCloud */,
+				49328EC225C4B6F300A2A34D /* StackNavigationView */,
 				4969F3C7257CFA7F0048E29B /* Nuage */,
 				4969F3DA257CFA800048E29B /* NuageTests */,
 				4969F3E5257CFA800048E29B /* NuageUITests */,
 				4969F3C6257CFA7F0048E29B /* Products */,
+				49328EB325C4B57D00A2A34D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -271,13 +283,15 @@
 			buildRules = (
 			);
 			dependencies = (
+				49328ECB25C4B70F00A2A34D /* PBXTargetDependency */,
+				49328ECD25C4B70F00A2A34D /* PBXTargetDependency */,
 			);
 			name = Nuage;
 			packageProductDependencies = (
 				498286F725969AE800147DBE /* Introspect */,
 				49B154C425C4685D00CE9511 /* URLImage */,
-				49328E9225C4B1B200A2A34D /* StackNavigationView */,
-				49328E9B25C4B22200A2A34D /* SoundCloud */,
+				49328ECE25C4B71500A2A34D /* SoundCloud */,
+				49328ED025C4B71500A2A34D /* StackNavigationView */,
 			);
 			productName = Nuage;
 			productReference = 4969F3C5257CFA7F0048E29B /* Nuage.app */;
@@ -353,8 +367,6 @@
 			packageReferences = (
 				498286F625969AE800147DBE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				49B154C325C4685D00CE9511 /* XCRemoteSwiftPackageReference "url-image" */,
-				49328E9125C4B1B200A2A34D /* XCRemoteSwiftPackageReference "StackNavigationView" */,
-				49328E9A25C4B22200A2A34D /* XCRemoteSwiftPackageReference "SoundCloud" */,
 			);
 			productRefGroup = 4969F3C6257CFA7F0048E29B /* Products */;
 			projectDirPath = "";
@@ -445,6 +457,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		49328ECB25C4B70F00A2A34D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 49328ECA25C4B70F00A2A34D /* SoundCloud */;
+		};
+		49328ECD25C4B70F00A2A34D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 49328ECC25C4B70F00A2A34D /* StackNavigationView */;
+		};
 		4969F3D9257CFA800048E29B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 4969F3C4257CFA7F0048E29B /* Nuage */;
@@ -741,22 +761,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		49328E9125C4B1B200A2A34D /* XCRemoteSwiftPackageReference "StackNavigationView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lbrndnr/StackNavigationView";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
-		49328E9A25C4B22200A2A34D /* XCRemoteSwiftPackageReference "SoundCloud" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/lbrndnr/SoundCloud";
-			requirement = {
-				branch = master;
-				kind = branch;
-			};
-		};
 		498286F625969AE800147DBE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
@@ -776,15 +780,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		49328E9225C4B1B200A2A34D /* StackNavigationView */ = {
+		49328ECA25C4B70F00A2A34D /* SoundCloud */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 49328E9125C4B1B200A2A34D /* XCRemoteSwiftPackageReference "StackNavigationView" */;
+			productName = SoundCloud;
+		};
+		49328ECC25C4B70F00A2A34D /* StackNavigationView */ = {
+			isa = XCSwiftPackageProductDependency;
 			productName = StackNavigationView;
 		};
-		49328E9B25C4B22200A2A34D /* SoundCloud */ = {
+		49328ECE25C4B71500A2A34D /* SoundCloud */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 49328E9A25C4B22200A2A34D /* XCRemoteSwiftPackageReference "SoundCloud" */;
 			productName = SoundCloud;
+		};
+		49328ED025C4B71500A2A34D /* StackNavigationView */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = StackNavigationView;
 		};
 		498286F725969AE800147DBE /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
