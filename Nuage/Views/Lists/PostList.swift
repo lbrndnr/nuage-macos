@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import SDWebImageSwiftUI
 
 struct PostList: View {
     
@@ -36,16 +35,13 @@ struct PostList: View {
             return AnyView(VStack(alignment: .leading) {
                 HStack(spacing: 10) {
                     StackNavigationLink(destination: UserView(user: post.user)) {
-                        WebImage(url: post.user.avatarURL)
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .cornerRadius(15)
+                        RemoteImage(url: post.user.avatarURL, width: 30, height: 30, cornerRadius: 15)
                         Text("\(post.user.username) \(action)")
                     }
                 }
                 Spacer()
                     .frame(height: 18)
-                
+
                 if case let .track(track) = post.item {
                     StackNavigationLink(destination: TrackView(track: track)) {
                         TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
@@ -57,7 +53,7 @@ struct PostList: View {
                     PlaylistRow(playlist: playlist, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
                         .onTapGesture(count: 2, perform: onPlay)
                 }
-                
+
                 Divider()
             })
         }

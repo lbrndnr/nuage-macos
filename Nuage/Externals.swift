@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import URLImage
 
 struct FillableSysteImageStyle: ButtonStyle {
     
@@ -172,3 +173,28 @@ extension User {
     }
     
 }
+
+func RemoteImage(url: URL?, width: CGFloat, height: CGFloat, cornerRadius: CGFloat) -> AnyView {
+    let placeholder = Rectangle()
+        .foregroundColor(.gray)
+        .frame(width: width, height: height)
+        .cornerRadius(cornerRadius)
+    
+    guard let url = url else {
+        return AnyView(placeholder)
+    }
+    
+    let image = URLImage(url: url,
+             empty: { placeholder },
+             inProgress: { _ in placeholder },
+             failure: { _, _ in placeholder },
+             content: { image in
+                image.resizable()
+                    .cornerRadius(cornerRadius)
+             })
+        .frame(width: width, height: height)
+    
+    return AnyView(image)
+}
+
+

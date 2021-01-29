@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct PlaylistRow: View {
     
@@ -25,11 +24,7 @@ struct PlaylistRow: View {
         
         return HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading) {
-                WebImage(url: artworkURL)
-                    .resizable()
-                    .placeholder { Rectangle().foregroundColor(.gray) }
-                    .frame(width: 100, height: 100)
-                    .cornerRadius(6)
+                RemoteImage(url: artworkURL, width: 100, height: 100, cornerRadius: 6)
                 Spacer()
                 HStack {
                     Button(action: onLike) {

@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 struct ProfileView: View {
     
@@ -15,9 +14,7 @@ struct ProfileView: View {
     
     var body: some View {
         HStack {
-            WebImage(url: user.avatarURL)
-                .frame(width: 100, height: 100)
-                .cornerRadius(50)
+            RemoteImage(url: user.avatarURL, width: 100, height: 100, cornerRadius: 50)
             Text(user.username)
         }
         .frame(minWidth: 200)

@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import SDWebImageSwiftUI
 
 struct UserView: View {
     
@@ -18,10 +17,7 @@ struct UserView: View {
     var body: some View {
         VStack {
             HStack {
-                WebImage(url: user.avatarURL)
-                    .resizable()
-                    .frame(width: 50, height: 50)
-                    .cornerRadius(25)
+                RemoteImage(url: user.avatarURL, width: 50, height: 50, cornerRadius: 25)
                 VStack(alignment: .leading) {
                     Text(user.username)
                         .bold()

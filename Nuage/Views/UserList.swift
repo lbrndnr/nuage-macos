@@ -8,7 +8,6 @@
 
 import SwiftUI
 import Combine
-import SDWebImageSwiftUI
 
 struct UserList: View {
     
@@ -40,9 +39,7 @@ struct UserRow: View {
     
     var body: some View {
         HStack {
-            WebImage(url: user.avatarURL)
-                .frame(width: 50, height: 50)
-                .cornerRadius(25)
+            RemoteImage(url: user.avatarURL, width: 50, height: 50, cornerRadius: 25)
             VStack(alignment: .leading) {
                 Text(user.username)
                     .bold()

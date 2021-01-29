@@ -10,7 +10,7 @@ import AppKit
 import AVFoundation
 import Combine
 import MediaPlayer
-import SDWebImage
+import URLImage
 
 protocol Streamable {
     
@@ -151,13 +151,15 @@ class StreamPlayer: ObservableObject {
                     MPNowPlayingInfoCenter.default().nowPlayingInfo = info
                     
                     if let artworkURL = self.currentStream?.artworkURL {
-                        SDWebImageManager.shared.loadImage(with: artworkURL, options: .lowPriority, progress: nil) { (image, data, error, cacheType, finished, url) in
-                            if let image = image {
+                        URLImageService.shared.remoteImagePublisher(artworkURL)
+                            .sink(receiveCompletion: { _ in },
+                                  receiveValue: { imageInfo in
+                                let image = NSImage(cgImage: imageInfo.cgImage, size: imageInfo.size)
                                 let artwork = MPMediaItemArtwork(boundsSize: image.size) { _ in return image }
                                 info[MPMediaItemPropertyArtwork] = artwork
                                 MPNowPlayingInfoCenter.default().nowPlayingInfo = info
-                            }
-                        }
+                            })
+                            .store(in: &self.subscriptions)
                     }
                 }).store(in: &subscriptions)
         }

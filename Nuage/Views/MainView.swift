@@ -8,9 +8,9 @@
 
 import SwiftUI
 import Combine
-import SDWebImageSwiftUI
-import Introspect
 import AppKit
+import URLImage
+import Introspect
 
 struct MainView: View {
     
@@ -107,10 +107,7 @@ struct MainView: View {
                         Text(SoundCloud.shared.user?.username ?? "Profile")
                             .bold()
                             .foregroundColor(.secondary)
-//                        WebImage(url: SoundCloud.shared.user?.avatarURL)
-//                            .resizable()
-//                            .frame(width: 30, height: 30)
-//                            .cornerRadius(15)
+                        RemoteImage(url: SoundCloud.shared.user?.avatarURL, width: 30, height: 30, cornerRadius: 15)
                     }
                 }
                 .buttonStyle(PlainButtonStyle())

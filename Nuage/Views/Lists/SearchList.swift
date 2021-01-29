@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import SDWebImageSwiftUI
 
 struct SearchList: View {
     

@@ -8,7 +8,6 @@
 
 import SwiftUI
 import Combine
-import SDWebImageSwiftUI
 
 struct TrackView: View {
     
@@ -23,11 +22,7 @@ struct TrackView: View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom, spacing: 10) {
                 VStack(alignment: .leading) {
-                    WebImage(url: track.artworkURL)
-                        .resizable()
-                        .placeholder { Rectangle().foregroundColor(.gray) }
-                        .frame(width: 100, height: 100)
-                        .cornerRadius(6)
+                    RemoteImage(url: track.artworkURL, width: 100, height: 100, cornerRadius: 6)
                 }
                 if let waveform = waveform {
                     WaveformView(waveform: waveform)
