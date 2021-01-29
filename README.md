@@ -1,5 +1,5 @@
 <p align="center">
-<img height="256" src="https://raw.githubusercontent.com/lbrndnr/nuage-macos/master/screenshot.png" />
+<img height="400" src="https://raw.githubusercontent.com/lbrndnr/nuage-macos/master/screenshot.png" />
 </p>
 
 <h1 align="center">Nuage</h1>
