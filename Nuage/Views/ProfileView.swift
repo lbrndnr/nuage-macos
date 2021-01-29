@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SoundCloud
 
 struct ProfileView: View {
     

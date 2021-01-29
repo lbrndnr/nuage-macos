@@ -11,6 +11,7 @@ import AVFoundation
 import Combine
 import MediaPlayer
 import URLImage
+import SoundCloud
 
 protocol Streamable {
     

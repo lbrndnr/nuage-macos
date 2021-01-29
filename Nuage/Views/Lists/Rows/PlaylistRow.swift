@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import StackNavigationView
+import SoundCloud
 
 struct PlaylistRow: View {
     

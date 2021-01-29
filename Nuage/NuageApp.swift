@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import SoundCloud
 
 private let accessTokenKey = "accessToken"
 private let accessTokenExpiryDateKey = "accessTokenExpiryDate"

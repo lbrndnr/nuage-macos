@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SoundCloud
 
 private let spacing: CGFloat = 2
 private let barWidth: CGFloat = 2

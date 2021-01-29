@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import SoundCloud
 
 struct UserView: View {
     

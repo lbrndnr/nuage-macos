@@ -9,6 +9,7 @@ import SwiftUI
 import Combine
 import Introspect
 import AppKit
+import SoundCloud
 
 enum InfinitePublisher<Element: Decodable&Identifiable&Filterable> {
     case slice(AnyPublisher<Slice<Element>, Error>)

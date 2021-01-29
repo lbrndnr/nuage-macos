@@ -11,6 +11,8 @@ import Combine
 import AppKit
 import URLImage
 import Introspect
+import StackNavigationView
+import SoundCloud
 
 struct MainView: View {
     

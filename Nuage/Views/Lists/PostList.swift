@@ -7,6 +7,8 @@
 
 import SwiftUI
 import Combine
+import StackNavigationView
+import SoundCloud
 
 struct PostList: View {
     

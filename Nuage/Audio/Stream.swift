@@ -8,6 +8,7 @@
 
 import AVFoundation
 import Combine
+import SoundCloud
 
 struct NoStreamError: Error {}
 
