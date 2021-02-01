@@ -30,7 +30,7 @@ struct PlayerView: View {
             HStack {
                 Text(format(duration: player.progress))
                     .multilineTextAlignment(.trailing)
-                Slider(value: $player.progress, in: 0...duration)
+                PlayerSlider(value: $player.progress, in: 0...duration, continuousUpdate: false)
                 Text(format(duration: duration))
             }
             Button(action: player.advanceBackward) {}
@@ -52,7 +52,7 @@ struct PlayerView: View {
             }, label: {
                 Image(systemName: "speaker.fill")
             }).buttonStyle(BorderlessButtonStyle())
-            Slider(value: $player.volume, in: 0...1)
+            PlayerSlider(value: $player.volume, in: 0...1)
                 .frame(width: 100)
             Button(action: {
                 player.volume = 1

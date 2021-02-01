@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4908205025C86DD100AC92EC /* PlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908204F25C86DD100AC92EC /* PlayerSlider.swift */; };
 		4910BE9B257D868B0053AE88 /* Likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4910BE9A257D868B0053AE88 /* Likes.json */; };
 		492AF079258F877E0079035F /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492AF078258F877E0079035F /* PostList.swift */; };
 		49328ECF25C4B71500A2A34D /* SoundCloud in Frameworks */ = {isa = PBXBuildFile; productRef = 49328ECE25C4B71500A2A34D /* SoundCloud */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4908204F25C86DD100AC92EC /* PlayerSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSlider.swift; sourceTree = "<group>"; };
 		4910BE9A257D868B0053AE88 /* Likes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Likes.json; sourceTree = "<group>"; };
 		492AF078258F877E0079035F /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		49328EC225C4B6F300A2A34D /* StackNavigationView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = StackNavigationView; sourceTree = "<group>"; };
@@ -265,6 +267,7 @@
 				4969F41C257CFB100048E29B /* UserList.swift */,
 				4988D84525A1C62E0092BAFF /* UserView.swift */,
 				49E6259C25BE1E7E005BEF8C /* WebView.swift */,
+				4908204F25C86DD100AC92EC /* PlayerSlider.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				49E6259D25BE1E7E005BEF8C /* WebView.swift in Sources */,
 				4988D84625A1C62E0092BAFF /* UserView.swift in Sources */,
 				4969F431257CFB100048E29B /* TrackContextMenu.swift in Sources */,
+				4908205025C86DD100AC92EC /* PlayerSlider.swift in Sources */,
 				4999998D25B0886700F42D9B /* WaveformView.swift in Sources */,
 				49332BAE25961A3B0034A161 /* PlaylistRow.swift in Sources */,
 				4969F41E257CFB100048E29B /* Preview.swift in Sources */,
