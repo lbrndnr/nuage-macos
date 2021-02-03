@@ -32,8 +32,10 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
                 var newValue = Value(gesture.location.x/geometry.size.width) * rangeWidth + range.lowerBound
                 newValue = min(max(newValue, range.lowerBound), range.upperBound)
                 
-                if continuousUpdate { value = newValue }
-                else { updatingValue = newValue }
+                withAnimation(.linear(duration: 0.01)) {
+                    if continuousUpdate { value = newValue }
+                    else { updatingValue = newValue }
+                }
             }.onEnded { gesture in
                 value = updatingValue ?? value
                 updatingValue = nil
@@ -43,7 +45,7 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
             }
             
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
-                HStack {
+                HStack(spacing: 0) {
                     Rectangle()
                         .foregroundColor(barForegroundColor)
                         .frame(width: barValue)
