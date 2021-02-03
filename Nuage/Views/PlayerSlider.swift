@@ -15,6 +15,8 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
     private var range: ClosedRange<Value>
     private var continuousUpdate: Bool
     
+    @Environment(\.colorScheme) private var colorScheme
+    
     var body: some View {
         let knobRadius: CGFloat = 13
         
@@ -24,7 +26,7 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
             let relativeValue = rangeWidth > 0 ? CGFloat(currentValue/rangeWidth) : CGFloat(0)
             let barValue = geometry.size.width * relativeValue
             let knobValue = (geometry.size.width - knobRadius) * relativeValue
-            let knobColor = highlighted ? Color(NSColor.tertiaryLabelColor) : Color(NSColor.windowBackgroundColor)
+            let currentKnobColor = highlighted ? highlightedKnobColor : knobColor
             
             let drag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged { gesture in
                 var newValue = Value(gesture.location.x/geometry.size.width) * rangeWidth + range.lowerBound
@@ -43,17 +45,17 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
             ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
                 HStack {
                     Rectangle()
-                        .foregroundColor(Color(NSColor.tertiaryLabelColor))
+                        .foregroundColor(barForegroundColor)
                         .frame(width: barValue)
                     Rectangle()
-                        .foregroundColor(Color(NSColor.underPageBackgroundColor))
+                        .foregroundColor(barBackgroundColor)
                         .frame(width: geometry.size.width-barValue)
                 }
                 .cornerRadius(1.5)
                 .frame(height: 3)
                 Circle()
-                    .strokeBorder(Color(NSColor.tertiaryLabelColor), lineWidth: 1)
-                    .background(Circle().foregroundColor(knobColor))
+                    .strokeBorder(knobBorderColor, lineWidth: 1)
+                    .background(Circle().foregroundColor(currentKnobColor))
                     .frame(width: knobRadius, height: knobRadius)
                     .offset(x: knobValue)
             }
@@ -61,6 +63,16 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
             .gesture(drag)
         }.frame(height: knobRadius)
     }
+    
+    private var knobColor: Color { colorScheme == .light ? .white : Color(hex: 0x1A1A1A) }
+    
+    private var highlightedKnobColor: Color { colorScheme == .light ? Color(hex: 0xE5E5E5) : Color(hex: 0x3E3E3E) }
+    
+    private var knobBorderColor: Color { colorScheme == .light ? Color(hex: 0xBFBFBF) : Color(hex: 0x5A5A5A) }
+    
+    private var barForegroundColor: Color { colorScheme == .light ? Color(hex: 0xBFBFBF) : Color(hex: 0x5F5F5F) }
+    
+    private var barBackgroundColor: Color { colorScheme == .light ? Color(hex: 0xF2F2F2) : Color(hex: 0x2C2C2C) }
 
     init(value: Binding<Value>, in range: ClosedRange<Value>, continuousUpdate: Bool = true) {
         self._value = value

@@ -22,7 +22,7 @@
 		4969F3DC257CFA800048E29B /* NuageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3DB257CFA800048E29B /* NuageTests.swift */; };
 		4969F3E7257CFA800048E29B /* NuageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3E6257CFA800048E29B /* NuageUITests.swift */; };
 		4969F41E257CFB100048E29B /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F400257CFB100048E29B /* Preview.swift */; };
-		4969F428257CFB100048E29B /* Externals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40B257CFB100048E29B /* Externals.swift */; };
+		4969F428257CFB100048E29B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40B257CFB100048E29B /* Helpers.swift */; };
 		4969F42A257CFB100048E29B /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40E257CFB100048E29B /* Stream.swift */; };
 		4969F42B257CFB100048E29B /* StreamPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40F257CFB100048E29B /* StreamPlayer.swift */; };
 		4969F42C257CFB100048E29B /* TrackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F411257CFB100048E29B /* TrackView.swift */; };
@@ -83,7 +83,7 @@
 		4969F3E6257CFA800048E29B /* NuageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuageUITests.swift; sourceTree = "<group>"; };
 		4969F3E8257CFA800048E29B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4969F400257CFB100048E29B /* Preview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
-		4969F40B257CFB100048E29B /* Externals.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Externals.swift; sourceTree = "<group>"; };
+		4969F40B257CFB100048E29B /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		4969F40E257CFB100048E29B /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
 		4969F40F257CFB100048E29B /* StreamPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamPlayer.swift; sourceTree = "<group>"; };
 		4969F411257CFB100048E29B /* TrackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackView.swift; sourceTree = "<group>"; };
@@ -207,7 +207,7 @@
 				4969F410257CFB100048E29B /* Views */,
 				4969F40D257CFB100048E29B /* Audio */,
 				4910BE99257D868B0053AE88 /* Resources */,
-				4969F40B257CFB100048E29B /* Externals.swift */,
+				4969F40B257CFB100048E29B /* Helpers.swift */,
 				4969F400257CFB100048E29B /* Preview.swift */,
 				4969F3CC257CFA800048E29B /* Assets.xcassets */,
 				4969F3D1257CFA800048E29B /* Info.plist */,
@@ -434,7 +434,7 @@
 				4969F41E257CFB100048E29B /* Preview.swift in Sources */,
 				4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */,
 				4969F436257CFB100048E29B /* MainView.swift in Sources */,
-				4969F428257CFB100048E29B /* Externals.swift in Sources */,
+				4969F428257CFB100048E29B /* Helpers.swift in Sources */,
 				49FA14C62589693E00CEF925 /* InfinteList.swift in Sources */,
 				4969F42E257CFB100048E29B /* LoginView.swift in Sources */,
 				492AF079258F877E0079035F /* PostList.swift in Sources */,

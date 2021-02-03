@@ -37,7 +37,7 @@ struct MainView: View {
         let history = SoundCloud.shared.get(.history())
         let historyView = TrackList(for: history).navigationTitle("History")
         
-        return VStack {
+        return VStack(spacing: 0) {
 //            let presentSearch = Binding(get: { searchQuery.count > 0 },
 //                                        set: { presented in
 //                                            if !presented {

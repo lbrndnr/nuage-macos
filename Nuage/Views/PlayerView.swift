@@ -12,6 +12,7 @@ import StackNavigationView
 struct PlayerView: View {
     
     @EnvironmentObject private var player: StreamPlayer
+    @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
         let duration = TimeInterval(player.currentStream?.duration ?? 0)
@@ -20,10 +21,6 @@ struct PlayerView: View {
             if let track = player.currentStream {
                 StackNavigationLink(destination: TrackView(track: track)) {
                     RemoteImage(url: player.currentStream?.artworkURL, width: 50, height: 50, cornerRadius: 3)
-                    VStack {
-                        Text(player.currentStream?.title ?? "")
-                            .frame(maxWidth: 100, alignment: .leading)
-                    }
                 }
             }
             
@@ -33,25 +30,40 @@ struct PlayerView: View {
                 PlayerSlider(value: $player.progress, in: 0...duration, continuousUpdate: false)
                 Text(format(duration: duration))
             }
-            Button(action: player.advanceBackward) {}
-                .buttonStyle(FillableSysteImageStyle(systemImageName: "backward.end"))
-                .frame(width: 20, height: 20)
+            .foregroundColor(controlColor)
             
-            let playStateImageName = player.isPlaying ? "pause" : "play"
-            Button(action: player.togglePlayback) {}
-                .buttonStyle(FillableSysteImageStyle(systemImageName: playStateImageName))
-                .frame(width: 20, height: 20)
+            Button(action: player.advanceBackward) {
+                Image(systemName: "backward.end.fill")
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .frame(width: 20, height: 20)
+            .foregroundColor(controlColor)
             
-            Button(action: player.advanceForward) {}
-                .buttonStyle(FillableSysteImageStyle(systemImageName: "forward.end"))
-                .frame(width: 20, height: 20)
+            Button(action: player.togglePlayback) {
+                let playStateImageName = player.isPlaying ? "pause.fill" : "play.fill"
+                Image(systemName: playStateImageName)
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .frame(width: 20, height: 20)
+            .foregroundColor(controlColor)
+            
+            Button(action: player.advanceForward) {
+                Image(systemName: "forward.end.fill")
+            }
+            .buttonStyle(BorderlessButtonStyle())
+            .frame(width: 20, height: 20)
+            .foregroundColor(controlColor)
+            
             Spacer()
                 .frame(width: 30)
+            
             Button(action: {
                 player.volume = 0
             }, label: {
                 Image(systemName: "speaker.fill")
             }).buttonStyle(BorderlessButtonStyle())
+            .foregroundColor(controlColor)
+            
             PlayerSlider(value: $player.volume, in: 0...1)
                 .frame(width: 100)
             Button(action: {
@@ -59,10 +71,16 @@ struct PlayerView: View {
             }, label: {
                 Image(systemName: "speaker.wave.3.fill")
             }).buttonStyle(BorderlessButtonStyle())
+            .foregroundColor(controlColor)
         }
         .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
         .frame(height: 60)
+        .background(backgroundColor)
     }
+    
+    private var backgroundColor: Color { colorScheme == .light ? .white : Color(hex: 0x1A1A1A) }
+    
+    private var controlColor: Color { colorScheme == .light ? Color(hex: 0xBFBFBF) : Color(hex: 0x5B5B5B) }
     
 }
 

@@ -188,4 +188,13 @@ func RemoteImage(url: URL?, width: CGFloat, height: CGFloat, cornerRadius: CGFlo
     return AnyView(image)
 }
 
-
+extension Color {
+    
+    init(hex: UInt, alpha: Double = 1) {
+        let red = Double((hex >> 16) & 0xff) / 255
+        let green = Double((hex >> 08) & 0xff) / 255
+        let blue = Double((hex >> 00) & 0xff) / 255
+        self.init(.sRGB, red: red, green: green, blue: blue, opacity: alpha)
+    }
+    
+}
