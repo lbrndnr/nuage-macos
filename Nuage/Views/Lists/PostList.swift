@@ -37,7 +37,8 @@ struct PostList: View {
             return AnyView(VStack(alignment: .leading) {
                 HStack(spacing: 10) {
                     StackNavigationLink(destination: UserView(user: post.user)) {
-                        RemoteImage(url: post.user.avatarURL, width: 30, height: 30, cornerRadius: 15)
+                        RemoteImage(url: post.user.avatarURL, cornerRadius: 15)
+                            .frame(width: 30, height: 30)
                         Text("\(post.user.username) \(action)")
                     }
                 }

@@ -40,7 +40,8 @@ struct UserRow: View {
     
     var body: some View {
         HStack {
-            RemoteImage(url: user.avatarURL, width: 50, height: 50, cornerRadius: 25)
+            RemoteImage(url: user.avatarURL, cornerRadius: 25)
+                .frame(width: 50, height: 50)
             VStack(alignment: .leading) {
                 Text(user.username)
                     .bold()

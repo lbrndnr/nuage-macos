@@ -109,7 +109,8 @@ struct MainView: View {
                         Text(SoundCloud.shared.user?.username ?? "Profile")
                             .bold()
                             .foregroundColor(.secondary)
-                        RemoteImage(url: SoundCloud.shared.user?.avatarURL, width: 30, height: 30, cornerRadius: 15)
+                        RemoteImage(url: SoundCloud.shared.user?.avatarURL, cornerRadius: 15)
+                            .frame(width: 30, height: 30)
                     }
                 }
                 .buttonStyle(PlainButtonStyle())

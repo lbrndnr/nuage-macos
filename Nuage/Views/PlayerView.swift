@@ -20,15 +20,18 @@ struct PlayerView: View {
         return HStack {
             if let track = player.currentStream {
                 StackNavigationLink(destination: TrackView(track: track)) {
-                    RemoteImage(url: player.currentStream?.artworkURL, width: 50, height: 50, cornerRadius: 3)
+                    RemoteImage(url: player.currentStream?.artworkURL, cornerRadius: 3)
+                        .frame(width: 50, height: 50)
                 }
             }
             
             HStack {
                 Text(format(duration: player.progress))
                     .multilineTextAlignment(.trailing)
+                    .frame(width: 50)
                 PlayerSlider(value: $player.progress, in: 0...duration, updateStrategy: .onCommit)
                 Text(format(duration: duration))
+                    .frame(width: 50)
             }
             .foregroundColor(controlColor)
             
@@ -73,7 +76,7 @@ struct PlayerView: View {
             }).buttonStyle(BorderlessButtonStyle())
             .foregroundColor(controlColor)
         }
-        .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+        .padding(.all)
         .frame(height: 60)
         .background(backgroundColor)
     }

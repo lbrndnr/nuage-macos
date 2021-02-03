@@ -23,7 +23,8 @@ struct TrackView: View {
         VStack(alignment: .leading) {
             HStack(alignment: .bottom, spacing: 10) {
                 VStack(alignment: .leading) {
-                    RemoteImage(url: track.artworkURL, width: 100, height: 100, cornerRadius: 6)
+                    RemoteImage(url: track.artworkURL, cornerRadius: 6)
+                        .frame(width: 100, height: 100)
                 }
                 if let waveform = waveform {
                     WaveformView(waveform: waveform)

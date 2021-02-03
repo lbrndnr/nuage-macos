@@ -26,7 +26,8 @@ struct PlaylistRow: View {
         
         return HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading) {
-                RemoteImage(url: artworkURL, width: 100, height: 100, cornerRadius: 6)
+                Artwork(url: playlist.artworkURL) { }
+                    .frame(width: 100, height: 100)
                 Spacer()
                 HStack {
                     Button(action: onLike) {

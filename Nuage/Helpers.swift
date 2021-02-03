@@ -165,10 +165,9 @@ extension User {
     
 }
 
-func RemoteImage(url: URL?, width: CGFloat, height: CGFloat, cornerRadius: CGFloat) -> AnyView {
+func RemoteImage(url: URL?, cornerRadius: CGFloat) -> AnyView {
     let placeholder = Rectangle()
         .foregroundColor(.gray)
-        .frame(width: width, height: height)
         .cornerRadius(cornerRadius)
     
     guard let url = url else {
@@ -183,7 +182,6 @@ func RemoteImage(url: URL?, width: CGFloat, height: CGFloat, cornerRadius: CGFlo
                 image.resizable()
                     .cornerRadius(cornerRadius)
              })
-        .frame(width: width, height: height)
     
     return AnyView(image)
 }
