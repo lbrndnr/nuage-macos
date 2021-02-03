@@ -25,26 +25,17 @@ struct SearchList: View {
 //                play(tracks, from: idx, on: player)
             }
             
-            let toggleLikeCurrentTrack = {
-//                toggleLike(track)
-            }
-            let repostCurrentTrack = {
-//                onRepost(track)
-            }
-            
             switch element {
             case .track(let track):
                 return AnyView(StackNavigationLink(destination: TrackView(track: track)) {
-                    TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
-                        .onTapGesture(count: 2, perform: onPlay)
+                    TrackRow(track: track, onPlay: onPlay)
                 }
                 .trackContextMenu(track: track, onPlay: onPlay))
             case .playlist(let playlist):
                 return AnyView(VStack(alignment: .leading) {
-                    PlaylistRow(playlist: playlist, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
+                    PlaylistRow(playlist: playlist, onPlay: onPlay)
                     Divider()
-                }
-                .onTapGesture(count: 2, perform: onPlay))
+                })
             case .user(let user):
                 return AnyView(UserRow(user: user))
             }

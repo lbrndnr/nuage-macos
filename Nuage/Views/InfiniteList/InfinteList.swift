@@ -50,7 +50,9 @@ struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View 
                     .onExitCommand(perform: stopFiltering)
             }
             List(0..<displayedElements.count, id: \.self) { idx in
-                row(displayedElements, idx).onAppear {
+                row(displayedElements, idx)
+                    .id(idx)
+                    .onAppear {
                     if idx == elements.count/2 {
                         getNextSlice()
                     }

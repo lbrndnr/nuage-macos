@@ -12,13 +12,11 @@ import SoundCloud
 struct PlaylistRow: View {
     
     private var playlist: Playlist
-    private var onLike: () -> ()
-    private var onReblog: () -> ()
+    private var onPlay: () -> ()
     
-    init(playlist: Playlist, onLike: @escaping () -> (), onReblog: @escaping () -> ()) {
+    init(playlist: Playlist, onPlay: @escaping () -> ()) {
         self.playlist = playlist
-        self.onLike = onLike
-        self.onReblog = onReblog
+        self.onPlay = onPlay
     }
     
     var body: some View {
@@ -26,14 +24,14 @@ struct PlaylistRow: View {
         
         return HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading) {
-                Artwork(url: playlist.artworkURL) { }
+                Artwork(url: artworkURL, onPlay: onPlay)
                     .frame(width: 100, height: 100)
                 Spacer()
                 HStack {
-                    Button(action: onLike) {
+                    Button(action: { }) {
                         Image(systemName: "heart")
                     }.buttonStyle(BorderlessButtonStyle())
-                    Button(action: onReblog) {
+                    Button(action: { }) {
                         Image(systemName: "arrow.triangle.2.circlepath")
                     }.buttonStyle(BorderlessButtonStyle())
                 }

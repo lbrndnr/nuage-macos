@@ -22,12 +22,6 @@ struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
         InfinteList(publisher: publisher) { elements, idx -> AnyView in
             let track = transform(elements[idx])
             
-            let toggleLikeCurrentTrack = {
-                toggleLike(track)
-            }
-            let repostCurrentTrack = {
-//                onRepost(track)
-            }
             let onPlay = {
                 let tracks = elements.map(transform)
                 play(tracks, from: idx, on: player)
@@ -35,10 +29,9 @@ struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
 
             return AnyView(StackNavigationLink(destination: TrackView(track: track)) {
                 VStack(alignment: .leading) {
-                    TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
+                    TrackRow(track: track, onPlay: onPlay)
                     Divider()
                 }
-                .onTapGesture(count: 2, perform: onPlay)
                 .trackContextMenu(track: track, onPlay: onPlay)
             })
         }

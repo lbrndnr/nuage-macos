@@ -19,13 +19,6 @@ struct PostList: View {
     var body: some View {
         InfinteList(publisher: publisher) { posts, idx -> AnyView in
             let post = posts[idx]
-            
-            let toggleLikeCurrentTrack = {
-//                toggleLike(track)
-            }
-            let repostCurrentTrack = {
-                print("reblog")
-            }
             let onPlay = {
                 let allTracks = posts.flatMap { $0.tracks }
                 let trackCounts = posts.map { $0.tracks.count }
@@ -47,13 +40,12 @@ struct PostList: View {
 
                 if case let .track(track) = post.item {
                     StackNavigationLink(destination: TrackView(track: track)) {
-                        TrackRow(track: track, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
-                            .onTapGesture(count: 2, perform: onPlay)
+                        TrackRow(track: track, onPlay: onPlay)
                     }
                     .trackContextMenu(track: track, onPlay: onPlay)
                 }
                 else if case let .playlist(playlist) = post.item {
-                    PlaylistRow(playlist: playlist, onLike: toggleLikeCurrentTrack, onReblog: repostCurrentTrack)
+                    PlaylistRow(playlist: playlist, onPlay: onPlay)
                         .onTapGesture(count: 2, perform: onPlay)
                 }
 

@@ -26,6 +26,7 @@ struct Artwork: View {
                         Image(systemName: "play.fill")
                             .resizable()
                             .frame(width: 25, height: 25)
+                            .offset(x: 2)
                     }
                 }
                 .buttonStyle(BorderlessButtonStyle())
