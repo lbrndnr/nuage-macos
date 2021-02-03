@@ -27,7 +27,7 @@ struct PlayerView: View {
             HStack {
                 Text(format(duration: player.progress))
                     .multilineTextAlignment(.trailing)
-                PlayerSlider(value: $player.progress, in: 0...duration, continuousUpdate: false)
+                PlayerSlider(value: $player.progress, in: 0...duration, updateStrategy: .onCommit)
                 Text(format(duration: duration))
             }
             .foregroundColor(controlColor)
@@ -64,7 +64,7 @@ struct PlayerView: View {
             }).buttonStyle(BorderlessButtonStyle())
             .foregroundColor(controlColor)
             
-            PlayerSlider(value: $player.volume, in: 0...1)
+            PlayerSlider(value: $player.volume, in: 0...1, updateStrategy: .incremental(0.05))
                 .frame(width: 100)
             Button(action: {
                 player.volume = 1

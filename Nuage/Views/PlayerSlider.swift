@@ -9,11 +9,17 @@ import SwiftUI
 
 struct PlayerSlider<Value : BinaryFloatingPoint>: View {
     
+    enum UpdateStrategy {
+        case continuous
+        case incremental(Value)
+        case onCommit
+    }
+    
     @Binding private var value: Value
     @State private var updatingValue: Value?
     @GestureState private var highlighted = false
     private var range: ClosedRange<Value>
-    private var continuousUpdate: Bool
+    private var updateStrategy: UpdateStrategy
     
     @Environment(\.colorScheme) private var colorScheme
     
@@ -33,8 +39,13 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
                 newValue = min(max(newValue, range.lowerBound), range.upperBound)
                 
                 withAnimation(.linear(duration: 0.01)) {
-                    if continuousUpdate { value = newValue }
-                    else { updatingValue = newValue }
+                    switch updateStrategy {
+                    case .continuous: value = newValue
+                    case .incremental(let delta):
+                        updatingValue = newValue
+                        value = round(newValue/delta)*delta
+                    case .onCommit: updatingValue = newValue
+                    }
                 }
             }.onEnded { gesture in
                 value = updatingValue ?? value
@@ -76,10 +87,14 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
     
     private var barBackgroundColor: Color { colorScheme == .light ? Color(hex: 0xF2F2F2) : Color(hex: 0x2C2C2C) }
 
-    init(value: Binding<Value>, in range: ClosedRange<Value>, continuousUpdate: Bool = true) {
+    init(value: Binding<Value>, in range: ClosedRange<Value>, updateStrategy: UpdateStrategy = .continuous) {
         self._value = value
         self.range = range
-        self.continuousUpdate = continuousUpdate
+        self.updateStrategy = updateStrategy
+        
+        if case let .incremental(delta) = updateStrategy {
+            assert(delta > 0, "The delta must be strictly larger than 0")
+        }
     }
 
 }
