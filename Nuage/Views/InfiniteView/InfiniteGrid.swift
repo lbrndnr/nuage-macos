@@ -41,7 +41,7 @@ struct InfiniteGrid<Element: Decodable&Identifiable&Filterable, Item: View>: Vie
                     .onExitCommand(perform: stopFiltering)
             }
             
-            GridStack(minCellWidth: 200, spacing: 20, numItems: displayedElements.count, alignment: .center) { idx, width in
+            GridStack(minCellWidth: 100, spacing: 20, numItems: displayedElements.count, alignment: .leading) { idx, width in
                 item(displayedElements, idx)
                     .id(idx)
                     .onAppear {

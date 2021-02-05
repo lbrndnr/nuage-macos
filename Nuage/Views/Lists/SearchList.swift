@@ -37,7 +37,7 @@ struct SearchList: View {
                     Divider()
                 })
             case .user(let user):
-                return AnyView(UserRow(user: user))
+                return AnyView(UserItem(user: user))
             }
         }
         .navigationTitle("Search")

@@ -20,7 +20,7 @@ struct UserGrid<Element: Decodable&Identifiable&Filterable>: View {
         InfiniteGrid(publisher: publisher) { users, idx -> AnyView in
             let user = transform(users[idx])
             AnyView(StackNavigationLink(destination: UserView(user: user)) {
-                UserRow(user: user)
+                UserItem(user: user)
             })
         }
     }
@@ -43,15 +43,14 @@ extension UserGrid where Element == Recommendation {
     
 }
 
-
-struct UserRow: View {
+struct UserItem: View {
     
     var user: User
     
     var body: some View {
-        HStack {
-            RemoteImage(url: user.avatarURL, cornerRadius: 25)
-                .frame(width: 50, height: 50)
+        VStack {
+            RemoteImage(url: user.avatarURL, cornerRadius: 75)
+                .frame(width: 100, height: 100)
             VStack(alignment: .leading) {
                 Text(user.username)
                     .bold()

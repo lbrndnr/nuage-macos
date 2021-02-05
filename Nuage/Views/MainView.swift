@@ -37,7 +37,7 @@ struct MainView: View {
         let history = SoundCloud.shared.get(.history())
         let historyView = TrackList(for: history).navigationTitle("History")
         
-        let following = SoundCloud.shared.get(.whoToFollow())
+        let following = SoundCloud.shared.get(.followings(of: SoundCloud.shared.user!))
         let followingView = UserGrid(for: following).navigationTitle("Following")
         
         return VStack(spacing: 0) {
