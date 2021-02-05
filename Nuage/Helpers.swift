@@ -129,6 +129,14 @@ extension HistoryItem: Filterable {
     
 }
 
+extension Recommendation: Filterable {
+    
+    func contains(_ text: String) -> Bool {
+        return user.contains(text)
+    }
+    
+}
+
 extension String {
     
     fileprivate func containsCaseInsensitive(_ text: String) -> Bool {

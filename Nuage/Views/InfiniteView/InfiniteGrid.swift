@@ -1,26 +1,17 @@
 //
-//  InfinteList.swift
+//  InfiniteGrid.swift
 //  Nuage
 //
-//  Created by Laurin Brandner on 15.12.20.
+//  Created by Laurin Brandner on 05.02.21.
 //
 
 import SwiftUI
-import Combine
-import Introspect
-import AppKit
-import SoundCloud
+import GridStack
 
-enum InfinitePublisher<Element: Decodable&Identifiable&Filterable> {
-    case slice(AnyPublisher<Slice<Element>, Error>)
-    case array(AnyPublisher<[Int], Error>, ([Int]) -> AnyPublisher<[Element], Error>)
-}
-
-struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View {
+struct InfiniteGrid<Element: Decodable&Identifiable&Filterable, Item: View>: View {
     
-    @State private var tracks = [Track]()
     private var publisher: InfinitePublisher<Element>
-    private var row: ([Element], Int) -> Row
+    private var item: ([Element], Int) -> Item
     @State private var filter = ""
     @State private var isSearching = false
     
@@ -28,14 +19,14 @@ struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View 
     
     var body: some View {
         if case let .slice(publisher) = publisher {
-            SliceView(publisher: publisher, content: list)
+            SliceView(publisher: publisher, content: grid)
         }
         else if case let .array(arrayPublisher, slicePublisher) = publisher {
-            ArrayView(arrayPublisher: arrayPublisher, slicePublisher: slicePublisher, content: list)
+            ArrayView(arrayPublisher: arrayPublisher, slicePublisher: slicePublisher, content: grid)
         }
     }
     
-    @ViewBuilder func list(for elements: [Element], getNextSlice: @escaping () -> ()) -> some View {
+    @ViewBuilder func grid(for elements: [Element], getNextSlice: @escaping () -> ()) -> some View {
         let displayedElements = (filter.count > 0) ? elements.filter { $0.contains(filter) } : elements
         
         VStack {
@@ -49,8 +40,9 @@ struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View 
                     .introspectTextField { $0.becomeFirstResponder() }
                     .onExitCommand(perform: stopFiltering)
             }
-            List(0..<displayedElements.count, id: \.self) { idx in
-                row(displayedElements, idx)
+            
+            GridStack(minCellWidth: 200, spacing: 20, numItems: displayedElements.count, alignment: .center) { idx, width in
+                item(displayedElements, idx)
                     .id(idx)
                     .onAppear {
                     if idx == elements.count/2 {
@@ -63,9 +55,9 @@ struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View 
         }
     }
     
-    init(publisher: InfinitePublisher<Element>, @ViewBuilder row: @escaping ([Element], Int) -> Row) {
+    init(publisher: InfinitePublisher<Element>, @ViewBuilder item: @escaping ([Element], Int) -> Item) {
         self.publisher = publisher
-        self.row = row
+        self.item = item
     }
     
     private func stopFiltering() {
@@ -74,5 +66,5 @@ struct InfinteList<Element: Decodable&Identifiable&Filterable, Row: View>: View 
             filter = ""
         }
     }
-
+    
 }

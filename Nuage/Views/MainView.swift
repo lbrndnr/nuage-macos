@@ -37,6 +37,9 @@ struct MainView: View {
         let history = SoundCloud.shared.get(.history())
         let historyView = TrackList(for: history).navigationTitle("History")
         
+        let following = SoundCloud.shared.get(.whoToFollow())
+        let followingView = UserGrid(for: following).navigationTitle("Following")
+        
         return VStack(spacing: 0) {
 //            let presentSearch = Binding(get: { searchQuery.count > 0 },
 //                                        set: { presented in
@@ -58,7 +61,7 @@ struct MainView: View {
                     Section(header: Text("Library")) {
                         SidebarNavigationLink("Likes", destination: likesView, tag: 1, selection: $navigationSelection)
                         SidebarNavigationLink("History", destination: historyView, tag: 2, selection: $navigationSelection)
-                        SidebarNavigationLink("Following", destination: UserList(), tag: 3, selection: $navigationSelection)
+                        SidebarNavigationLink("Following", destination: followingView, tag: 3, selection: $navigationSelection)
                     }
                     Section(header: Text("Playlists")) {
                         ForEach(0..<playlists.count, id: \.self) { idx in

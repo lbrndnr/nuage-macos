@@ -33,7 +33,9 @@
 		4969F434257CFB100048E29B /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F419257CFB100048E29B /* PlayerView.swift */; };
 		4969F435257CFB100048E29B /* SliceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41A257CFB100048E29B /* SliceView.swift */; };
 		4969F436257CFB100048E29B /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41B257CFB100048E29B /* MainView.swift */; };
-		4969F437257CFB100048E29B /* UserList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41C257CFB100048E29B /* UserList.swift */; };
+		4969F437257CFB100048E29B /* UserGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F41C257CFB100048E29B /* UserGrid.swift */; };
+		4980FD2325CD6333004640D5 /* InfiniteGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4980FD2225CD6333004640D5 /* InfiniteGrid.swift */; };
+		4980FD4025CD704E004640D5 /* GridStack in Frameworks */ = {isa = PBXBuildFile; productRef = 4980FD3F25CD704E004640D5 /* GridStack */; };
 		498286F825969AE800147DBE /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 498286F725969AE800147DBE /* Introspect */; };
 		4988D84625A1C62E0092BAFF /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988D84525A1C62E0092BAFF /* UserView.swift */; };
 		4998E12125CADC8300EB986F /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998E12025CADC8300EB986F /* Artwork.swift */; };
@@ -95,7 +97,8 @@
 		4969F419257CFB100048E29B /* PlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		4969F41A257CFB100048E29B /* SliceView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SliceView.swift; sourceTree = "<group>"; };
 		4969F41B257CFB100048E29B /* MainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		4969F41C257CFB100048E29B /* UserList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserList.swift; sourceTree = "<group>"; };
+		4969F41C257CFB100048E29B /* UserGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserGrid.swift; sourceTree = "<group>"; };
+		4980FD2225CD6333004640D5 /* InfiniteGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteGrid.swift; sourceTree = "<group>"; };
 		4988D84525A1C62E0092BAFF /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		4998E12025CADC8300EB986F /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		4999998C25B0886700F42D9B /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
@@ -113,6 +116,7 @@
 				498286F825969AE800147DBE /* Introspect in Frameworks */,
 				49328ECF25C4B71500A2A34D /* SoundCloud in Frameworks */,
 				49B154C525C4685D00CE9511 /* URLImage in Frameworks */,
+				4980FD4025CD704E004640D5 /* GridStack in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,14 +145,15 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
-		492AF0CE258FC4A10079035F /* InfiniteList */ = {
+		492AF0CE258FC4A10079035F /* InfiniteView */ = {
 			isa = PBXGroup;
 			children = (
 				4969F41A257CFB100048E29B /* SliceView.swift */,
 				49FA14BA2589635800CEF925 /* ArrayView.swift */,
 				49FA14C52589693E00CEF925 /* InfinteList.swift */,
+				4980FD2225CD6333004640D5 /* InfiniteGrid.swift */,
 			);
-			path = InfiniteList;
+			path = InfiniteView;
 			sourceTree = "<group>";
 		};
 		49328EB325C4B57D00A2A34D /* Frameworks */ = {
@@ -258,7 +263,7 @@
 			isa = PBXGroup;
 			children = (
 				4969F41B257CFB100048E29B /* MainView.swift */,
-				492AF0CE258FC4A10079035F /* InfiniteList */,
+				492AF0CE258FC4A10079035F /* InfiniteView */,
 				49332BA025961A120034A161 /* Lists */,
 				4969F411257CFB100048E29B /* TrackView.swift */,
 				4999998C25B0886700F42D9B /* WaveformView.swift */,
@@ -266,7 +271,7 @@
 				4969F412257CFB100048E29B /* ProfileView.swift */,
 				4969F413257CFB100048E29B /* LoginView.swift */,
 				4969F419257CFB100048E29B /* PlayerView.swift */,
-				4969F41C257CFB100048E29B /* UserList.swift */,
+				4969F41C257CFB100048E29B /* UserGrid.swift */,
 				4988D84525A1C62E0092BAFF /* UserView.swift */,
 				49E6259C25BE1E7E005BEF8C /* WebView.swift */,
 				4908204F25C86DD100AC92EC /* PlayerSlider.swift */,
@@ -298,6 +303,7 @@
 				49B154C425C4685D00CE9511 /* URLImage */,
 				49328ECE25C4B71500A2A34D /* SoundCloud */,
 				49328ED025C4B71500A2A34D /* StackNavigationView */,
+				4980FD3F25CD704E004640D5 /* GridStack */,
 			);
 			productName = Nuage;
 			productReference = 4969F3C5257CFA7F0048E29B /* Nuage.app */;
@@ -373,6 +379,7 @@
 			packageReferences = (
 				498286F625969AE800147DBE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */,
 				49B154C325C4685D00CE9511 /* XCRemoteSwiftPackageReference "url-image" */,
+				4980FD3E25CD704E004640D5 /* XCRemoteSwiftPackageReference "GridStack" */,
 			);
 			productRefGroup = 4969F3C6257CFA7F0048E29B /* Products */;
 			projectDirPath = "";
@@ -426,7 +433,7 @@
 				49332BBE2596260A0034A161 /* Actions.swift in Sources */,
 				4969F42B257CFB100048E29B /* StreamPlayer.swift in Sources */,
 				4969F42C257CFB100048E29B /* TrackView.swift in Sources */,
-				4969F437257CFB100048E29B /* UserList.swift in Sources */,
+				4969F437257CFB100048E29B /* UserGrid.swift in Sources */,
 				4969F42D257CFB100048E29B /* ProfileView.swift in Sources */,
 				49E6259D25BE1E7E005BEF8C /* WebView.swift in Sources */,
 				4988D84625A1C62E0092BAFF /* UserView.swift in Sources */,
@@ -435,6 +442,7 @@
 				4999998D25B0886700F42D9B /* WaveformView.swift in Sources */,
 				49332BAE25961A3B0034A161 /* PlaylistRow.swift in Sources */,
 				4969F41E257CFB100048E29B /* Preview.swift in Sources */,
+				4980FD2325CD6333004640D5 /* InfiniteGrid.swift in Sources */,
 				4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */,
 				4969F436257CFB100048E29B /* MainView.swift in Sources */,
 				4998E12125CADC8300EB986F /* Artwork.swift in Sources */,
@@ -769,6 +777,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		4980FD3E25CD704E004640D5 /* XCRemoteSwiftPackageReference "GridStack" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pietropizzi/GridStack";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.1;
+			};
+		};
 		498286F625969AE800147DBE /* XCRemoteSwiftPackageReference "SwiftUI-Introspect" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/siteline/SwiftUI-Introspect";
@@ -803,6 +819,11 @@
 		49328ED025C4B71500A2A34D /* StackNavigationView */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = StackNavigationView;
+		};
+		4980FD3F25CD704E004640D5 /* GridStack */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4980FD3E25CD704E004640D5 /* XCRemoteSwiftPackageReference "GridStack" */;
+			productName = GridStack;
 		};
 		498286F725969AE800147DBE /* Introspect */ = {
 			isa = XCSwiftPackageProductDependency;
