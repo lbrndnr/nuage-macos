@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 import StackNavigationView
 import SoundCloud
 
@@ -13,6 +14,8 @@ struct TrackRow: View {
     
     private var track: Track
     private var onPlay: () -> ()
+    
+    @State private var subscriptions = Set<AnyCancellable>()
     
     init(track: Track, onPlay: @escaping () -> ()) {
         self.track = track
@@ -28,10 +31,24 @@ struct TrackRow: View {
                     .frame(width: 100, height: 100)
                 Spacer()
                 HStack {
-                    Button(action: { }) {
+                    Button(action: {
+                        SoundCloud.shared.perform(.like(track))
+                            .receive(on: RunLoop.main)
+                            .sink(receiveCompletion: { _ in }) { success in
+                                print("liked")
+                            }
+                            .store(in: &subscriptions)
+                    }) {
                         Image(systemName: "heart")
                     }.buttonStyle(BorderlessButtonStyle())
-                    Button(action: { }) {
+                    Button(action: {
+//                        SoundCloud.shared.perform(.like(track))
+//                            .receive(on: RunLoop.main)
+//                            .sink(receiveCompletion: { _ in }) { success in
+//                                print("liked")
+//                            }
+//                            .store(in: &subscriptions)
+                    }) {
                         Image(systemName: "arrow.triangle.2.circlepath")
                     }.buttonStyle(BorderlessButtonStyle())
                 }
