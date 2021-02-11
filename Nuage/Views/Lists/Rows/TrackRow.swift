@@ -31,24 +31,10 @@ struct TrackRow: View {
                     .frame(width: 100, height: 100)
                 Spacer()
                 HStack {
-                    Button(action: {
-                        SoundCloud.shared.perform(.like(track))
-                            .receive(on: RunLoop.main)
-                            .sink(receiveCompletion: { _ in }) { success in
-                                print("liked")
-                            }
-                            .store(in: &subscriptions)
-                    }) {
+                    Button(action: toggleLike(track)) {
                         Image(systemName: "heart")
                     }.buttonStyle(BorderlessButtonStyle())
-                    Button(action: {
-//                        SoundCloud.shared.perform(.like(track))
-//                            .receive(on: RunLoop.main)
-//                            .sink(receiveCompletion: { _ in }) { success in
-//                                print("liked")
-//                            }
-//                            .store(in: &subscriptions)
-                    }) {
+                    Button(action: toggleRepost(track)) {
                         Image(systemName: "arrow.triangle.2.circlepath")
                     }.buttonStyle(BorderlessButtonStyle())
                 }

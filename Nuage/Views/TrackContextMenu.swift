@@ -29,8 +29,8 @@ struct TrackContextMenu: ViewModifier {
                 print("haha")
             }
             Divider()
-            Button("Like", action: toggleLike)
-            Button("Repost", action: repost)
+            Button("Like", action: toggleLike(track))
+            Button("Repost", action: toggleRepost(track))
             Menu("Add to Playlist") {
                 Button("New Playlist") {
                     print("new playlist lel")
@@ -66,19 +66,6 @@ struct TrackContextMenu: ViewModifier {
     init(track: Track, onPlay: @escaping () -> ()) {
         self.track = track
         self.onPlay = onPlay
-    }
-    
-    private func toggleLike() {
-        SoundCloud.shared.perform(.like(track))
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { success in
-                print("liked track:", success)
-            }).store(in: &subscriptions)
-    }
-    
-    private func repost() {
-        print("repost")
     }
 
 }

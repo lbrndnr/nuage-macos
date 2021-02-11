@@ -28,10 +28,10 @@ struct PlaylistRow: View {
                     .frame(width: 100, height: 100)
                 Spacer()
                 HStack {
-                    Button(action: { }) {
+                    Button(action: toggleLike(playlist)) {
                         Image(systemName: "heart")
                     }.buttonStyle(BorderlessButtonStyle())
-                    Button(action: { }) {
+                    Button(action: toggleRepost(playlist)) {
                         Image(systemName: "arrow.triangle.2.circlepath")
                     }.buttonStyle(BorderlessButtonStyle())
                 }
