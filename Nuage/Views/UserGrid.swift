@@ -49,7 +49,7 @@ struct UserItem: View {
     
     var body: some View {
         VStack {
-            RemoteImage(url: user.avatarURL, cornerRadius: 75)
+            RemoteImage(url: user.avatarURL, cornerRadius: 50)
                 .frame(width: 100, height: 100)
             VStack(alignment: .leading) {
                 Text(user.username)
