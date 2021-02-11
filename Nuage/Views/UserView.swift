@@ -33,6 +33,8 @@ struct UserView: View {
             Picker(selection: $selection, label: EmptyView()) {
                 Text("Stream").tag(0)
                 Text("Likes").tag(1)
+                Text("Following").tag(2)
+                Text("Followers").tag(3)
             }
             .pickerStyle(SegmentedPickerStyle())
             .frame(width: 400)
@@ -48,11 +50,11 @@ struct UserView: View {
     }
     
     @ViewBuilder private func stream(for selection: Int) -> some View {
-        if selection == 1 {
-            TrackList(for: SoundCloud.shared.get(.trackLikes(of: user)))
-        }
-        else {
-            PostList(for: SoundCloud.shared.get(.stream(of: user)))
+        switch selection {
+        case 1: TrackList(for: SoundCloud.shared.get(.trackLikes(of: user)))
+        case 2: UserGrid(for: SoundCloud.shared.get(.followings(of: user)))
+        case 3: UserGrid(for: SoundCloud.shared.get(.followers(of: user)))
+        default: PostList(for: SoundCloud.shared.get(.stream(of: user)))
         }
     }
     
