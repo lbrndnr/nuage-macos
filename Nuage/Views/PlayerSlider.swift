@@ -15,7 +15,7 @@ struct PlayerSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValueLa
         case onCommit
     }
     
-    enum ValueLabel<Content: View> {
+    private enum ValueLabel<Content: View> {
         case constant(Content)
         case variable((Value) -> Content)
     }
@@ -114,7 +114,15 @@ struct PlayerSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValueLa
         self.init(value: value, in: range, updateStrategy: updateStrategy, minValueLabel: .constant(EmptyView()), maxValueLabel: .constant(EmptyView()))
     }
     
-    init(value: Binding<Value>, in range: ClosedRange<Value>, updateStrategy: UpdateStrategy = .continuous, minValueLabel: ValueLabel<MinValueLabel>, maxValueLabel: ValueLabel<MaxValueLabel>) {
+    init(value: Binding<Value>, in range: ClosedRange<Value>, updateStrategy: UpdateStrategy = .continuous, @ViewBuilder minValueLabel: () -> MinValueLabel, @ViewBuilder maxValueLabel: () -> MaxValueLabel) {
+        self.init(value: value, in: range, updateStrategy: updateStrategy, minValueLabel: .constant(minValueLabel()), maxValueLabel: .constant(maxValueLabel()))
+    }
+    
+    init(value: Binding<Value>, in range: ClosedRange<Value>, updateStrategy: UpdateStrategy = .continuous, @ViewBuilder minValueLabel: @escaping (Value) -> MinValueLabel, @ViewBuilder maxValueLabel: () -> MaxValueLabel) {
+        self.init(value: value, in: range, updateStrategy: updateStrategy, minValueLabel: .variable(minValueLabel), maxValueLabel: .constant(maxValueLabel()))
+    }
+    
+    private init(value: Binding<Value>, in range: ClosedRange<Value>, updateStrategy: UpdateStrategy, minValueLabel: ValueLabel<MinValueLabel>, maxValueLabel: ValueLabel<MaxValueLabel>) {
         self._value = value
         self.range = range
         self.updateStrategy = updateStrategy
