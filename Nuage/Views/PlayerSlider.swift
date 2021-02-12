@@ -7,12 +7,17 @@
 
 import SwiftUI
 
-struct PlayerSlider<Value : BinaryFloatingPoint>: View {
+struct PlayerSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValueLabel: View>: View {
     
     enum UpdateStrategy {
         case continuous
         case incremental(Value)
         case onCommit
+    }
+    
+    enum ValueLabel<Content: View> {
+        case constant(Content)
+        case variable((Value) -> Content)
     }
     
     @Binding private var value: Value
@@ -21,9 +26,20 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
     private var range: ClosedRange<Value>
     private var updateStrategy: UpdateStrategy
     
+    private var minValueLabel: ValueLabel<MinValueLabel>
+    private var maxValueLabel: ValueLabel<MaxValueLabel>
+    
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
+        HStack {
+            valueLabel(for: minValueLabel)
+            slider()
+            valueLabel(for: maxValueLabel)
+        }
+    }
+    
+    @ViewBuilder private func slider() -> some View {
         let knobRadius: CGFloat = 13
         
         GeometryReader { geometry in
@@ -77,6 +93,13 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
         }.frame(height: knobRadius)
     }
     
+    private func valueLabel<Content>(for label: ValueLabel<Content>) -> Content {
+        switch label {
+        case .constant(let content): return content
+        case .variable(let buildContent): return buildContent(updatingValue ?? value)
+        }
+    }
+    
     private var knobColor: Color { colorScheme == .light ? .white : Color(hex: 0x1A1A1A) }
     
     private var highlightedKnobColor: Color { colorScheme == .light ? Color(hex: 0xE5E5E5) : Color(hex: 0x3E3E3E) }
@@ -87,15 +110,25 @@ struct PlayerSlider<Value : BinaryFloatingPoint>: View {
     
     private var barBackgroundColor: Color { colorScheme == .light ? Color(hex: 0xF2F2F2) : Color(hex: 0x2C2C2C) }
 
-    init(value: Binding<Value>, in range: ClosedRange<Value>, updateStrategy: UpdateStrategy = .continuous) {
+    init(value: Binding<Value>, in range: ClosedRange<Value>, updateStrategy: UpdateStrategy = .continuous) where MinValueLabel == EmptyView, MaxValueLabel == EmptyView {
+        self.init(value: value, in: range, updateStrategy: updateStrategy, minValueLabel: .constant(EmptyView()), maxValueLabel: .constant(EmptyView()))
+    }
+    
+    init(value: Binding<Value>, in range: ClosedRange<Value>, updateStrategy: UpdateStrategy = .continuous, minValueLabel: ValueLabel<MinValueLabel>, maxValueLabel: ValueLabel<MaxValueLabel>) {
         self._value = value
         self.range = range
         self.updateStrategy = updateStrategy
+        self.minValueLabel = minValueLabel
+        self.maxValueLabel = maxValueLabel
         
         if case let .incremental(delta) = updateStrategy {
             assert(delta > 0, "The delta must be strictly larger than 0")
         }
     }
+    
+//    func minValueLabel<Content: View>(@ViewBuilder view: @escaping (Value) -> Content) -> PlayerSlider<Value, Content, MaxValueLabel> {
+//        return PlayerSlider<Value, Content, MaxValueLabel>(value: $value, in: range, updateStrategy: updateStrategy, minValueLabel: .variable(view), maxValueLabel: maxValueLabel)
+//    }
 
 }
 

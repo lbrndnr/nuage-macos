@@ -25,14 +25,14 @@ struct PlayerView: View {
                 }
             }
             
-            HStack {
-                Text(format(duration: player.progress))
+            PlayerSlider(value: $player.progress, in: 0...duration, updateStrategy: .onCommit, minValueLabel: .variable({ progress in
+                Text(format(duration: progress))
                     .multilineTextAlignment(.trailing)
                     .frame(width: 50)
-                PlayerSlider(value: $player.progress, in: 0...duration, updateStrategy: .onCommit)
+            }), maxValueLabel: .constant(
                 Text(format(duration: duration))
                     .frame(width: 50)
-            }
+            ))
             .foregroundColor(controlColor)
             
             Button(action: player.advanceBackward) {
