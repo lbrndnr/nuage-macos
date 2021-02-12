@@ -57,11 +57,11 @@ struct MainView: View {
             
             StackNavigationView(selection: $navigationSelection) {
                 List {
-                    SidebarNavigationLink("Stream", destination: streamView, tag: 0, selection: $navigationSelection)
+                    sidebarNavigationLink(title: "Stream", imageName: "bolt.horizontal.fill", destination: streamView, tag: 0)
                     Section(header: Text("Library")) {
-                        SidebarNavigationLink("Likes", destination: likesView, tag: 1, selection: $navigationSelection)
-                        SidebarNavigationLink("History", destination: historyView, tag: 2, selection: $navigationSelection)
-                        SidebarNavigationLink("Following", destination: followingView, tag: 3, selection: $navigationSelection)
+                        sidebarNavigationLink(title: "Likes", imageName: "heart.fill", destination: likesView, tag: 1)
+                        sidebarNavigationLink(title: "History", imageName: "clock.fill", destination: historyView, tag: 2)
+                        sidebarNavigationLink(title: "Following", imageName: "person.2.fill", destination: followingView, tag: 3)
                     }
                     Section(header: Text("Playlists")) {
                         ForEach(0..<playlists.count, id: \.self) { idx in
@@ -130,6 +130,15 @@ struct MainView: View {
                     SoundCloud.shared.user?.playlists = playlists
                 }
                 .store(in: &self.subscriptions)
+        }
+    }
+    
+    @ViewBuilder private func sidebarNavigationLink<V: View>(title: String, imageName: String, destination: V, tag: Int) -> some View {
+        SidebarNavigationLink(destination: destination, tag: tag, selection: $navigationSelection) {
+            HStack {
+                Image(systemName: imageName)
+                Text(title)
+            }
         }
     }
     
