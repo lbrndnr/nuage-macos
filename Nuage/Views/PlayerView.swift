@@ -25,13 +25,15 @@ struct PlayerView: View {
                 }
             }
             
+            let font = Font.system(size: 12).monospacedDigit()
             PlayerSlider(value: $player.progress, in: 0...duration, updateStrategy: .onCommit, minValueLabel: .variable({ progress in
                 Text(format(duration: progress))
-                    .multilineTextAlignment(.trailing)
-                    .frame(width: 50)
+                    .font(font)
+                    .frame(width: 50, alignment: .trailing)
             }), maxValueLabel: .constant(
                 Text(format(duration: duration))
-                    .frame(width: 50)
+                    .font(font)
+                    .frame(width: 50, alignment: .leading)
             ))
             .foregroundColor(controlColor)
             
