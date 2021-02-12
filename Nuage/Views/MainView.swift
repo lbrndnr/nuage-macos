@@ -137,6 +137,7 @@ struct MainView: View {
         SidebarNavigationLink(destination: destination, tag: tag, selection: $navigationSelection) {
             HStack {
                 Image(systemName: imageName)
+                    .frame(width: 20, alignment: .center)
                 Text(title)
             }
         }

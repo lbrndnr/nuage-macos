@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4908205025C86DD100AC92EC /* PlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908204F25C86DD100AC92EC /* PlayerSlider.swift */; };
-		4910BE9B257D868B0053AE88 /* Likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 4910BE9A257D868B0053AE88 /* Likes.json */; };
 		492AF079258F877E0079035F /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492AF078258F877E0079035F /* PostList.swift */; };
 		49328ECF25C4B71500A2A34D /* SoundCloud in Frameworks */ = {isa = PBXBuildFile; productRef = 49328ECE25C4B71500A2A34D /* SoundCloud */; };
 		49328ED125C4B71500A2A34D /* StackNavigationView in Frameworks */ = {isa = PBXBuildFile; productRef = 49328ED025C4B71500A2A34D /* StackNavigationView */; };
@@ -65,7 +64,6 @@
 
 /* Begin PBXFileReference section */
 		4908204F25C86DD100AC92EC /* PlayerSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSlider.swift; sourceTree = "<group>"; };
-		4910BE9A257D868B0053AE88 /* Likes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Likes.json; sourceTree = "<group>"; };
 		492AF078258F877E0079035F /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		49328EC225C4B6F300A2A34D /* StackNavigationView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = StackNavigationView; sourceTree = "<group>"; };
 		49328EC625C4B6F900A2A34D /* SoundCloud */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SoundCloud; sourceTree = "<group>"; };
@@ -137,14 +135,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4910BE99257D868B0053AE88 /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				4910BE9A257D868B0053AE88 /* Likes.json */,
-			);
-			path = Resources;
-			sourceTree = "<group>";
-		};
 		492AF0CE258FC4A10079035F /* InfiniteView */ = {
 			isa = PBXGroup;
 			children = (
@@ -213,7 +203,6 @@
 				49332BBD2596260A0034A161 /* Actions.swift */,
 				4969F410257CFB100048E29B /* Views */,
 				4969F40D257CFB100048E29B /* Audio */,
-				4910BE99257D868B0053AE88 /* Resources */,
 				4969F40B257CFB100048E29B /* Helpers.swift */,
 				4969F400257CFB100048E29B /* Preview.swift */,
 				4969F3CC257CFA800048E29B /* Assets.xcassets */,
@@ -398,7 +387,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				4969F3D0257CFA800048E29B /* Preview Assets.xcassets in Resources */,
-				4910BE9B257D868B0053AE88 /* Likes.json in Resources */,
 				4969F3CD257CFA800048E29B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
