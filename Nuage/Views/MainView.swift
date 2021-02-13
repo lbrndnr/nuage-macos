@@ -94,7 +94,7 @@ struct MainView: View {
         .frame(minWidth: 800, minHeight: 400)
         .toolbar {
             ToolbarItem {
-                TextField("Search", text: $searchQuery)
+                TextField("􀊫 Search", text: $searchQuery)
                     .onExitCommand { searchQuery = "" }
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .frame(minWidth: 150)
