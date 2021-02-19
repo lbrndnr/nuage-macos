@@ -85,17 +85,7 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable, Row: View>: View
 extension View {
     
     func header<Content: View>(@ViewBuilder _ content: () -> Content) -> some View {
-        self.modifier(InfiniteListHeader(header: content()))
-    }
-    
-}
-
-struct InfiniteListHeader<Header: View>: ViewModifier {
-    
-    var header: Header
-    
-    func body(content: Content) -> some View {
-        content.environment(\.header, AnyView(header))
+        self.environment(\.header, AnyView(content()))
     }
     
 }
