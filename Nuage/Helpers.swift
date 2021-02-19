@@ -121,6 +121,14 @@ extension Some: Filterable {
     
 }
 
+extension Comment: Filterable {
+    
+    func contains(_ text: String) -> Bool {
+        return body.contains(text) || user.contains(text)
+    }
+    
+}
+
 extension HistoryItem: Filterable {
     
     func contains(_ text: String) -> Bool {

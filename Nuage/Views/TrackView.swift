@@ -62,6 +62,8 @@ struct TrackView: View {
             }
             
             Spacer()
+            
+            CommentList(for: SoundCloud.shared.get(.comments(of: track)).print().eraseToAnyPublisher())
         }
         .padding(16)
         .navigationTitle(track.title)

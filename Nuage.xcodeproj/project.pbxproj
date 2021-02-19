@@ -15,6 +15,7 @@
 		49332BAE25961A3B0034A161 /* PlaylistRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BAD25961A3B0034A161 /* PlaylistRow.swift */; };
 		49332BBE2596260A0034A161 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BBD2596260A0034A161 /* Actions.swift */; };
 		49332BCF25962E910034A161 /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BCE25962E910034A161 /* SearchList.swift */; };
+		4964297B25DFCF04008AFBD5 /* CommentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4964297A25DFCF04008AFBD5 /* CommentList.swift */; };
 		4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3C8257CFA7F0048E29B /* NuageApp.swift */; };
 		4969F3CD257CFA800048E29B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4969F3CC257CFA800048E29B /* Assets.xcassets */; };
 		4969F3D0257CFA800048E29B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4969F3CF257CFA800048E29B /* Preview Assets.xcassets */; };
@@ -71,6 +72,7 @@
 		49332BAD25961A3B0034A161 /* PlaylistRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRow.swift; sourceTree = "<group>"; };
 		49332BBD2596260A0034A161 /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		49332BCE25962E910034A161 /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
+		4964297A25DFCF04008AFBD5 /* CommentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentList.swift; sourceTree = "<group>"; };
 		4969F3C5257CFA7F0048E29B /* Nuage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nuage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4969F3C8257CFA7F0048E29B /* NuageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuageApp.swift; sourceTree = "<group>"; };
 		4969F3CC257CFA800048E29B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				4969F418257CFB100048E29B /* TrackList.swift */,
 				492AF078258F877E0079035F /* PostList.swift */,
 				49332BCE25962E910034A161 /* SearchList.swift */,
+				4964297A25DFCF04008AFBD5 /* CommentList.swift */,
 				49332BA925961A2A0034A161 /* Rows */,
 			);
 			path = Lists;
@@ -431,6 +434,7 @@
 				49332BAE25961A3B0034A161 /* PlaylistRow.swift in Sources */,
 				4969F41E257CFB100048E29B /* Preview.swift in Sources */,
 				4980FD2325CD6333004640D5 /* InfiniteGrid.swift in Sources */,
+				4964297B25DFCF04008AFBD5 /* CommentList.swift in Sources */,
 				4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */,
 				4969F436257CFB100048E29B /* MainView.swift in Sources */,
 				4998E12125CADC8300EB986F /* Artwork.swift in Sources */,
