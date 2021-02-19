@@ -23,8 +23,8 @@ Download the latest version right [here](https://github.com/lbrndnr/nuage-macos/
 
 Nuage uses [StackNavigationView](https://github.com/lbrndnr/StackNavigationView) to push views onto the view hierarchy (which is not currently possible with SwiftUI 2) and [SoundCloud](https://github.com/lbrndnr/soundcloud) to access SoundCloud's private API.
 
-## Author
-I'm Laurin Brandner, I'm on [Twitter](https://twitter.com/lbrndnr).
+## Code & Design
+Developed by [Laurin Brandner](https://twitter.com/lbrndnr), icon designed by [Yannick Lung](https://twitter.com/yannicklu).
 
 ## License
 Nuage is licensed under the [MIT License](http://opensource.org/licenses/mit-license.php).
