@@ -1,5 +1,5 @@
 //
-//  TrackView.swift
+//  TrackDetail.swift
 //  Nuage
 //
 //  Created by Laurin Brandner on 18.11.20.
@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 import SoundCloud
 
-struct TrackView: View {
+struct TrackDetail: View {
     
     @State private var track: Track
     @State private var waveform: Waveform

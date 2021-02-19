@@ -19,7 +19,7 @@ struct PlayerView: View {
         
         return HStack {
             if let track = player.currentStream {
-                StackNavigationLink(destination: TrackView(track: track)) {
+                StackNavigationLink(destination: TrackDetail(track: track)) {
                     RemoteImage(url: player.currentStream?.artworkURL, cornerRadius: 3)
                         .frame(width: 50, height: 50)
                 }

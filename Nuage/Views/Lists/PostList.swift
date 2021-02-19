@@ -29,7 +29,7 @@ struct PostList: View {
             let action = post.isRepost ? "reposted" : "posted"
             return AnyView(VStack(alignment: .leading) {
                 HStack(spacing: 10) {
-                    StackNavigationLink(destination: UserView(user: post.user)) {
+                    StackNavigationLink(destination: UserDetail(user: post.user)) {
                         RemoteImage(url: post.user.avatarURL, cornerRadius: 15)
                             .frame(width: 30, height: 30)
                         Text("\(post.user.username) \(action)")
@@ -39,7 +39,7 @@ struct PostList: View {
                     .frame(height: 18)
 
                 if case let .track(track) = post.item {
-                    StackNavigationLink(destination: TrackView(track: track)) {
+                    StackNavigationLink(destination: TrackDetail(track: track)) {
                         TrackRow(track: track, onPlay: onPlay)
                     }
                     .trackContextMenu(track: track, onPlay: onPlay)

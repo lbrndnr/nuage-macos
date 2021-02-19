@@ -1,5 +1,5 @@
 //
-//  UserView.swift
+//  UserDetail.swift
 //  Nuage
 //
 //  Created by Laurin Brandner on 03.01.21.
@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 import SoundCloud
 
-struct UserView: View {
+struct UserDetail: View {
     
     @State private var user: User
     @State private var selection = 0

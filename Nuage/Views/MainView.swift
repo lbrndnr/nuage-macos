@@ -82,7 +82,7 @@ struct MainView: View {
             }
             .stack(item: stackItem) {
                 if presentProfile {
-                    UserView(user: SoundCloud.shared.user!)
+                    UserDetail(user: SoundCloud.shared.user!)
                 }
                 else {
                     let search = SoundCloud.shared.get(.search(searchQuery))

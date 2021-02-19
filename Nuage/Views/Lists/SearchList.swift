@@ -27,7 +27,7 @@ struct SearchList: View {
             
             switch element {
             case .track(let track):
-                return AnyView(StackNavigationLink(destination: TrackView(track: track)) {
+                return AnyView(StackNavigationLink(destination: TrackDetail(track: track)) {
                     TrackRow(track: track, onPlay: onPlay)
                 }
                 .trackContextMenu(track: track, onPlay: onPlay))

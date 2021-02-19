@@ -27,7 +27,7 @@ struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
                 play(tracks, from: idx, on: player)
             }
 
-            return AnyView(StackNavigationLink(destination: TrackView(track: track)) {
+            return AnyView(StackNavigationLink(destination: TrackDetail(track: track)) {
                 VStack(alignment: .leading) {
                     TrackRow(track: track, onPlay: onPlay)
                     Divider()

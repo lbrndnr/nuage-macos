@@ -19,7 +19,7 @@ struct UserGrid<Element: Decodable&Identifiable&Filterable>: View {
     var body: some View {
         InfiniteGrid(publisher: publisher) { users, idx -> AnyView in
             let user = transform(users[idx])
-            AnyView(StackNavigationLink(destination: UserView(user: user)) {
+            AnyView(StackNavigationLink(destination: UserDetail(user: user)) {
                 UserItem(user: user)
             })
         }
