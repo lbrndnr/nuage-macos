@@ -17,7 +17,7 @@ struct PostList: View {
     @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
-        InfinteList(publisher: publisher) { posts, idx -> AnyView in
+        InfiniteList(publisher: publisher) { posts, idx -> AnyView in
             let post = posts[idx]
             let onPlay = {
                 let allTracks = posts.flatMap { $0.tracks }

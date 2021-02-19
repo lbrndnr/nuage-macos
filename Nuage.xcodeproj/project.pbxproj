@@ -16,6 +16,7 @@
 		49332BBE2596260A0034A161 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BBD2596260A0034A161 /* Actions.swift */; };
 		49332BCF25962E910034A161 /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BCE25962E910034A161 /* SearchList.swift */; };
 		4964297B25DFCF04008AFBD5 /* CommentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4964297A25DFCF04008AFBD5 /* CommentList.swift */; };
+		4964299225E054E9008AFBD5 /* CommentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4964299125E054E9008AFBD5 /* CommentRow.swift */; };
 		4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3C8257CFA7F0048E29B /* NuageApp.swift */; };
 		4969F3CD257CFA800048E29B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4969F3CC257CFA800048E29B /* Assets.xcassets */; };
 		4969F3D0257CFA800048E29B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4969F3CF257CFA800048E29B /* Preview Assets.xcassets */; };
@@ -42,7 +43,7 @@
 		49B154C525C4685D00CE9511 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 49B154C425C4685D00CE9511 /* URLImage */; };
 		49E6259D25BE1E7E005BEF8C /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6259C25BE1E7E005BEF8C /* WebView.swift */; };
 		49FA14BB2589635800CEF925 /* ArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14BA2589635800CEF925 /* ArrayView.swift */; };
-		49FA14C62589693E00CEF925 /* InfinteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* InfinteList.swift */; };
+		49FA14C62589693E00CEF925 /* InfiniteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* InfiniteList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		49332BBD2596260A0034A161 /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		49332BCE25962E910034A161 /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
 		4964297A25DFCF04008AFBD5 /* CommentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentList.swift; sourceTree = "<group>"; };
+		4964299125E054E9008AFBD5 /* CommentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRow.swift; sourceTree = "<group>"; };
 		4969F3C5257CFA7F0048E29B /* Nuage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nuage.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4969F3C8257CFA7F0048E29B /* NuageApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuageApp.swift; sourceTree = "<group>"; };
 		4969F3CC257CFA800048E29B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -102,7 +104,7 @@
 		4999998C25B0886700F42D9B /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		49E6259C25BE1E7E005BEF8C /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		49FA14BA2589635800CEF925 /* ArrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayView.swift; sourceTree = "<group>"; };
-		49FA14C52589693E00CEF925 /* InfinteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfinteList.swift; sourceTree = "<group>"; };
+		49FA14C52589693E00CEF925 /* InfiniteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,7 +142,7 @@
 			children = (
 				4969F41A257CFB100048E29B /* SliceView.swift */,
 				49FA14BA2589635800CEF925 /* ArrayView.swift */,
-				49FA14C52589693E00CEF925 /* InfinteList.swift */,
+				49FA14C52589693E00CEF925 /* InfiniteList.swift */,
 				4980FD2225CD6333004640D5 /* InfiniteGrid.swift */,
 			);
 			path = InfiniteView;
@@ -170,6 +172,7 @@
 			children = (
 				49332BA425961A260034A161 /* TrackRow.swift */,
 				49332BAD25961A3B0034A161 /* PlaylistRow.swift */,
+				4964299125E054E9008AFBD5 /* CommentRow.swift */,
 			);
 			path = Rows;
 			sourceTree = "<group>";
@@ -435,9 +438,10 @@
 				4969F436257CFB100048E29B /* MainView.swift in Sources */,
 				4998E12125CADC8300EB986F /* Artwork.swift in Sources */,
 				4969F428257CFB100048E29B /* Helpers.swift in Sources */,
-				49FA14C62589693E00CEF925 /* InfinteList.swift in Sources */,
+				49FA14C62589693E00CEF925 /* InfiniteList.swift in Sources */,
 				4969F42E257CFB100048E29B /* LoginView.swift in Sources */,
 				492AF079258F877E0079035F /* PostList.swift in Sources */,
+				4964299225E054E9008AFBD5 /* CommentRow.swift in Sources */,
 				49332BCF25962E910034A161 /* SearchList.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

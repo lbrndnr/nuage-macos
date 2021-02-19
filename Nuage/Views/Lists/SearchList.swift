@@ -17,7 +17,7 @@ struct SearchList: View {
     @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
-        InfinteList(publisher: publisher) { elements, idx -> AnyView in
+        InfiniteList(publisher: publisher) { elements, idx -> AnyView in
             let element = elements[idx]
             
             let onPlay = {

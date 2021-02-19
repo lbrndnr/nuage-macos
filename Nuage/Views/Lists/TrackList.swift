@@ -19,7 +19,7 @@ struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
     @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
-        InfinteList(publisher: publisher) { elements, idx -> AnyView in
+        InfiniteList(publisher: publisher) { elements, idx -> AnyView in
             let track = transform(elements[idx])
             
             let onPlay = {

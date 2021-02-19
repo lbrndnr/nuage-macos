@@ -54,16 +54,15 @@ struct TrackDetail: View {
                 .foregroundColor(Color(NSColor.secondaryLabelColor))
             Spacer()
                 .frame(height: 8)
-
-            if let description = track.description {
-                let text = description.trimmingCharacters(in: .whitespacesAndNewlines)
-                    .replacingOccurrences(of: "\n", with: " ")
-                Text(text)
-            }
             
-            Spacer()
-            
-            CommentList(for: SoundCloud.shared.get(.comments(of: track)).print().eraseToAnyPublisher())
+            CommentList(for: SoundCloud.shared.get(.comments(of: track)))
+                .header {
+                    if let description = track.description {
+                        let text = description.trimmingCharacters(in: .whitespacesAndNewlines)
+                            .replacingOccurrences(of: "\n", with: " ")
+                        Text(text)
+                    }
+                }
         }
         .padding(16)
         .navigationTitle(track.title)

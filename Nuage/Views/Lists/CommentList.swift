@@ -17,10 +17,9 @@ struct CommentList: View {
     @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
-        InfinteList(publisher: publisher) { elements, idx -> AnyView in
+        InfiniteList(publisher: publisher) { elements, idx -> AnyView in
             let element = elements[idx]
-            
-            return AnyView(Text(element.body))
+            return AnyView(CommentRow(comment: element))
         }
     }
     
