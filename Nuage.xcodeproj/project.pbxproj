@@ -619,7 +619,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.laurinbrandner.Nuage;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.laurinbrandner.nuage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};
@@ -643,7 +643,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				MARKETING_VERSION = 0.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = ch.laurinbrandner.Nuage;
+				PRODUCT_BUNDLE_IDENTIFIER = ch.laurinbrandner.nuage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 			};

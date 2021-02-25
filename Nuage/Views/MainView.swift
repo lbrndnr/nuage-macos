@@ -30,14 +30,15 @@ struct MainView: View {
         
         let likes = SoundCloud.shared.$user.filter { $0 != nil}
             .flatMap { SoundCloud.shared.get(.trackLikes(of: $0!)) }
-            .map { $0}
             .eraseToAnyPublisher()
         let likesView = TrackList(for: likes).navigationTitle("Likes")
         
         let history = SoundCloud.shared.get(.history())
         let historyView = TrackList(for: history).navigationTitle("History")
         
-        let following = SoundCloud.shared.get(.followings(of: SoundCloud.shared.user!))
+        let following = SoundCloud.shared.$user.filter { $0 != nil }
+            .flatMap { SoundCloud.shared.get(.followings(of: $0!)) }
+            .eraseToAnyPublisher()
         let followingView = UserGrid(for: following).navigationTitle("Following")
         
         return VStack(spacing: 0) {
