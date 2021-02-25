@@ -14,13 +14,12 @@ struct LoginView: View {
     private var onLogin: (String, Date?) -> ()
     
     var body: some View {
-        WebView(url: URL(string: "https://soundcloud.com")!)
+        WebView(url: URL(string: "https://soundcloud.com/signin")!)
             .cookie(name: "oauth_token") { cookie in
                 onLogin(cookie.value, cookie.expiresDate)
             }
-            .frame(minWidth: 300, minHeight: 300)
-    //        .fixedSize()
-            .padding()
+            .frame(minWidth: 1000, minHeight: 700)
+            .navigationTitle("Login")
     }
     
     init(onLogin: @escaping (String, Date?) -> ()) {

@@ -31,6 +31,7 @@ struct WebView: NSViewRepresentable {
         let view = WKWebView(frame: .zero, configuration: conf)
         view.load(URLRequest(url: url))
         view.navigationDelegate = context.coordinator
+        view.uiDelegate = context.coordinator
         
         return view
     }
@@ -44,7 +45,7 @@ struct WebView: NSViewRepresentable {
     
 }
 
-class WebViewCoordinator: NSObject, WKNavigationDelegate {
+class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
     
     var handlers = [(String, CookieHandler)]()
     
@@ -61,6 +62,25 @@ class WebViewCoordinator: NSObject, WKNavigationDelegate {
         }
         
         decisionHandler(.allow)
+    }
+    
+    func webView(_ webView: WKWebView, createWebViewWith configuration: WKWebViewConfiguration, for navigationAction: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        let view = WKWebView(frame: .zero, configuration: configuration)
+        view.navigationDelegate = self
+        view.uiDelegate = self
+        
+        let size = NSSize(width: windowFeatures.width?.doubleValue ?? 500, height: windowFeatures.height?.doubleValue ?? 500)
+        let window = NSWindow(contentRect: NSRect(origin: .zero, size: size), styleMask: [.closable, .titled], backing: .buffered, defer: false)
+        window.isReleasedWhenClosed = false
+        window.contentView = view
+        window.makeKeyAndOrderFront(nil)
+        window.center()
+        
+        return view
+    }
+    
+    func webViewDidClose(_ webView: WKWebView) {
+        webView.window?.close()
     }
     
 }
