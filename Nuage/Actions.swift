@@ -33,7 +33,7 @@ func toggleRepost(_ track: Track) -> () -> () {
     }
 }
 
-func toggleLike(_ playlist: Playlist) -> () -> () {
+func toggleLike<P: Playlist>(_ playlist: P) -> () -> () {
     return {
         SoundCloud.shared.perform(.like(playlist))
             .receive(on: RunLoop.main)
@@ -44,7 +44,7 @@ func toggleLike(_ playlist: Playlist) -> () -> () {
     }
 }
 
-func toggleRepost(_ playlist: Playlist) -> () -> () {
+func toggleRepost(_ playlist: UserPlaylist) -> () -> () {
     return {
         SoundCloud.shared.perform(.repost(playlist))
             .receive(on: RunLoop.main)

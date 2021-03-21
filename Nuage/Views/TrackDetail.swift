@@ -18,7 +18,7 @@ struct TrackDetail: View {
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
-        let duration = format(duration: TimeInterval(track.duration))
+        let duration = format(time: track.duration)
         
         VStack(alignment: .leading) {
             HStack(alignment: .bottom, spacing: 10) {

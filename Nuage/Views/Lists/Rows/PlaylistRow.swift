@@ -31,9 +31,11 @@ struct PlaylistRow: View {
                     Button(action: toggleLike(playlist)) {
                         Image(systemName: "heart")
                     }.buttonStyle(BorderlessButtonStyle())
-                    Button(action: toggleRepost(playlist)) {
-                        Image(systemName: "arrow.triangle.2.circlepath")
-                    }.buttonStyle(BorderlessButtonStyle())
+                    if let playlist = playlist as? UserPlaylist {
+                        Button(action: toggleRepost(playlist)) {
+                            Image(systemName: "arrow.triangle.2.circlepath")
+                        }.buttonStyle(BorderlessButtonStyle())
+                    }
                 }
             }
             VStack(alignment: .leading) {

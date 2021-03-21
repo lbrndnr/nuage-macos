@@ -27,11 +27,11 @@ struct PlayerView: View {
             
             let font = Font.system(size: 12).monospacedDigit()
             PlayerSlider(value: $player.progress, in: 0...duration, updateStrategy: .onCommit, minValueLabel: { progress in
-                Text(format(duration: progress))
+                Text(format(time: progress))
                     .font(font)
                     .frame(width: 50, alignment: .trailing)
             }, maxValueLabel: {
-                Text(format(duration: duration))
+                Text(format(time: duration))
                     .font(font)
                     .frame(width: 50, alignment: .leading)
             })

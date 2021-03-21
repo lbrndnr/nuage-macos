@@ -23,7 +23,7 @@ struct TrackRow: View {
     }
     
     var body: some View {
-        let duration = format(duration: TimeInterval(track.duration))
+        let duration = format(time: track.duration)
         
         HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading) {

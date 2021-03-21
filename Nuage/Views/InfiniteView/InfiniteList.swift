@@ -13,7 +13,7 @@ import SoundCloud
 
 enum InfinitePublisher<Element: Decodable&Identifiable&Filterable> {
     case slice(AnyPublisher<Slice<Element>, Error>)
-    case array(AnyPublisher<[Int], Error>, ([Int]) -> AnyPublisher<[Element], Error>)
+    case array(AnyPublisher<[String], Error>, ([String]) -> AnyPublisher<[Element], Error>)
 }
 
 struct InfiniteList<Element: Decodable&Identifiable&Filterable, Row: View>: View {

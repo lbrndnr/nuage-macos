@@ -37,6 +37,8 @@ struct TrackContextMenu: ViewModifier {
                 }
 
                 let playlists = SoundCloud.shared.user?.playlists?
+                    .filter { $0 is UserPlaylist }
+                    .map { $0 as! UserPlaylist }
                     .filter { $0.secretToken != nil }
                 if let playlists = playlists,
                    playlists.count > 0 {

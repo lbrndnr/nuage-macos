@@ -45,8 +45,8 @@ extension TrackList where Element == Track {
         self.init(publisher: .slice(publisher)) { $0 }
     }
     
-    init(for arrayPublisher: AnyPublisher<[Int], Error>,
-         slice slicePublisher: @escaping ([Int]) -> AnyPublisher<[Track], Error>) {
+    init(for arrayPublisher: AnyPublisher<[String], Error>,
+         slice slicePublisher: @escaping ([String]) -> AnyPublisher<[Track], Error>) {
         self.init(publisher: .array(arrayPublisher, slicePublisher), transform: { $0 })
     }
     

@@ -47,8 +47,8 @@ private var durationFormatter: DateComponentsFormatter = {
     return formatter
 }()
 
-func format(duration: TimeInterval) -> String {
-    return durationFormatter.string(from: duration) ?? "0"
+func format<Time: BinaryFloatingPoint>(time: Time) -> String {
+    return durationFormatter.string(from: TimeInterval(time)) ?? "0"
 }
 
 extension AnyCancellable {
@@ -114,7 +114,8 @@ extension Some: Filterable {
     func contains(_ text: String) -> Bool {
         switch self {
         case .track(let track): return track.contains(text)
-        case .playlist(let playlist): return playlist.contains(text)
+        case .userPlaylist(let playlist): return playlist.contains(text)
+        case .systemPlaylist(let playlist): return playlist.contains(text)
         case .user(let user): return user.contains(text)
         }
     }
@@ -170,7 +171,7 @@ extension DateComparable {
 extension HistoryItem: DateComparable {}
 extension Post: DateComparable {}
 extension Track: DateComparable {}
-extension Playlist: DateComparable {}
+extension UserPlaylist: DateComparable {}
 
 extension User {
     

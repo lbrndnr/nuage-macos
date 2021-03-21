@@ -31,7 +31,12 @@ struct SearchList: View {
                     TrackRow(track: track, onPlay: onPlay)
                 }
                 .trackContextMenu(track: track, onPlay: onPlay))
-            case .playlist(let playlist):
+            case .userPlaylist(let playlist):
+                return AnyView(VStack(alignment: .leading) {
+                    PlaylistRow(playlist: playlist, onPlay: onPlay)
+                    Divider()
+                })
+            case .systemPlaylist(let playlist):
                 return AnyView(VStack(alignment: .leading) {
                     PlaylistRow(playlist: playlist, onPlay: onPlay)
                     Divider()
