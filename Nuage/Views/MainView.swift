@@ -110,7 +110,7 @@ struct MainView: View {
             ToolbarItem {
                 Button(action: { presentProfile = true }) {
                     HStack {
-                        Text(SoundCloud.shared.user?.username ?? "Profile")
+                        Text(SoundCloud.shared.user?.displayName ?? "Profile")
                             .bold()
                             .foregroundColor(.secondary)
                         RemoteImage(url: SoundCloud.shared.user?.avatarURL, cornerRadius: 15)

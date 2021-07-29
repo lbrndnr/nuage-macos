@@ -52,7 +52,7 @@ struct UserItem: View {
             RemoteImage(url: user.avatarURL, cornerRadius: 50)
                 .frame(width: 100, height: 100)
             VStack(alignment: .leading) {
-                Text(user.username)
+                Text(user.displayName)
                     .bold()
                     .lineLimit(1)
                 Text(String(user.followerCount ?? 0))

@@ -32,7 +32,7 @@ struct PostList: View {
                     StackNavigationLink(destination: UserDetail(user: post.user)) {
                         RemoteImage(url: post.user.avatarURL, cornerRadius: 15)
                             .frame(width: 30, height: 30)
-                        Text("\(post.user.username) \(action)")
+                        Text("\(post.user.displayName) \(action)")
                     }
                 }
                 Spacer()
