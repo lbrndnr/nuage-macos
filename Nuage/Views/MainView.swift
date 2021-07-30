@@ -22,22 +22,24 @@ struct MainView: View {
     @State private var presentProfile = false
     @State private var subscriptions = Set<AnyCancellable>()
     
+    @ObservedObject private var soundCloud = SoundCloud.shared
+    
     @EnvironmentObject private var commands: Commands
     
     var body: some View {
-        let stream = SoundCloud.shared.get(.stream())
+        let stream = soundCloud.get(.stream())
         let streamView = PostList(for: stream).navigationTitle("Stream")
         
-        let likes = SoundCloud.shared.$user.filter { $0 != nil}
-            .flatMap { SoundCloud.shared.get(.trackLikes(of: $0!)) }
+        let likes = soundCloud.$user.filter { $0 != nil}
+            .flatMap { soundCloud.get(.trackLikes(of: $0!)) }
             .eraseToAnyPublisher()
         let likesView = TrackList(for: likes).navigationTitle("Likes")
         
-        let history = SoundCloud.shared.get(.history())
+        let history = soundCloud.get(.history())
         let historyView = TrackList(for: history).navigationTitle("History")
         
-        let following = SoundCloud.shared.$user.filter { $0 != nil }
-            .flatMap { SoundCloud.shared.get(.followings(of: $0!)) }
+        let following = soundCloud.$user.filter { $0 != nil }
+            .flatMap { soundCloud.get(.followings(of: $0!)) }
             .eraseToAnyPublisher()
         let followingView = UserGrid(for: following).navigationTitle("Following")
         
@@ -67,11 +69,11 @@ struct MainView: View {
                     Section(header: Text("Playlists")) {
                         ForEach(0..<playlists.count, id: \.self) { idx in
                             let playlist = playlists[idx]
-                            let ids = SoundCloud.shared.get(.playlist(playlist.id))
+                            let ids = soundCloud.get(.playlist(playlist.id))
                                 .map { $0.trackIDs ?? [] }
                                 .eraseToAnyPublisher()
                             let slice = { ids in
-                                return SoundCloud.shared.get(.tracks(ids))
+                                return soundCloud.get(.tracks(ids))
                             }
 
                             let playlistView = TrackList(for: ids, slice: slice).navigationTitle(playlist.title)
@@ -83,10 +85,10 @@ struct MainView: View {
             }
             .stack(item: stackItem) {
                 if presentProfile {
-                    UserDetail(user: SoundCloud.shared.user!)
+                    UserDetail(user: soundCloud.user!)
                 }
                 else {
-                    let search = SoundCloud.shared.get(.search(searchQuery))
+                    let search = soundCloud.get(.search(searchQuery))
                     SearchList(for: search)
                 }
             }
@@ -110,10 +112,10 @@ struct MainView: View {
             ToolbarItem {
                 Button(action: { presentProfile = true }) {
                     HStack {
-                        Text(SoundCloud.shared.user?.displayName ?? "Profile")
+                        Text(soundCloud.user?.displayName ?? "Profile")
                             .bold()
                             .foregroundColor(.secondary)
-                        RemoteImage(url: SoundCloud.shared.user?.avatarURL, cornerRadius: 15)
+                        RemoteImage(url: soundCloud.user?.avatarURL, cornerRadius: 15)
                             .frame(width: 30, height: 30)
                     }
                 }
@@ -121,14 +123,14 @@ struct MainView: View {
             }
         }
         .onAppear {            
-            SoundCloud.shared.get(.albumsAndPlaylists())
+            soundCloud.get(.albumsAndPlaylists())
                 .map { $0.collection }
                 .replaceError(with: [])
                 .receive(on: RunLoop.main)
                 .sink { likes in
                     let playlists = likes.map { $0.item }
                     self.playlists = playlists
-                    SoundCloud.shared.user?.playlists = playlists
+                    soundCloud.user?.playlists = playlists
                 }
                 .store(in: &self.subscriptions)
         }

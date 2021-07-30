@@ -173,6 +173,10 @@ extension Post: DateComparable {}
 extension Track: DateComparable {}
 extension UserPlaylist: DateComparable {}
 
+extension SoundCloud: ObservableObject {
+    
+}
+
 extension User {
     
     var displayName: String {
