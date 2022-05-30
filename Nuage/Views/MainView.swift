@@ -121,7 +121,7 @@ struct MainView: View {
             }
         }
         .onAppear {            
-            SoundCloud.shared.get(.albumsAndPlaylists())
+            SoundCloud.shared.get(.library())
                 .map { $0.collection }
                 .replaceError(with: [])
                 .receive(on: RunLoop.main)
