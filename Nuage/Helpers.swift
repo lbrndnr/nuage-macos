@@ -43,12 +43,14 @@ private var durationFormatter: DateComponentsFormatter = {
     let formatter = DateComponentsFormatter()
     formatter.unitsStyle = .positional
     formatter.allowedUnits = [.hour, .minute, .second]
+    formatter.zeroFormattingBehavior = .pad
     
     return formatter
 }()
 
 func format<Time: BinaryFloatingPoint>(time: Time) -> String {
-    return durationFormatter.string(from: TimeInterval(time)) ?? "0"
+    return durationFormatter.string(from: TimeInterval(time))?
+        .replacingOccurrences(of: #"^00[:.]0?|^0"#, with: "", options: .regularExpression) ?? "0:00"
 }
 
 extension AnyCancellable {
