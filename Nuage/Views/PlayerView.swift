@@ -7,12 +7,17 @@
 //
 
 import SwiftUI
+import Combine
 import StackNavigationView
+import SoundCloud
+
+struct NoTrackError: Error {}
 
 struct PlayerView: View {
     
     @EnvironmentObject private var player: StreamPlayer
     @Environment(\.colorScheme) private var colorScheme
+    @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
         let duration = TimeInterval(player.currentStream?.duration ?? 0)
@@ -26,11 +31,11 @@ struct PlayerView: View {
             }
             
             let font = Font.system(size: 12).monospacedDigit()
-            PlayerSlider(value: $player.progress, in: 0...duration, updateStrategy: .onCommit, minValueLabel: { progress in
+            WaveformSlider(waveform: player.currentStream?.waveform, value: $player.progress, in: 0...duration, minValueLabel: { progress in
                 Text(format(time: progress))
                     .font(font)
                     .frame(width: 50, alignment: .trailing)
-            }, maxValueLabel: {
+            }, maxValueLabel: { _ in
                 Text(format(time: duration))
                     .font(font)
                     .frame(width: 50, alignment: .leading)

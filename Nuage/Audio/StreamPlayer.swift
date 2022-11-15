@@ -71,6 +71,20 @@ class StreamPlayer: ObservableObject {
             self.volume = defaults.float(forKey: volumeKey)
         }
         
+        $currentStream
+            .flatMap { track -> AnyPublisher<Waveform?, Error> in
+                guard let track = track else {
+                    return Just(nil).setFailureType(to: Error.self).eraseToAnyPublisher()
+                }
+                return SoundCloud.shared.get(.waveform(track.waveformURL)).map { Optional($0) }.eraseToAnyPublisher()
+            }
+            .replaceError(with: nil)
+            .receive(on: RunLoop.main)
+            .sink { waveform in
+                self.currentStream?.waveform = waveform
+            }
+            .store(in: &subscriptions)
+        
         let interval = CMTime(value: 1, timescale: 1)
         player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] time in
             guard let self = self else { return }

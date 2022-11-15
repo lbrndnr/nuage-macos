@@ -28,7 +28,7 @@ struct TrackDetail: View {
                     
                 }
                 if let waveform = waveform {
-                    WaveformView(waveform: waveform)
+                    WaveformView(with: waveform)
                         .frame(height: 80)
                 }
             }
@@ -67,7 +67,7 @@ struct TrackDetail: View {
         .padding(16)
         .navigationTitle(track.title)
         .onAppear {
-            SoundCloud.shared.get(.waveform(of: track))
+            SoundCloud.shared.get(.waveform(track.waveformURL))
                 .replaceError(with: waveform)
                 .receive(on: RunLoop.main)
                 .assign(to: \.waveform, on: self)
@@ -77,7 +77,7 @@ struct TrackDetail: View {
     
     init(track: Track) {
         self._track = State(initialValue: track)
-        self._waveform = State(initialValue: Waveform(width: 1800, height: 80, repeatedSample: 2))
+        self._waveform = State(initialValue: Waveform(samples: Array(repeating: 1800, count: 2)))
     }
     
 }
