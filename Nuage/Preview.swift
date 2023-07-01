@@ -12,7 +12,6 @@ import SoundCloud
 
 struct Preview {
     
-#if DEBUG
     static let user = User(id: "139004098", username: "lerboe", firstName: "la", lastName: "la", avatarURL: URL(string: "https://i1.sndcdn.com/avatars-000322614854-ttkl8d-large.jpg")!)
     
     static let likes: [Like<Track>] = load("Likes.json")
@@ -21,7 +20,6 @@ struct Preview {
     static let tracks: [Track] = likes.map { $0.item }
     static let trackPublisher = publisher(of: tracks)
     
-#endif
 }
 
 struct PreviewError: Error {}
