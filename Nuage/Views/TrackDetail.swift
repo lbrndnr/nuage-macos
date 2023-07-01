@@ -27,10 +27,8 @@ struct TrackDetail: View {
                         .frame(width: 100, height: 100)
                     
                 }
-                if let waveform = waveform {
-                    WaveformView(with: waveform)
-                        .frame(height: 80)
-                }
+                WaveformView(with: waveform)
+                    .frame(height: 80)
             }
             HStack {
                 Image(systemName: "play.fill")
