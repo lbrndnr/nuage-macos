@@ -45,14 +45,13 @@ struct SliceView<Element: Decodable&Identifiable, ContentView: View>: View {
     private func getNextSlice() {
         guard subscriptions[elements.count] == nil else { return }
 
-        let limit = (slices.last?.collection.count ?? initialSliceSubscription) * 2
         let currentSlicePublisher = slices.publisher
             .last()
             .mapError{ $0 as Error }
 
         publisher.merge(with: currentSlicePublisher)
             .first()
-            .flatMap { SoundCloud.shared.get(next: $0, limit: limit) }
+            .flatMap { SoundCloud.shared.get(next: $0) }
             .receive(on: RunLoop.main)
             .sink(receiveCompletion: { _ in }, receiveValue: { slice in
                 slices.append(slice)
