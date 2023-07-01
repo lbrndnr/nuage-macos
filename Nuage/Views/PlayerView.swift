@@ -95,7 +95,12 @@ struct PlayerView: View {
 }
 
 struct PlayerView_Previews: PreviewProvider {
+    
     static var previews: some View {
-        PlayerView().environmentObject(StreamPlayer())
+        let player = StreamPlayer()
+        player.enqueue(Preview.tracks)
+        
+        return PlayerView().environmentObject(player)
     }
+    
 }

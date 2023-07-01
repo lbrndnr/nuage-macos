@@ -10,21 +10,34 @@ import Foundation
 import Combine
 import SoundCloud
 
-let previewUser = User(id: "139004098", username: "lerboe", firstName: "la", lastName: "la", avatarURL: URL(string: "https://i1.sndcdn.com/avatars-000322614854-ttkl8d-large.jpg")!)
-
+struct Preview {
+    
 #if DEBUG
-let previewLikes: [Like<Track>] = load("Likes.json")
-let previewLikePublisher = publisher(of: previewLikes)
+    static let user = User(id: "139004098", username: "lerboe", firstName: "la", lastName: "la", avatarURL: URL(string: "https://i1.sndcdn.com/avatars-000322614854-ttkl8d-large.jpg")!)
+    
+    static let likes: [Like<Track>] = load("Likes.json")
+    static let likePublisher = publisher(of: likes)
+    
+    static let tracks: [Track] = likes.map { $0.item }
+    static let trackPublisher = publisher(of: tracks)
+    
+#endif
+}
 
-let previewTracks: [Track] = previewLikes.map { $0.item }
-let previewTrackPublisher = publisher(of: previewTracks)
+struct PreviewError: Error {}
 
-func load<T: Decodable>(_ filename: String) -> T {
+func publisher<T>(of data: [T]) -> AnyPublisher<T, Error> {
+    return data.publisher
+        .mapError { _ in PreviewError() }
+        .eraseToAnyPublisher()
+}
+
+private func load<T: Decodable>(_ filename: String) -> T {
     let data: Data
     
     guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
-        else {
-            fatalError("Couldn't find \(filename) in main bundle.")
+    else {
+        fatalError("Couldn't find \(filename) in main bundle.")
     }
     
     do {
@@ -45,13 +58,3 @@ func load<T: Decodable>(_ filename: String) -> T {
         fatalError("Couldn't parse \(filename) as \(T.self):\n\(error)")
     }
 }
-
-struct PreviewError: Error {}
-
-func publisher<T>(of data: [T]) -> AnyPublisher<T, Error> {
-    return data.publisher
-        .mapError { _ in PreviewError() }
-        .eraseToAnyPublisher()
-}
-
-#endif
