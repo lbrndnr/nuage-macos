@@ -90,8 +90,8 @@ struct NuageApp: App {
     }
     
     init() {
-        let size = 500*1024*1024
-        URLCache.shared = URLCache(memoryCapacity: size, diskCapacity: size)
+        let MB = 1024*1024
+        URLCache.shared = URLCache(memoryCapacity: 10*MB, diskCapacity: 20*MB)
         URLSession.shared.configuration.requestCachePolicy = .returnCacheDataElseLoad
         
         let defaults = UserDefaults.standard
