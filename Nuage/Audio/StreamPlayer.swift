@@ -72,6 +72,7 @@ class StreamPlayer: ObservableObject {
         }
         
         $currentStream
+            .filter { $0?.waveform != nil }
             .flatMap { track -> AnyPublisher<Waveform?, Error> in
                 guard let track = track else {
                     return Just(nil).setFailureType(to: Error.self).eraseToAnyPublisher()
