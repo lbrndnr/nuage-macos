@@ -25,12 +25,11 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
     @Environment(\.colorScheme) private var colorScheme
     
     var body: some View {
-//        HStack {
-//            minValueLabel(self.value)
-//            slider()
-//            maxValueLabel(self.value)
-//        }
-        slider()
+        HStack {
+            minValueLabel(self.value)
+            slider()
+            maxValueLabel(self.value)
+        }
     }
     
     @ViewBuilder private func slider() -> some View {
