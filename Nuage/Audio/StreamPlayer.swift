@@ -72,12 +72,12 @@ class StreamPlayer: ObservableObject {
         }
         
         $currentStream
-            .filter { $0?.waveform != nil }
+            .filter { track in
+                guard let track = track else { return false }
+                return track.waveform == nil
+            }
             .flatMap { track -> AnyPublisher<Waveform?, Error> in
-                guard let track = track else {
-                    return Just(nil).setFailureType(to: Error.self).eraseToAnyPublisher()
-                }
-                return SoundCloud.shared.get(.waveform(track.waveformURL)).map { Optional($0) }.eraseToAnyPublisher()
+                return SoundCloud.shared.get(.waveform(track!.waveformURL)).map { Optional($0) }.eraseToAnyPublisher()
             }
             .replaceError(with: nil)
             .receive(on: RunLoop.main)
