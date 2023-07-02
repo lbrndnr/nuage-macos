@@ -55,8 +55,12 @@ func toggleRepost(_ playlist: UserPlaylist) -> () -> () {
     }
 }
 
-func play(_ tracks: [Track], from idx: Int, on player: StreamPlayer) {
-    player.reset()
-    player.enqueue(tracks)
-    player.resume(from: idx)
+func play(_ tracks: [Track], from idx: Int, on player: StreamPlayer, animated: Bool = true) {
+    let animation = player.queue.count > 0 ? nil : Animation.default
+    
+    withAnimation(animation) {
+        player.reset()
+        player.enqueue(tracks)
+        player.resume(from: idx)
+    }
 }

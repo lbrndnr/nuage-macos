@@ -45,8 +45,8 @@ struct WaveformView: View {
     }
     
     private func interpolate(from: CGFloat, to: CGFloat) -> CGFloat {
-        let lhs = Int(round(from))
-        let rhs = Int(round(to))
+        let lhs = max(Int(round(from)), 0)
+        let rhs = min(Int(round(to)), waveform.samples.count-1)
         let sum = waveform.samples[lhs...rhs].reduce(0, +)
         let cnt = rhs-lhs+1
 

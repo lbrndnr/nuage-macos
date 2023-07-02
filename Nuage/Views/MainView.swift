@@ -23,6 +23,7 @@ struct MainView: View {
     @State private var subscriptions = Set<AnyCancellable>()
     
     @EnvironmentObject private var commands: Commands
+    @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
         return VStack(spacing: 0) {
@@ -50,7 +51,10 @@ struct MainView: View {
                     SearchList(for: search)
                 }
             }
-            PlayerView()
+            Divider()
+            if player.queue.count > 0 {
+                PlayerView()
+            }
         }
         .frame(minWidth: 800, minHeight: 400)
         .toolbar(content: toolbar)

@@ -26,7 +26,7 @@ class StreamPlayer: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     private var player: AVPlayer
-    private var queue = [Track]()
+    private(set) var queue = [Track]()
     private var currentItemIndex: Int? {
         didSet {
             currentStream = self.currentItemIndex.map { queue[$0] }
