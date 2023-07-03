@@ -135,24 +135,20 @@ struct MainView: View {
 
 struct MainView_Previews: PreviewProvider {
     
-    static var player: StreamPlayer {
+    static var previews: some View {
         let player = StreamPlayer()
         player.enqueue(Preview.tracks)
+        let mainView = MainView()
         
-        return player
-    }
-    
-    static var previews: some View {
-        HStack {
-            MainView()
-                .toolbar()
-                .environmentObject(player)
-                .environmentObject(Commands())
+        return Group {
+            HStack {
+                mainView.toolbar()
+            }
+            .previewDisplayName("Toolbar")
+            mainView
         }
-        .previewDisplayName("Toolbar")
-        MainView()
-            .environmentObject(player)
-            .environmentObject(Commands())
+        .environmentObject(player)
+        .environmentObject(Commands())
     }
     
 }
