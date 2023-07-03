@@ -20,19 +20,14 @@ struct MainView: View {
     @State private var playlists = [Playlist]()
     @State private var searchQuery = ""
     @State private var presentProfile = false
-    @State private var subscriptions = Set<AnyCancellable>()
     
     @EnvironmentObject private var commands: Commands
     @EnvironmentObject private var player: StreamPlayer
     
+    @State private var subscriptions = Set<AnyCancellable>()
+    
     var body: some View {
         return VStack(spacing: 0) {
-//            let presentSearch = Binding(get: { searchQuery.count > 0 },
-//                                        set: { presented in
-//                                            if !presented {
-//                                                searchQuery = ""
-//                                            }
-//                                        })
             let stackItem: Binding<Int?> = Binding(get: { presentProfile ? 1 : (searchQuery.count > 0 ? 2 : nil) },
                                                       set: { value in
                                                         if value == nil {
@@ -124,43 +119,38 @@ struct MainView: View {
         }
     }
     
-    @ToolbarContentBuilder private func toolbar() -> some ToolbarContent {
-        ToolbarItem {
-            TextField("􀊫 Search", text: $searchQuery)
-                .onExitCommand { searchQuery = "" }
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-                .frame(minWidth: 150)
-
+    @ViewBuilder fileprivate func toolbar() -> some View {
+        TextField("􀊫 Search", text: $searchQuery)
+            .onExitCommand { searchQuery = "" }
+            .textFieldStyle(RoundedBorderTextFieldStyle())
+            .frame(minWidth: 150)
+        Button(action: { presentProfile = true }) {
+            RemoteImage(url: SoundCloud.shared.user?.avatarURL, cornerRadius: 15)
+                .frame(width: 30, height: 30)
         }
-//            ToolbarItem {
-//                MenuButton(label: Image(systemName: "arrow.up.arrow.down")) {
-//                    Text("Recently Added")
-//
-//                }
-//            }
-        ToolbarItem {
-            Button(action: { presentProfile = true }) {
-                HStack {
-                    Text(SoundCloud.shared.user?.username ?? "Profile")
-                        .bold()
-                        .foregroundColor(.secondary)
-                    RemoteImage(url: SoundCloud.shared.user?.avatarURL, cornerRadius: 15)
-                        .frame(width: 30, height: 30)
-                }
-            }
-            .buttonStyle(PlainButtonStyle())
-        }
+        .buttonStyle(PlainButtonStyle())
     }
     
 }
 
 struct MainView_Previews: PreviewProvider {
     
-    static var previews: some View {
+    static var player: StreamPlayer {
         let player = StreamPlayer()
         player.enqueue(Preview.tracks)
         
-        return MainView()
+        return player
+    }
+    
+    static var previews: some View {
+        HStack {
+            MainView()
+                .toolbar()
+                .environmentObject(player)
+                .environmentObject(Commands())
+        }
+        .previewDisplayName("Toolbar")
+        MainView()
             .environmentObject(player)
             .environmentObject(Commands())
     }
