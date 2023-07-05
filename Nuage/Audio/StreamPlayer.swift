@@ -188,7 +188,13 @@ class StreamPlayer: ObservableObject {
     @objc func advanceForward() {
         guard let idx = currentItemIndex else { return }
         player.replaceCurrentItem(with: nil)
-        resume(from: idx + 1)
+        if queue.count > idx + 1 {
+            resume(from: idx + 1)
+        }
+        else {
+            queue = []
+            pause()
+        }
     }
     
     func advanceBackward() {
