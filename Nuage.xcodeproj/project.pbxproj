@@ -21,8 +21,6 @@
 		4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3C8257CFA7F0048E29B /* NuageApp.swift */; };
 		4969F3CD257CFA800048E29B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4969F3CC257CFA800048E29B /* Assets.xcassets */; };
 		4969F3D0257CFA800048E29B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4969F3CF257CFA800048E29B /* Preview Assets.xcassets */; };
-		4969F3DC257CFA800048E29B /* NuageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3DB257CFA800048E29B /* NuageTests.swift */; };
-		4969F3E7257CFA800048E29B /* NuageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3E6257CFA800048E29B /* NuageUITests.swift */; };
 		4969F41E257CFB100048E29B /* Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F400257CFB100048E29B /* Preview.swift */; };
 		4969F428257CFB100048E29B /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40B257CFB100048E29B /* Helpers.swift */; };
 		4969F42A257CFB100048E29B /* Stream.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F40E257CFB100048E29B /* Stream.swift */; };
@@ -48,23 +46,6 @@
 		49FA14C62589693E00CEF925 /* InfiniteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* InfiniteList.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		4969F3D8257CFA800048E29B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4969F3BD257CFA7F0048E29B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4969F3C4257CFA7F0048E29B;
-			remoteInfo = Nuage;
-		};
-		4969F3E3257CFA800048E29B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4969F3BD257CFA7F0048E29B /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4969F3C4257CFA7F0048E29B;
-			remoteInfo = Nuage;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		4908204F25C86DD100AC92EC /* PlayerSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSlider.swift; sourceTree = "<group>"; };
 		492AF078258F877E0079035F /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
@@ -83,12 +64,6 @@
 		4969F3CF257CFA800048E29B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4969F3D1257CFA800048E29B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4969F3D2257CFA800048E29B /* Nuage.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Nuage.entitlements; sourceTree = "<group>"; };
-		4969F3D7257CFA800048E29B /* NuageTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NuageTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4969F3DB257CFA800048E29B /* NuageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuageTests.swift; sourceTree = "<group>"; };
-		4969F3DD257CFA800048E29B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4969F3E2257CFA800048E29B /* NuageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NuageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4969F3E6257CFA800048E29B /* NuageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NuageUITests.swift; sourceTree = "<group>"; };
-		4969F3E8257CFA800048E29B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4969F400257CFB100048E29B /* Preview.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Preview.swift; sourceTree = "<group>"; };
 		4969F40B257CFB100048E29B /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		4969F40E257CFB100048E29B /* Stream.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stream.swift; sourceTree = "<group>"; };
@@ -121,20 +96,6 @@
 				49328ECF25C4B71500A2A34D /* SoundCloud in Frameworks */,
 				49B154C525C4685D00CE9511 /* URLImage in Frameworks */,
 				4980FD4025CD704E004640D5 /* GridStack in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4969F3D4257CFA800048E29B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4969F3DF257CFA800048E29B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,8 +148,6 @@
 				49328EC625C4B6F900A2A34D /* SoundCloud */,
 				49328EC225C4B6F300A2A34D /* StackNavigationView */,
 				4969F3C7257CFA7F0048E29B /* Nuage */,
-				4969F3DA257CFA800048E29B /* NuageTests */,
-				4969F3E5257CFA800048E29B /* NuageUITests */,
 				4969F3C6257CFA7F0048E29B /* Products */,
 				49328EB325C4B57D00A2A34D /* Frameworks */,
 			);
@@ -198,8 +157,6 @@
 			isa = PBXGroup;
 			children = (
 				4969F3C5257CFA7F0048E29B /* Nuage.app */,
-				4969F3D7257CFA800048E29B /* NuageTests.xctest */,
-				4969F3E2257CFA800048E29B /* NuageUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -228,24 +185,6 @@
 				4969F3CF257CFA800048E29B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		4969F3DA257CFA800048E29B /* NuageTests */ = {
-			isa = PBXGroup;
-			children = (
-				4969F3DB257CFA800048E29B /* NuageTests.swift */,
-				4969F3DD257CFA800048E29B /* Info.plist */,
-			);
-			path = NuageTests;
-			sourceTree = "<group>";
-		};
-		4969F3E5257CFA800048E29B /* NuageUITests */ = {
-			isa = PBXGroup;
-			children = (
-				4969F3E6257CFA800048E29B /* NuageUITests.swift */,
-				4969F3E8257CFA800048E29B /* Info.plist */,
-			);
-			path = NuageUITests;
 			sourceTree = "<group>";
 		};
 		4969F40D257CFB100048E29B /* Audio */ = {
@@ -307,42 +246,6 @@
 			productReference = 4969F3C5257CFA7F0048E29B /* Nuage.app */;
 			productType = "com.apple.product-type.application";
 		};
-		4969F3D6257CFA800048E29B /* NuageTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4969F3EE257CFA800048E29B /* Build configuration list for PBXNativeTarget "NuageTests" */;
-			buildPhases = (
-				4969F3D3257CFA800048E29B /* Sources */,
-				4969F3D4257CFA800048E29B /* Frameworks */,
-				4969F3D5257CFA800048E29B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4969F3D9257CFA800048E29B /* PBXTargetDependency */,
-			);
-			name = NuageTests;
-			productName = NuageTests;
-			productReference = 4969F3D7257CFA800048E29B /* NuageTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4969F3E1257CFA800048E29B /* NuageUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4969F3F1257CFA800048E29B /* Build configuration list for PBXNativeTarget "NuageUITests" */;
-			buildPhases = (
-				4969F3DE257CFA800048E29B /* Sources */,
-				4969F3DF257CFA800048E29B /* Frameworks */,
-				4969F3E0257CFA800048E29B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4969F3E4257CFA800048E29B /* PBXTargetDependency */,
-			);
-			name = NuageUITests;
-			productName = NuageUITests;
-			productReference = 4969F3E2257CFA800048E29B /* NuageUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -354,14 +257,6 @@
 				TargetAttributes = {
 					4969F3C4257CFA7F0048E29B = {
 						CreatedOnToolsVersion = 12.2;
-					};
-					4969F3D6257CFA800048E29B = {
-						CreatedOnToolsVersion = 12.2;
-						TestTargetID = 4969F3C4257CFA7F0048E29B;
-					};
-					4969F3E1257CFA800048E29B = {
-						CreatedOnToolsVersion = 12.2;
-						TestTargetID = 4969F3C4257CFA7F0048E29B;
 					};
 				};
 			};
@@ -384,8 +279,6 @@
 			projectRoot = "";
 			targets = (
 				4969F3C4257CFA7F0048E29B /* Nuage */,
-				4969F3D6257CFA800048E29B /* NuageTests */,
-				4969F3E1257CFA800048E29B /* NuageUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -398,20 +291,6 @@
 				494065572A5176F200A9A364 /* Likes.json in Resources */,
 				4969F3D0257CFA800048E29B /* Preview Assets.xcassets in Resources */,
 				4969F3CD257CFA800048E29B /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4969F3D5257CFA800048E29B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4969F3E0257CFA800048E29B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,22 +333,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4969F3D3257CFA800048E29B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4969F3DC257CFA800048E29B /* NuageTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4969F3DE257CFA800048E29B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4969F3E7257CFA800048E29B /* NuageUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -480,16 +343,6 @@
 		49328ECD25C4B70F00A2A34D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = 49328ECC25C4B70F00A2A34D /* StackNavigationView */;
-		};
-		4969F3D9257CFA800048E29B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4969F3C4257CFA7F0048E29B /* Nuage */;
-			targetProxy = 4969F3D8257CFA800048E29B /* PBXContainerItemProxy */;
-		};
-		4969F3E4257CFA800048E29B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4969F3C4257CFA7F0048E29B /* Nuage */;
-			targetProxy = 4969F3E3257CFA800048E29B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -659,86 +512,6 @@
 			};
 			name = Release;
 		};
-		4969F3EF257CFA800048E29B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = NuageTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = laurinbrandner.NuageTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nuage.app/Contents/MacOS/Nuage";
-			};
-			name = Debug;
-		};
-		4969F3F0257CFA800048E29B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = NuageTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				MACOSX_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_BUNDLE_IDENTIFIER = laurinbrandner.NuageTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Nuage.app/Contents/MacOS/Nuage";
-			};
-			name = Release;
-		};
-		4969F3F2257CFA800048E29B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = NuageUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = laurinbrandner.NuageUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Nuage;
-			};
-			name = Debug;
-		};
-		4969F3F3257CFA800048E29B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = NuageUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/../Frameworks",
-					"@loader_path/../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = laurinbrandner.NuageUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Nuage;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -756,24 +529,6 @@
 			buildConfigurations = (
 				4969F3EC257CFA800048E29B /* Debug */,
 				4969F3ED257CFA800048E29B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4969F3EE257CFA800048E29B /* Build configuration list for PBXNativeTarget "NuageTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4969F3EF257CFA800048E29B /* Debug */,
-				4969F3F0257CFA800048E29B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4969F3F1257CFA800048E29B /* Build configuration list for PBXNativeTarget "NuageUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4969F3F2257CFA800048E29B /* Debug */,
-				4969F3F3257CFA800048E29B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
