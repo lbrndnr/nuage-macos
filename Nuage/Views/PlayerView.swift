@@ -34,11 +34,11 @@ struct PlayerView: View {
             WaveformSlider(waveform: player.currentStream?.waveform, value: $player.progress, in: 0...duration, minValueLabel: { progress in
                 Text(format(time: progress))
                     .font(font)
-                    .frame(width: 50, alignment: .trailing)
+                    .frame(width: 70, alignment: .trailing)
             }, maxValueLabel: { _ in
                 Text(format(time: duration))
                     .font(font)
-                    .frame(width: 50, alignment: .leading)
+                    .frame(width: 70, alignment: .leading)
             })
             .foregroundColor(controlColor)
             

@@ -141,11 +141,11 @@ struct MainView_Previews: PreviewProvider {
         let mainView = MainView()
         
         return Group {
+            mainView
             HStack {
                 mainView.toolbar()
             }
             .previewDisplayName("Toolbar")
-            mainView
         }
         .environmentObject(player)
         .environmentObject(Commands())

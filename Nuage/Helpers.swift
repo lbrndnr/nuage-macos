@@ -12,43 +12,26 @@ import Combine
 import URLImage
 import SoundCloud
 
-struct FillableSysteImageStyle: ButtonStyle {
-    
-    var systemImageName: String
-    
-    var resizeable: Bool
-    
-    init(systemImageName: String, resizeable: Bool = true) {
-        self.systemImageName = systemImageName
-        self.resizeable = resizeable
-    }
-
-    func makeBody(configuration: Self.Configuration) -> some View {
-        let imageName = configuration.isPressed ? systemImageName + ".fill" : systemImageName
-        let image = Image(systemName: imageName)
-        
-        if resizeable {
-             return AnyView(image
-                .resizable()
-                .scaledToFit()
-                .padding(3))
-        }
-        
-        return AnyView(image)
-    }
-
-}
-
 private var durationFormatter: DateComponentsFormatter = {
     let formatter = DateComponentsFormatter()
     formatter.unitsStyle = .positional
     formatter.allowedUnits = [.hour, .minute, .second]
+    formatter.zeroFormattingBehavior = .pad
     
     return formatter
 }()
 
 func format<Time: BinaryFloatingPoint>(time: Time) -> String {
-    return durationFormatter.string(from: TimeInterval(time)) ?? "0"
+    guard var text = durationFormatter.string(from: TimeInterval(time)) else {
+        return "00:00"
+    }
+    
+    let idx = text.index(text.startIndex, offsetBy: 3)
+    if text.prefix(upTo: idx) == "00:" {
+        text = String(text.suffix(from: idx))
+    }
+    
+    return text
 }
 
 extension AnyCancellable {
