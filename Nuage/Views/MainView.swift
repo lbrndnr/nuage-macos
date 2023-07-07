@@ -17,7 +17,7 @@ import SoundCloud
 struct MainView: View {
     
     @State private var navigationSelection: Int? = 0
-    @State private var playlists = [Playlist]()
+    @State private var playlists: [Playlist] = []
     @State private var searchQuery = ""
     @State private var presentProfile = false
     
@@ -53,14 +53,19 @@ struct MainView: View {
         }
         .frame(minWidth: 800, minHeight: 400)
         .toolbar(content: toolbar)
-        .onAppear {            
-            SoundCloud.shared.get(.library())
-                .map { $0.collection }
-                .replaceError(with: [])
+        .onAppear {
+            SoundCloud.shared.$user
+                .map { $0?.playlists ?? [] }
+                .assign(to: \.playlists, on: self)
+                .store(in: &subscriptions)
+            
+            SoundCloud.shared.get(.library(), limit: 150)
+                .map { Optional($0.collection) }
+                .replaceError(with: nil)
+                .filter { $0 != nil }
                 .receive(on: RunLoop.main)
                 .sink { likes in
-                    let playlists = likes.map { $0.item }
-                    self.playlists = playlists
+                    let playlists = likes!.map { $0.item }
                     SoundCloud.shared.user?.playlists = playlists
                 }
                 .store(in: &self.subscriptions)
