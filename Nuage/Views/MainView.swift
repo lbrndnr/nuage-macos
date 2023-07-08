@@ -59,33 +59,31 @@ struct MainView: View {
                 .assign(to: \.playlists, on: self)
                 .store(in: &subscriptions)
             
-            SoundCloud.shared.get(.library(), limit: 150)
-                .map { Optional($0.collection) }
-                .replaceError(with: nil)
-                .filter { $0 != nil }
+            SoundCloud.shared.get(all: .library())
+                .map { $0.map { $0.item } }
+                .replaceError(with: SoundCloud.shared.user!.playlists)
                 .receive(on: RunLoop.main)
-                .sink { likes in
-                    let playlists = likes!.map { $0.item }
+                .sink { playlists in
                     SoundCloud.shared.user?.playlists = playlists
                 }
-                .store(in: &self.subscriptions)
+                .store(in: &subscriptions)
         }
     }
     
     @ViewBuilder private func sidebar() -> some View {
-        let stream = SoundCloud.shared.get(.stream())
+        let stream = SoundCloud.shared.get(.stream(), limit: 50)
         let streamView = PostList(for: stream).navigationTitle("Stream")
         
         let likes = SoundCloud.shared.$user.filter { $0 != nil}
-            .flatMap { SoundCloud.shared.get(.trackLikes(of: $0!)) }
+            .flatMap { SoundCloud.shared.get(.trackLikes(of: $0!), limit: 50) }
             .eraseToAnyPublisher()
         let likesView = TrackList(for: likes).navigationTitle("Likes")
         
-        let history = SoundCloud.shared.get(.history())
+        let history = SoundCloud.shared.get(.history(), limit: 50)
         let historyView = TrackList(for: history).navigationTitle("History")
         
         let following = SoundCloud.shared.$user.filter { $0 != nil }
-            .flatMap { SoundCloud.shared.get(.followings(of: $0!)) }
+            .flatMap { SoundCloud.shared.get(.followings(of: $0!), limit: 50) }
             .eraseToAnyPublisher()
         let followingView = UserGrid(for: following).navigationTitle("Following")
         
