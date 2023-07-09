@@ -38,6 +38,7 @@ struct TrackRow: View {
                         Image(systemName: "arrow.triangle.2.circlepath")
                     }.buttonStyle(BorderlessButtonStyle())
                 }
+                Spacer()
             }
             VStack(alignment: .leading) {
                 Text(track.title)
