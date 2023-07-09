@@ -20,72 +20,109 @@ struct PlayerView: View {
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
-        let duration = TimeInterval(player.currentStream?.duration ?? 0)
-        
-        return HStack {
-            if let track = player.currentStream {
-                StackNavigationLink(destination: TrackDetail(track: track)) {
-                    RemoteImage(url: player.currentStream?.artworkURL, cornerRadius: 3)
-                        .frame(width: 50, height: 50)
-                }
-            }
+        HStack {
+            artwork()
+                .aspectRatio(1.0, contentMode: .fit)
+                .padding(.vertical, 8)
             
-            let font = Font.system(size: 12).monospacedDigit()
-            WaveformSlider(waveform: player.currentStream?.waveform, value: $player.progress, in: 0...duration, minValueLabel: { progress in
-                Text(format(time: progress))
-                    .font(font)
-                    .frame(width: 70, alignment: .trailing)
-            }, maxValueLabel: { _ in
-                Text(format(time: duration))
-                    .font(font)
-                    .frame(width: 70, alignment: .leading)
-            })
-            .foregroundColor(controlColor)
+            trackDetails()
+                .frame(width: 80)
             
-            Button(action: player.advanceBackward) {
-                Image(systemName: "backward.end.fill")
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            .frame(width: 20, height: 20)
-            .foregroundColor(controlColor)
+            progressSlider()
+                .padding(.vertical)
             
-            Button(action: player.togglePlayback) {
-                let playStateImageName = player.isPlaying ? "pause.fill" : "play.fill"
-                Image(systemName: playStateImageName)
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            .frame(width: 20, height: 20)
-            .foregroundColor(controlColor)
-            
-            Button(action: player.advanceForward) {
-                Image(systemName: "forward.end.fill")
-            }
-            .buttonStyle(BorderlessButtonStyle())
-            .frame(width: 20, height: 20)
-            .foregroundColor(controlColor)
+            playbackControls()
             
             Spacer()
                 .frame(width: 30)
             
-            Button(action: {
-                player.volume = 0
-            }, label: {
-                Image(systemName: "speaker.fill")
-            }).buttonStyle(BorderlessButtonStyle())
-            .foregroundColor(controlColor)
-            
-            PlayerSlider(value: $player.volume, in: 0...1, updateStrategy: .incremental(0.05))
-                .frame(width: 100)
-            Button(action: {
-                player.volume = 1
-            }, label: {
-                Image(systemName: "speaker.wave.3.fill")
-            }).buttonStyle(BorderlessButtonStyle())
-            .foregroundColor(controlColor)
+            volumeControls()
         }
-        .padding(.all)
         .frame(height: 60)
+        .padding(.horizontal, 8)
         .background(backgroundColor)
+    }
+    
+    @ViewBuilder private func artwork() -> some View {
+        if let track = player.currentStream {
+            StackNavigationLink(destination: TrackDetail(track: track)) {
+                RemoteImage(url: player.currentStream?.artworkURL, cornerRadius: 3)
+            }
+        }
+        else {
+            RemoteImage(url: nil, cornerRadius: 3)
+        }
+    }
+    
+    @ViewBuilder private func trackDetails() -> some View {
+        if let track = player.currentStream {
+            VStack(alignment: .leading) {
+                Text(track.user.displayName)
+                    .bold()
+                    .lineLimit(1)
+                Text(track.title)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+            }
+        }
+    }
+    
+    @ViewBuilder private func progressSlider() -> some View {
+        let duration = TimeInterval(player.currentStream?.duration ?? 0)
+        let font = Font.system(size: 14).monospacedDigit()
+        
+        WaveformSlider(waveform: player.currentStream?.waveform, value: $player.progress, in: 0...duration, minValueLabel: { progress in
+            Text(format(time: progress))
+                .font(font)
+                .frame(width: 70, alignment: .trailing)
+        }, maxValueLabel: { _ in
+            Text(format(time: duration))
+                .font(font)
+                .frame(width: 70, alignment: .leading)
+        })
+        .foregroundColor(controlColor)
+    }
+    
+    @ViewBuilder private func playbackControls() -> some View {
+        Button(action: player.advanceBackward) {
+            Image(systemName: "backward.end.fill")
+        }
+        .buttonStyle(BorderlessButtonStyle())
+        .frame(width: 20, height: 20)
+        .foregroundColor(controlColor)
+        
+        Button(action: player.togglePlayback) {
+            let playStateImageName = player.isPlaying ? "pause.fill" : "play.fill"
+            Image(systemName: playStateImageName)
+        }
+        .buttonStyle(BorderlessButtonStyle())
+        .frame(width: 20, height: 20)
+        .foregroundColor(controlColor)
+        
+        Button(action: player.advanceForward) {
+            Image(systemName: "forward.end.fill")
+        }
+        .buttonStyle(BorderlessButtonStyle())
+        .frame(width: 20, height: 20)
+        .foregroundColor(controlColor)
+    }
+    
+    @ViewBuilder private func volumeControls() -> some View {
+        Button(action: {
+            player.volume = 0
+        }, label: {
+            Image(systemName: "speaker.fill")
+        }).buttonStyle(BorderlessButtonStyle())
+        .foregroundColor(controlColor)
+        
+        PlayerSlider(value: $player.volume, in: 0...1, updateStrategy: .incremental(0.05))
+            .frame(width: 100)
+        Button(action: {
+            player.volume = 1
+        }, label: {
+            Image(systemName: "speaker.wave.3.fill")
+        }).buttonStyle(BorderlessButtonStyle())
+        .foregroundColor(controlColor)
     }
     
     private var backgroundColor: Color { colorScheme == .light ? .white : Color(hex: 0x1A1A1A) }
