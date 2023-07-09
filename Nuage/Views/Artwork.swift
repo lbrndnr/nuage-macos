@@ -19,17 +19,16 @@ struct Artwork: View {
             
             if !playButtonHidden {
                 Button(action: onPlay) {
-                    ZStack {
-                        Circle()
-                            .foregroundColor(.accentColor)
-                            .frame(width: 50, height: 50)
-                        Image(systemName: "play.fill")
-                            .resizable()
-                            .frame(width: 25, height: 25)
-                            .offset(x: 2)
-                    }
+                    Image(systemName: "play.fill")
+                        .resizable()
+                        .offset(x: 2)
+                        .padding(2)
+                        .frame(width: 27, height: 27)
+
                 }
+                .frame(width: 50, height: 50)
                 .buttonStyle(BorderlessButtonStyle())
+                .background(.regularMaterial, in: Circle())
                 .transition(.opacity)
             }
         }
@@ -42,6 +41,7 @@ struct Artwork: View {
         self.url = url
         self.onPlay = onPlay
     }
+    
 }
 
 //struct Artwork_Previews: PreviewProvider {
