@@ -27,7 +27,7 @@ struct MainView: View {
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
-        return VStack(spacing: 0) {
+        VStack(spacing: 0) {
             let stackItem: Binding<Int?> = Binding(get: { presentProfile ? 1 : (searchQuery.count > 0 ? 2 : nil) },
                                                       set: { value in
                                                         if value == nil {

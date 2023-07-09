@@ -37,6 +37,7 @@ struct PlaylistRow: View {
                         }.buttonStyle(BorderlessButtonStyle())
                     }
                 }
+                Spacer()
             }
             VStack(alignment: .leading) {
                 Text(playlist.title)
@@ -72,7 +73,6 @@ struct PlaylistRow: View {
                 }
             }
         }
-        .padding(6)
     }
 
 }

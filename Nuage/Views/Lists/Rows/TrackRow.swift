@@ -66,7 +66,6 @@ struct TrackRow: View {
                 }
             }
         }
-        .padding(6)
     }
 
 }
