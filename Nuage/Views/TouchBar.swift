@@ -18,15 +18,17 @@ struct TouchBar: View {
     
     var body: some View {
         if let track = player.currentStream {
+            let font = Font.system(size: 12)
+                .monospacedDigit()
             HStack {
                 VStack(alignment: .leading) {
                     Text(track.user.displayName)
                         .bold()
                         .lineLimit(1)
-                        .font(.system(size: 12))
+                        .font(font)
                     Text(track.title)
                         .lineLimit(1)
-                        .font(.system(size: 12))
+                        .font(font)
                         .truncationMode(.tail)
                         .foregroundColor(.secondary)
                 }

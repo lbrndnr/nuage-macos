@@ -26,9 +26,9 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
     
     var body: some View {
         HStack {
-            minValueLabel(self.value)
+            minValueLabel(updatingValue ?? value)
             slider()
-            maxValueLabel(self.value)
+            maxValueLabel(updatingValue ?? value)
         }
     }
     
