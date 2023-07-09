@@ -1,0 +1,56 @@
+//
+//  TouchBar.swift
+//  Nuage
+//
+//  Created by Laurin Brandner on 09.07.23.
+//
+
+import SwiftUI
+import Combine
+import StackNavigationView
+import SoundCloud
+
+struct TouchBar: View {
+    
+    @EnvironmentObject private var player: StreamPlayer
+    @Environment(\.colorScheme) private var colorScheme
+    @State private var subscriptions = Set<AnyCancellable>()
+    
+    var body: some View {
+        if let track = player.currentStream {
+            HStack {
+                VStack(alignment: .leading) {
+                    Text(track.user.displayName)
+                        .bold()
+                        .lineLimit(1)
+                        .font(.system(size: 12))
+                    Text(track.title)
+                        .lineLimit(1)
+                        .font(.system(size: 12))
+                        .truncationMode(.tail)
+                        .foregroundColor(.secondary)
+                }
+                .frame(maxWidth: 200)
+                progressSlider(for: track)
+            }
+        }
+    }
+    
+    @ViewBuilder private func progressSlider(for track: Track) -> some View {
+        let duration = TimeInterval(player.currentStream?.duration ?? 0)
+        let font = Font.system(size: 14).monospacedDigit()
+        
+        WaveformSlider(waveform: track.waveform, value: $player.progress, in: 0...duration, minValueLabel: { progress in
+            Text(format(time: progress))
+                .font(font)
+                .frame(width: 70, alignment: .trailing)
+        }, maxValueLabel: { _ in
+            Text(format(time: duration))
+                .font(font)
+                .frame(width: 70, alignment: .leading)
+        })
+        .frame(minWidth: 440)
+        .foregroundColor(.white)
+    }
+    
+}

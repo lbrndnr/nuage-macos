@@ -44,6 +44,7 @@
 		49E6259D25BE1E7E005BEF8C /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6259C25BE1E7E005BEF8C /* WebView.swift */; };
 		49FA14BB2589635800CEF925 /* ArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14BA2589635800CEF925 /* ArrayView.swift */; };
 		49FA14C62589693E00CEF925 /* InfiniteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14C52589693E00CEF925 /* InfiniteList.swift */; };
+		49FEEBDF2A5B56C9002C8865 /* TouchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FEEBDE2A5B56C9002C8865 /* TouchBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +85,7 @@
 		49E6259C25BE1E7E005BEF8C /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		49FA14BA2589635800CEF925 /* ArrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayView.swift; sourceTree = "<group>"; };
 		49FA14C52589693E00CEF925 /* InfiniteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteList.swift; sourceTree = "<group>"; };
+		49FEEBDE2A5B56C9002C8865 /* TouchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,6 +215,7 @@
 				4988D84525A1C62E0092BAFF /* UserDetail.swift */,
 				49E6259C25BE1E7E005BEF8C /* WebView.swift */,
 				4998E12025CADC8300EB986F /* Artwork.swift */,
+				49FEEBDE2A5B56C9002C8865 /* TouchBar.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 				4969F435257CFB100048E29B /* SliceView.swift in Sources */,
 				49FA14BB2589635800CEF925 /* ArrayView.swift in Sources */,
 				4969F42A257CFB100048E29B /* Stream.swift in Sources */,
+				49FEEBDF2A5B56C9002C8865 /* TouchBar.swift in Sources */,
 				4969F434257CFB100048E29B /* PlayerView.swift in Sources */,
 				497F43B228F757DA0090CAD6 /* WaveformSlider.swift in Sources */,
 				49332BBE2596260A0034A161 /* Actions.swift in Sources */,

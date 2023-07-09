@@ -53,6 +53,7 @@ struct MainView: View {
         }
         .frame(minWidth: 800, minHeight: 400)
         .toolbar(content: toolbar)
+        .touchBar { TouchBar() }
         .onAppear {
             SoundCloud.shared.$user
                 .map { $0?.playlists ?? [] }
