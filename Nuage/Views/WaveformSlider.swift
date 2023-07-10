@@ -66,7 +66,7 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
                             .frame(width: barValue)
                         Rectangle()
                             .foregroundColor(barBackgroundColor)
-                            .frame(width: geometry.size.width-barValue)
+                            .frame(width: max(0, geometry.size.width-barValue))
                     }
                     .mask(WaveformView(with: waveform))
                     Circle()
