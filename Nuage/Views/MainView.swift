@@ -62,7 +62,7 @@ struct MainView: View {
             
             SoundCloud.shared.get(all: .library())
                 .map { $0.map { $0.item } }
-                .replaceError(with: SoundCloud.shared.user!.playlists)
+                .replaceError(with: SoundCloud.shared.user?.playlists ?? [])
                 .receive(on: RunLoop.main)
                 .sink { playlists in
                     SoundCloud.shared.user?.playlists = playlists
