@@ -27,7 +27,7 @@ struct TrackRow: View {
         
         HStack(alignment: .top, spacing: 10) {
             VStack(alignment: .leading) {
-                Artwork(url: track.artworkURL, onPlay: onPlay)
+                Artwork(url: track.artworkURL ?? track.user.avatarURL, onPlay: onPlay)
                     .frame(width: 100, height: 100)
                 Spacer()
                 HStack {

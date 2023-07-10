@@ -46,7 +46,8 @@ struct PlayerView: View {
     @ViewBuilder private func artwork() -> some View {
         if let track = player.currentStream {
             StackNavigationLink(destination: TrackDetail(track: track)) {
-                RemoteImage(url: player.currentStream?.artworkURL, cornerRadius: 3)
+                let url = player.currentStream?.artworkURL ?? player.currentStream?.user.avatarURL
+                RemoteImage(url: url, cornerRadius: 3)
             }
         }
         else {
