@@ -33,14 +33,14 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
     }
     
     @ViewBuilder private func slider() -> some View {
-        let knobRadius: CGFloat = 13
+        let knobDiameter: CGFloat = 13
         
         GeometryReader { geometry in
             let currentValue = updatingValue ?? value
             let rangeWidth = range.upperBound - range.lowerBound
             let relativeValue = rangeWidth > 0 ? CGFloat(currentValue/rangeWidth) : CGFloat(0)
             let barValue = geometry.size.width * relativeValue
-            let knobValue = (geometry.size.width - knobRadius) * relativeValue
+            let knobValue = geometry.size.width * relativeValue - knobDiameter/2.0
             let currentKnobColor = highlighted ? highlightedKnobColor : knobColor
             
             let drag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged { gesture in
@@ -72,7 +72,7 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
                     Circle()
                         .strokeBorder(knobBorderColor, lineWidth: 1)
                         .background(Circle().foregroundColor(currentKnobColor))
-                        .frame(width: knobRadius, height: knobRadius)
+                        .frame(width: knobDiameter, height: knobDiameter)
                         .offset(x: knobValue)
                 }
             }.gesture(drag)
