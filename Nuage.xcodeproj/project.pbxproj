@@ -15,7 +15,6 @@
 		49332BAE25961A3B0034A161 /* PlaylistRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BAD25961A3B0034A161 /* PlaylistRow.swift */; };
 		49332BBE2596260A0034A161 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BBD2596260A0034A161 /* Actions.swift */; };
 		49332BCF25962E910034A161 /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BCE25962E910034A161 /* SearchList.swift */; };
-		494065572A5176F200A9A364 /* Likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 494065562A5176F200A9A364 /* Likes.json */; };
 		4964297B25DFCF04008AFBD5 /* CommentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4964297A25DFCF04008AFBD5 /* CommentList.swift */; };
 		4964299225E054E9008AFBD5 /* CommentRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4964299125E054E9008AFBD5 /* CommentRow.swift */; };
 		4969F3C9257CFA7F0048E29B /* NuageApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969F3C8257CFA7F0048E29B /* NuageApp.swift */; };
@@ -40,6 +39,7 @@
 		4988D84625A1C62E0092BAFF /* UserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988D84525A1C62E0092BAFF /* UserDetail.swift */; };
 		4998E12125CADC8300EB986F /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998E12025CADC8300EB986F /* Artwork.swift */; };
 		4999998D25B0886700F42D9B /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4999998C25B0886700F42D9B /* WaveformView.swift */; };
+		49A89C032A5EA1B70019648F /* Likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 49A89C022A5EA12D0019648F /* Likes.json */; };
 		49B154C525C4685D00CE9511 /* URLImage in Frameworks */ = {isa = PBXBuildFile; productRef = 49B154C425C4685D00CE9511 /* URLImage */; };
 		49E6259D25BE1E7E005BEF8C /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E6259C25BE1E7E005BEF8C /* WebView.swift */; };
 		49FA14BB2589635800CEF925 /* ArrayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49FA14BA2589635800CEF925 /* ArrayView.swift */; };
@@ -56,7 +56,6 @@
 		49332BAD25961A3B0034A161 /* PlaylistRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRow.swift; sourceTree = "<group>"; };
 		49332BBD2596260A0034A161 /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		49332BCE25962E910034A161 /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
-		494065562A5176F200A9A364 /* Likes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Likes.json; sourceTree = "<group>"; };
 		4964297A25DFCF04008AFBD5 /* CommentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentList.swift; sourceTree = "<group>"; };
 		4964299125E054E9008AFBD5 /* CommentRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRow.swift; sourceTree = "<group>"; };
 		4969F3C5257CFA7F0048E29B /* Nuage.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nuage.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +81,7 @@
 		4988D84525A1C62E0092BAFF /* UserDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetail.swift; sourceTree = "<group>"; };
 		4998E12025CADC8300EB986F /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		4999998C25B0886700F42D9B /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
+		49A89C022A5EA12D0019648F /* Likes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Likes.json; sourceTree = "<group>"; };
 		49E6259C25BE1E7E005BEF8C /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		49FA14BA2589635800CEF925 /* ArrayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayView.swift; sourceTree = "<group>"; };
 		49FA14C52589693E00CEF925 /* InfiniteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteList.swift; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 		4969F3CE257CFA800048E29B /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				494065562A5176F200A9A364 /* Likes.json */,
+				49A89C022A5EA12D0019648F /* Likes.json */,
 				4969F3CF257CFA800048E29B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -292,8 +292,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				494065572A5176F200A9A364 /* Likes.json in Resources */,
 				4969F3D0257CFA800048E29B /* Preview Assets.xcassets in Resources */,
+				49A89C032A5EA1B70019648F /* Likes.json in Resources */,
 				4969F3CD257CFA800048E29B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -480,7 +480,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"Nuage/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "Nuage/Preview\\ Content Nuage/Preview\\ Content/Likes.json";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Nuage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -506,7 +506,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"Nuage/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "Nuage/Preview\\ Content Nuage/Preview\\ Content/Likes.json";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Nuage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
