@@ -116,21 +116,23 @@ struct PlayerView: View {
     }
     
     @ViewBuilder private func volumeControls() -> some View {
-        Button(action: {
-            player.volume = 0
-        }, label: {
-            Image(systemName: "speaker.fill")
-        })
-        .buttonStyle(PlainButtonStyle())
-        
-        PlayerSlider(value: $player.volume, in: 0...1, updateStrategy: .incremental(0.05))
-            .frame(width: 100)
-        Button(action: {
-            player.volume = 1
-        }, label: {
-            Image(systemName: "speaker.wave.3.fill")
-        })
-        .buttonStyle(PlainButtonStyle())
+        HStack(spacing: 6) {
+            Button(action: {
+                player.volume = 0
+            }, label: {
+                Image(systemName: "speaker.fill")
+            })
+            .buttonStyle(PlainButtonStyle())
+            
+            PlayerSlider(value: $player.volume, in: 0...1, updateStrategy: .incremental(0.05))
+                .frame(width: 100)
+            Button(action: {
+                player.volume = 1
+            }, label: {
+                Image(systemName: "speaker.wave.3.fill")
+            })
+            .buttonStyle(PlainButtonStyle())
+        }
     }
     
     private var controlColor: Color { colorScheme == .light ? Color(hex: 0xBFBFBF) : Color(hex: 0x5B5B5B) }
