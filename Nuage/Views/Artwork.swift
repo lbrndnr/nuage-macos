@@ -10,30 +10,29 @@ import SwiftUI
 struct Artwork: View {
     
     private var url: URL?
-    @State private var playButtonHidden = true
+    @State private var showingPlayButton = false
     private var onPlay: () -> ()
     
     var body: some View {
         ZStack {
             RemoteImage(url: url, cornerRadius: 6)
             
-            if !playButtonHidden {
+            if showingPlayButton {
                 Button(action: onPlay) {
                     Image(systemName: "play.fill")
                         .resizable()
                         .offset(x: 2)
-                        .padding(2)
-                        .frame(width: 27, height: 27)
+                        .padding(12.5)
+                        .frame(width: 50, height: 50)
 
                 }
-                .frame(width: 50, height: 50)
                 .buttonStyle(BorderlessButtonStyle())
                 .background(.regularMaterial, in: Circle())
                 .transition(.opacity)
             }
         }
         .onHover { inside in
-            withAnimation { playButtonHidden = !inside }
+            withAnimation { showingPlayButton = inside }
         }
     }
     
@@ -44,8 +43,15 @@ struct Artwork: View {
     
 }
 
-//struct Artwork_Previews: PreviewProvider {
-//    static var previews: some View {
-//        Artwork()
-//    }
-//}
+struct Artwork_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        let url = URL(string: "https://i1.sndcdn.com/artworks-o1nyZOY2zZQNqnb3-JbBChA-t120x120.jpg")
+        let onPlay = { }
+        let artwork = Artwork(url: url, onPlay: onPlay)
+        
+        return artwork
+            .frame(width: 200, height: 200)
+    }
+    
+}
