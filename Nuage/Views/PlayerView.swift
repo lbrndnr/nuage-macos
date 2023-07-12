@@ -20,7 +20,7 @@ struct PlayerView: View {
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
-        HStack {
+        HStack(spacing: 16) {
             artwork()
                 .aspectRatio(1.0, contentMode: .fit)
                 .padding(.vertical, 8)
@@ -33,14 +33,12 @@ struct PlayerView: View {
             
             playbackControls()
             
-            Spacer()
-                .frame(width: 30)
-            
             volumeControls()
         }
         .frame(height: 60)
         .padding(.horizontal, 8)
-        .background(backgroundColor)
+        .foregroundColor(controlColor)
+        .background(Color(NSColor.controlBackgroundColor))
     }
     
     @ViewBuilder private func artwork() -> some View {
@@ -57,14 +55,18 @@ struct PlayerView: View {
     
     @ViewBuilder private func trackDetails() -> some View {
         if let track = player.currentStream {
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 4) {
                 Text(track.user.displayName)
                     .bold()
                     .lineLimit(1)
                 Text(track.title)
                     .lineLimit(1)
                     .truncationMode(.tail)
+                    .foregroundColor(.secondary)
             }
+        }
+        else {
+            Spacer()
         }
     }
     
@@ -85,27 +87,32 @@ struct PlayerView: View {
     }
     
     @ViewBuilder private func playbackControls() -> some View {
-        Button(action: player.advanceBackward) {
-            Image(systemName: "backward.end.fill")
+        HStack(spacing: 16) {
+            Button(action: player.advanceBackward) {
+                Image(systemName: "backward.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Button(action: player.togglePlayback) {
+                let playStateImageName = player.isPlaying ? "pause.fill" : "play.fill"
+                Image(systemName: playStateImageName)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+            }
+            .buttonStyle(PlainButtonStyle())
+            
+            Button(action: player.advanceForward) {
+                Image(systemName: "forward.fill")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 20, height: 20)
+            }
+            .buttonStyle(PlainButtonStyle())
         }
-        .buttonStyle(BorderlessButtonStyle())
-        .frame(width: 20, height: 20)
-        .foregroundColor(controlColor)
-        
-        Button(action: player.togglePlayback) {
-            let playStateImageName = player.isPlaying ? "pause.fill" : "play.fill"
-            Image(systemName: playStateImageName)
-        }
-        .buttonStyle(BorderlessButtonStyle())
-        .frame(width: 20, height: 20)
-        .foregroundColor(controlColor)
-        
-        Button(action: player.advanceForward) {
-            Image(systemName: "forward.end.fill")
-        }
-        .buttonStyle(BorderlessButtonStyle())
-        .frame(width: 20, height: 20)
-        .foregroundColor(controlColor)
     }
     
     @ViewBuilder private func volumeControls() -> some View {
@@ -113,8 +120,8 @@ struct PlayerView: View {
             player.volume = 0
         }, label: {
             Image(systemName: "speaker.fill")
-        }).buttonStyle(BorderlessButtonStyle())
-        .foregroundColor(controlColor)
+        })
+        .buttonStyle(PlainButtonStyle())
         
         PlayerSlider(value: $player.volume, in: 0...1, updateStrategy: .incremental(0.05))
             .frame(width: 100)
@@ -122,11 +129,9 @@ struct PlayerView: View {
             player.volume = 1
         }, label: {
             Image(systemName: "speaker.wave.3.fill")
-        }).buttonStyle(BorderlessButtonStyle())
-        .foregroundColor(controlColor)
+        })
+        .buttonStyle(PlainButtonStyle())
     }
-    
-    private var backgroundColor: Color { colorScheme == .light ? .white : Color(hex: 0x1A1A1A) }
     
     private var controlColor: Color { colorScheme == .light ? Color(hex: 0xBFBFBF) : Color(hex: 0x5B5B5B) }
     

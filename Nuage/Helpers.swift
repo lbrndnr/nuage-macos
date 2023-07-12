@@ -22,16 +22,17 @@ private var durationFormatter: DateComponentsFormatter = {
 }()
 
 func format<Time: BinaryFloatingPoint>(time: Time) -> String {
-    guard var text = durationFormatter.string(from: TimeInterval(time)) else {
-        return "00:00"
-    }
-    
-    let idx = text.index(text.startIndex, offsetBy: 3)
-    if text.prefix(upTo: idx) == "00:" {
-        text = String(text.suffix(from: idx))
-    }
-    
-    return text
+    return durationFormatter.string(from: TimeInterval(time)) ?? "00:00:00"
+//    guard var text = durationFormatter.string(from: TimeInterval(time)) else {
+//        return "00:00"
+//    }
+//    
+//    let idx = text.index(text.startIndex, offsetBy: 3)
+//    if text.prefix(upTo: idx) == "00:" {
+//        text = String(text.suffix(from: idx))
+//    }
+//    
+//    return text
 }
 
 extension AnyCancellable {
@@ -193,6 +194,18 @@ extension Color {
         let green = Double((hex >> 08) & 0xff) / 255
         let blue = Double((hex >> 00) & 0xff) / 255
         self.init(.sRGB, red: red, green: green, blue: blue, opacity: alpha)
+    }
+    
+}
+
+extension View {
+    
+    @ViewBuilder func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
+        }
     }
     
 }
