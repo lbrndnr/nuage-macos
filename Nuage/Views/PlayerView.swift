@@ -126,6 +126,7 @@ struct PlayerView: View {
                     .frame(width: 15, height: 15)
             }
             .buttonStyle(.borderless)
+            .keyboardShortcut(.space, modifiers: [])
             
             Button(action: player.advanceForward) {
                 Image(systemName: "forward.fill")
