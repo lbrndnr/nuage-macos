@@ -145,15 +145,18 @@ struct PlayerView: View {
             }, label: {
                 Image(systemName: "speaker.fill")
             })
+            .focusable(false)
             .buttonStyle(.borderless)
             
             PlayerSlider(value: $player.volume, in: 0...1, updateStrategy: .incremental(0.05))
                 .frame(width: 100)
+            
             Button(action: {
                 player.volume = 1
             }, label: {
                 Image(systemName: "speaker.wave.3.fill")
             })
+            .focusable(false)
             .buttonStyle(.borderless)
         }
     }
