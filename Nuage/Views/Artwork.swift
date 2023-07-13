@@ -26,7 +26,7 @@ struct Artwork: View {
                         .frame(width: 50, height: 50)
 
                 }
-                .buttonStyle(BorderlessButtonStyle())
+                .buttonStyle(.borderless)
                 .background(.regularMaterial, in: Circle())
                 .transition(.opacity)
             }

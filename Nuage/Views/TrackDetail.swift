@@ -42,10 +42,10 @@ struct TrackDetail: View {
             HStack {
                 Button(action: { }) {
                     Image(systemName: "heart")
-                }.buttonStyle(BorderlessButtonStyle())
+                }.buttonStyle(.borderless)
                 Button(action: { }) {
                     Image(systemName: "arrow.triangle.2.circlepath")
-                }.buttonStyle(BorderlessButtonStyle())
+                }.buttonStyle(.borderless)
             }
             
             Text(duration)

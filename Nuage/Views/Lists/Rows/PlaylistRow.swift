@@ -30,11 +30,11 @@ struct PlaylistRow: View {
                 HStack {
                     Button(action: toggleLike(playlist)) {
                         Image(systemName: "heart")
-                    }.buttonStyle(BorderlessButtonStyle())
+                    }.buttonStyle(.borderless)
                     if let playlist = playlist as? UserPlaylist {
                         Button(action: toggleRepost(playlist)) {
                             Image(systemName: "arrow.triangle.2.circlepath")
-                        }.buttonStyle(BorderlessButtonStyle())
+                        }.buttonStyle(.borderless)
                     }
                 }
                 Spacer()
@@ -45,7 +45,7 @@ struct PlaylistRow: View {
                     .bold()
                     .lineLimit(1)
                 StackNavigationLink(playlist.user.displayName, destination: UserDetail(user: playlist.user))
-                    .buttonStyle(PlainButtonStyle())
+                    .buttonStyle(.plain)
                 
                 Spacer()
                     .frame(height: 8)

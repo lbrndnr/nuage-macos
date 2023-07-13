@@ -166,25 +166,24 @@ extension User {
     
 }
 
-func RemoteImage(url: URL?, cornerRadius: CGFloat) -> AnyView {
+@ViewBuilder func RemoteImage(url: URL?, cornerRadius: CGFloat) -> some View {
     let placeholder = Rectangle()
-        .foregroundColor(.gray)
+        .foregroundColor(Color(NSColor.underPageBackgroundColor))
         .cornerRadius(cornerRadius)
     
-    guard let url = url else {
-        return AnyView(placeholder)
+    if let url = url {
+        URLImage(url: url,
+                 empty: { placeholder },
+                 inProgress: { _ in placeholder },
+                 failure: { _, _ in placeholder },
+                 content: { image in
+            image.resizable()
+                .cornerRadius(cornerRadius)
+        })
     }
-    
-    let image = URLImage(url: url,
-             empty: { placeholder },
-             inProgress: { _ in placeholder },
-             failure: { _, _ in placeholder },
-             content: { image in
-                image.resizable()
-                    .cornerRadius(cornerRadius)
-             })
-    
-    return AnyView(image)
+    else {
+        placeholder
+    }
 }
 
 extension Color {

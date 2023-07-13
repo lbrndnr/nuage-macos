@@ -18,7 +18,7 @@ struct WaveformView: View {
     var waveform: Waveform
     
     var body: some View {
-        return GeometryReader { geometry in
+        GeometryReader { geometry in
             let numberOfBars = CGFloat(geometry.size.width+spacing)/CGFloat(spacing+barWidth)
             let samplesPerBar = floor(CGFloat(waveform.samples.count)/numberOfBars)
             let bars = Array(0..<Int(numberOfBars))

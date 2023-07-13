@@ -132,7 +132,7 @@ struct MainView: View {
             RemoteImage(url: SoundCloud.shared.user?.avatarURL, cornerRadius: 15)
                 .frame(width: 30, height: 30)
         }
-        .buttonStyle(PlainButtonStyle())
+        .buttonStyle(.plain)
     }
     
 }

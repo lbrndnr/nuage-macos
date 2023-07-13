@@ -33,10 +33,10 @@ struct TrackRow: View {
                 HStack {
                     Button(action: toggleLike(track)) {
                         Image(systemName: "heart")
-                    }.buttonStyle(BorderlessButtonStyle())
+                    }.buttonStyle(.borderless)
                     Button(action: toggleRepost(track)) {
                         Image(systemName: "arrow.triangle.2.circlepath")
-                    }.buttonStyle(BorderlessButtonStyle())
+                    }.buttonStyle(.borderless)
                 }
                 Spacer()
             }
@@ -46,7 +46,7 @@ struct TrackRow: View {
                     .bold()
                     .lineLimit(1)
                 StackNavigationLink(track.user.displayName, destination: UserDetail(user: track.user))
-                    .buttonStyle(PlainButtonStyle())
+                    .buttonStyle(.plain)
                 HStack {
                     Image(systemName: "play.fill")
                     Text(String(track.playbackCount))
