@@ -15,36 +15,59 @@ struct NoTrackError: Error {}
 
 struct PlayerView: View {
     
+    @State private var showingVolumeControls = false
+    
     @EnvironmentObject private var player: StreamPlayer
     @Environment(\.colorScheme) private var colorScheme
+    
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
-        HStack(spacing: 16) {
-            artwork()
-                .aspectRatio(1.0, contentMode: .fit)
-                .padding(.vertical, 8)
+        ZStack {
+            let url = player.currentStream?.artworkURL ?? player.currentStream?.user.avatarURL
+            RemoteImage(url: url, cornerRadius: 0)
             
-            trackDetails()
-                .frame(width: 80)
-            
-            progressSlider()
-                .padding(.vertical)
-            
-            playbackControls()
-            
-            volumeControls()
+            HStack(spacing: 16) {
+                artwork()
+                    .aspectRatio(1.0, contentMode: .fit)
+                    .padding(.vertical, 8)
+                
+                trackDetails()
+                    .frame(width: 80)
+                
+                progressSlider()
+                    .padding(.vertical)
+                
+                playbackControls()
+                
+                Button(action: {
+                    showingVolumeControls = true
+                }) {
+                    Image(systemName: "speaker.wave.2.fill")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 15, height: 15)
+                }
+                .buttonStyle(.borderless)
+                .if(showingVolumeControls) { $0.foregroundColor(.accentColor) }
+                .popover(isPresented: $showingVolumeControls) {
+                    volumeControls()
+                        .padding()
+                }
+                
+                Spacer()
+                    .frame(width: 2)
+            }
+            .padding(.horizontal, 8)
+            .background(.thinMaterial)
         }
         .frame(height: 60)
-        .padding(.horizontal, 8)
-        .foregroundColor(controlColor)
-        .background(Color(NSColor.controlBackgroundColor))
     }
     
     @ViewBuilder private func artwork() -> some View {
         if let track = player.currentStream {
             StackNavigationLink(destination: TrackDetail(track: track)) {
-                let url = player.currentStream?.artworkURL ?? player.currentStream?.user.avatarURL
+                let url = track.artworkURL ?? player.currentStream?.user.avatarURL
                 RemoteImage(url: url, cornerRadius: 3)
             }
         }
@@ -83,7 +106,6 @@ struct PlayerView: View {
                 .font(font)
                 .frame(width: 70, alignment: .leading)
         })
-        .foregroundColor(controlColor)
     }
     
     @ViewBuilder private func playbackControls() -> some View {
@@ -92,26 +114,26 @@ struct PlayerView: View {
                 Image(systemName: "backward.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
+                    .frame(width: 15, height: 15)
             }
-            .buttonStyle(PlainButtonStyle())
+            .buttonStyle(.borderless)
             
             Button(action: player.togglePlayback) {
                 let playStateImageName = player.isPlaying ? "pause.fill" : "play.fill"
                 Image(systemName: playStateImageName)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
+                    .frame(width: 15, height: 15)
             }
-            .buttonStyle(PlainButtonStyle())
+            .buttonStyle(.borderless)
             
             Button(action: player.advanceForward) {
                 Image(systemName: "forward.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
+                    .frame(width: 15, height: 15)
             }
-            .buttonStyle(PlainButtonStyle())
+            .buttonStyle(.borderless)
         }
     }
     
@@ -122,7 +144,7 @@ struct PlayerView: View {
             }, label: {
                 Image(systemName: "speaker.fill")
             })
-            .buttonStyle(PlainButtonStyle())
+            .buttonStyle(.borderless)
             
             PlayerSlider(value: $player.volume, in: 0...1, updateStrategy: .incremental(0.05))
                 .frame(width: 100)
@@ -131,7 +153,7 @@ struct PlayerView: View {
             }, label: {
                 Image(systemName: "speaker.wave.3.fill")
             })
-            .buttonStyle(PlainButtonStyle())
+            .buttonStyle(.borderless)
         }
     }
     

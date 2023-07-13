@@ -22,7 +22,10 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
     private var minValueLabel: (Value) -> MinValueLabel
     private var maxValueLabel: (Value) -> MaxValueLabel
     
-    @Environment(\.colorScheme) private var colorScheme
+    private var knobColor: Color?
+    private var knobBorderColor: Color
+    private var waveformForegroundColor: Color
+    private var waveformBackgroundColor: Color
     
     var body: some View {
         HStack {
@@ -41,7 +44,6 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
             let relativeValue = rangeWidth > 0 ? CGFloat(currentValue/rangeWidth) : CGFloat(0)
             let barValue = geometry.size.width * relativeValue
             let knobValue = geometry.size.width * relativeValue - knobDiameter/2.0
-            let currentKnobColor = highlighted ? highlightedKnobColor : knobColor
             
             let drag = DragGesture(minimumDistance: 0, coordinateSpace: .local).onChanged { gesture in
                 var newValue = Value(gesture.location.x/geometry.size.width) * rangeWidth + range.lowerBound
@@ -62,16 +64,15 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
                 ZStack(alignment: Alignment(horizontal: .leading, vertical: .center)) {
                     HStack(spacing: 0) {
                         Rectangle()
-                            .foregroundColor(barForegroundColor)
+                            .foregroundColor(waveformForegroundColor)
                             .frame(width: barValue)
                         Rectangle()
-                            .foregroundColor(barBackgroundColor)
+                            .foregroundColor(waveformBackgroundColor)
                             .frame(width: max(0, geometry.size.width-barValue))
                     }
                     .mask(WaveformView(with: waveform))
-                    Circle()
-                        .strokeBorder(knobBorderColor, lineWidth: 1)
-                        .background(Circle().foregroundColor(currentKnobColor))
+                    
+                    knob()
                         .frame(width: knobDiameter, height: knobDiameter)
                         .offset(x: knobValue)
                 }
@@ -79,22 +80,29 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
         }
     }
     
-    private var knobColor: Color { colorScheme == .light ? .white : Color(hex: 0x1A1A1A) }
+    @ViewBuilder private func knob() -> some View {
+        let knob = Circle()
+            .strokeBorder(knobBorderColor, lineWidth: 1)
+
+        if let knobColor = knobColor {
+            knob.background(Circle().foregroundColor(knobColor))
+        }
+        else {
+            knob.background(.ultraThinMaterial, in: Circle())
+        }
+    }
     
-    private var highlightedKnobColor: Color { colorScheme == .light ? Color(hex: 0xE5E5E5) : Color(hex: 0x3E3E3E) }
-    
-    private var knobBorderColor: Color { colorScheme == .light ? Color(hex: 0xBFBFBF) : Color(hex: 0x5A5A5A) }
-    
-    private var barForegroundColor: Color { colorScheme == .light ? Color(hex: 0xBFBFBF) : Color(hex: 0x5F5F5F) }
-    
-    private var barBackgroundColor: Color { colorScheme == .light ? Color(hex: 0xF2F2F2) : Color(hex: 0x2C2C2C) }
-    
-    init(waveform: Waveform?, value: Binding<Value>, in range: ClosedRange<Value>, @ViewBuilder minValueLabel: @escaping (Value) -> MinValueLabel, @ViewBuilder maxValueLabel: @escaping (Value) -> MaxValueLabel) {
+    init(waveform: Waveform?, value: Binding<Value>, in range: ClosedRange<Value>, @ViewBuilder minValueLabel: @escaping (Value) -> MinValueLabel, @ViewBuilder maxValueLabel: @escaping (Value) -> MaxValueLabel, knobColor: Color? = nil, knobBorderColor: Color? = nil, waveformForegroundColor: Color? = nil, waveformBackgroundColor: Color? = nil) {
         self.waveform = waveform
         self._value = value
         self.range = range
         self.minValueLabel = minValueLabel
         self.maxValueLabel = maxValueLabel
+        
+        self.knobColor = knobColor
+        self.knobBorderColor = knobBorderColor ?? .primary.opacity(0.4)
+        self.waveformForegroundColor = waveformForegroundColor ?? .primary
+        self.waveformBackgroundColor = knobColor ?? .primary.opacity(0.2)
     }
     
 }

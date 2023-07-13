@@ -50,7 +50,7 @@ struct TouchBar: View {
             Text(format(time: duration))
                 .font(font)
                 .frame(width: 70, alignment: .leading)
-        })
+        }, knobColor: Color(hex: 0x1A1A1A), knobBorderColor: Color(hex: 0x5A5A5A))
         .frame(minWidth: 440)
         .foregroundColor(.white)
     }
