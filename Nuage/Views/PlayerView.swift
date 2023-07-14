@@ -199,7 +199,6 @@ struct PlayerView: View {
                         .foregroundColor(.secondary)
                 }
             }
-            .id(track.id)
             Divider()
         }
     }
