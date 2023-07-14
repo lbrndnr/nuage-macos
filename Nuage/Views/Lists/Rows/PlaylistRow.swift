@@ -58,7 +58,7 @@ struct PlaylistRow: View {
                 
                 if let tracks = playlist.tracks {
                     Divider()
-                    ForEach(tracks, id: \.self) { track in
+                    ForEach(tracks, id: \.id) { track in
                         HStack {
                             Text(track.title)
                             Image(systemName: "play.fill")

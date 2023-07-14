@@ -96,8 +96,7 @@ struct MainView: View {
                 sidebarNavigationLink(title: "Following", imageName: "person.2.fill", destination: followingView, tag: 3)
             }
             Section(header: Text("Playlists")) {
-                ForEach(0..<playlists.count, id: \.self) { idx in
-                    let playlist = playlists[idx]
+                ForEach(Array(playlists.enumerated()), id: \.element.id) { idx, playlist in
                     let ids = SoundCloud.shared.get(.playlist(playlist.id))
                         .map { $0.trackIDs ?? [] }
                         .eraseToAnyPublisher()

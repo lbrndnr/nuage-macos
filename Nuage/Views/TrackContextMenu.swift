@@ -43,7 +43,7 @@ struct TrackContextMenu: ViewModifier {
                 if let playlists = playlists,
                    playlists.count > 0 {
                     Divider()
-                    ForEach(playlists) { playlist in
+                    ForEach(playlists, id: \.id) { playlist in
                         Button(playlist.title) {
 //                            SoundCloud.shared.get(.add(to: playlist, trackIDs: [track.id]))
 //                                .receive(on: RunLoop.main)
