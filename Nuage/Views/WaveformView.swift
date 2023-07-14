@@ -31,7 +31,7 @@ struct WaveformView: View {
             let maxBar = bars.max() ?? 1.0
             
             HStack(alignment: .center, spacing: spacing) {
-                ForEach(bars, id: \.self) { bar in
+                ForEach(Array(bars.enumerated()), id: \.offset) { _, bar in
                     let height = shouldScale ? (bar / maxBar) * geometry.size.height : bar
                     
                     Rectangle()
