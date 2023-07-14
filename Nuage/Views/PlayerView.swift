@@ -16,6 +16,7 @@ struct NoTrackError: Error {}
 struct PlayerView: View {
     
     @State private var showingVolumeControls = false
+    @State private var showingQueue = false
     
     @EnvironmentObject private var player: StreamPlayer
     @Environment(\.colorScheme) private var colorScheme
@@ -39,21 +40,6 @@ struct PlayerView: View {
                     .padding(.vertical)
                 
                 playbackControls()
-                
-                Button(action: {
-                    showingVolumeControls = true
-                }) {
-                    Image(systemName: "speaker.wave.2.fill")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 15, height: 15)
-                }
-                .buttonStyle(.borderless)
-                .if(showingVolumeControls) { $0.foregroundColor(.accentColor) }
-                .popover(isPresented: $showingVolumeControls) {
-                    volumeControls()
-                        .padding()
-                }
                 
                 Spacer()
                     .frame(width: 2)
@@ -111,30 +97,37 @@ struct PlayerView: View {
     @ViewBuilder private func playbackControls() -> some View {
         HStack(spacing: 16) {
             Button(action: player.advanceBackward) {
-                Image(systemName: "backward.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 15, height: 15)
+                resizableImage(name: "backward.fill")
             }
             .buttonStyle(.borderless)
             
             Button(action: player.togglePlayback) {
                 let playStateImageName = player.isPlaying ? "pause.fill" : "play.fill"
-                Image(systemName: playStateImageName)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 15, height: 15)
+                resizableImage(name: playStateImageName)
             }
             .buttonStyle(.borderless)
             .keyboardShortcut(.space, modifiers: [])
             
             Button(action: player.advanceForward) {
-                Image(systemName: "forward.fill")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 15, height: 15)
+                resizableImage(name: "forward.fill")
             }
             .buttonStyle(.borderless)
+            
+            Button(action: {
+                showingVolumeControls = true
+            }) {
+                resizableImage(name: "speaker.wave.2.fill")
+            }
+            .buttonStyle(.borderless)
+            .if(showingVolumeControls) { $0.foregroundColor(.accentColor) }
+            .popover(isPresented: $showingVolumeControls, content: volumeControls)
+            
+            Button(action: { self.showingQueue.toggle() }) {
+                resizableImage(name: "text.line.first.and.arrowtriangle.forward")
+            }
+            .buttonStyle(.borderless)
+            .if(showingQueue) { $0.foregroundColor(.accentColor) }
+            .popover(isPresented: $showingQueue, content: queue)
         }
     }
     
@@ -143,7 +136,7 @@ struct PlayerView: View {
             Button(action: {
                 player.volume = 0
             }, label: {
-                Image(systemName: "speaker.fill")
+                resizableImage(name: "speaker.fill")
             })
             .focusable(false)
             .buttonStyle(.borderless)
@@ -154,12 +147,71 @@ struct PlayerView: View {
             Button(action: {
                 player.volume = 1
             }, label: {
-                Image(systemName: "speaker.wave.3.fill")
+                resizableImage(name: "speaker.wave.3.fill")
             })
             .focusable(false)
             .buttonStyle(.borderless)
+        }.padding()
+    }
+    
+    @ViewBuilder private func queue() -> some View {
+        let currentStreamIndex = player.currentStreamIndex ?? 0
+        
+        ScrollViewReader { proxy in
+            List {
+                if currentStreamIndex > 0 {
+                    let prefix = player.queue.prefix(upTo: currentStreamIndex)
+                    Section(header: Text("Previous")) {
+                        queueRows(for: prefix)
+                    }
+                }
+                
+                Section(header: Text("Now Playing")) {
+                    queueRows(for: [player.queue[currentStreamIndex]])
+                }
+                
+                if currentStreamIndex < player.queue.count - 1 {
+                    let suffix = player.queue.suffix(from: currentStreamIndex+1)
+                    Section(header: Text("Up Next")) {
+                        queueRows(for: suffix)
+                    }
+                }
+            }
+            .onAppear {
+                if let id = player.currentStream?.id {
+                    proxy.scrollTo(id, anchor: .top)
+                }
+            }
         }
     }
+    
+    @ViewBuilder private func queueRows<T: RandomAccessCollection>(for tracks: T) -> some View where T.Element == Track {
+        ForEach(Array(tracks.enumerated()), id: \.element.id) { idx, track in
+            HStack {
+                Artwork(url: track.artworkURL ?? track.user.avatarURL, onPlay: {
+                    play(Array(tracks), from: idx, on: player)
+                })
+                .frame(width: 60, height: 60)
+                VStack(alignment: .leading) {
+                    Text(track.user.displayName)
+                        .bold()
+                    Text(track.title)
+                        .foregroundColor(.secondary)
+                }
+            }
+            .id(track.id)
+            Divider()
+        }
+    }
+    
+    @ViewBuilder private func resizableImage(name: String) -> some View {
+        Image(systemName: name)
+            .resizable()
+            .aspectRatio(contentMode: .fit)
+            .frame(width: 15, height: 15)
+    }
+    
+    private var backgroundColor: Color { colorScheme == .light ? .white : Color(hex: 0x1A1A1A) }
     
     private var controlColor: Color { colorScheme == .light ? Color(hex: 0xBFBFBF) : Color(hex: 0x5B5B5B) }
     

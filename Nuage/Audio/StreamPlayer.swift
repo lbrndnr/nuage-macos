@@ -27,9 +27,9 @@ class StreamPlayer: ObservableObject {
     
     private var player: AVPlayer
     private(set) var queue = [Track]()
-    private var currentItemIndex: Int? {
+    private(set) var currentStreamIndex: Int? {
         didSet {
-            currentStream = self.currentItemIndex.map { queue[$0] }
+            currentStream = self.currentStreamIndex.map { queue[$0] }
         }
     }
     
@@ -141,9 +141,9 @@ class StreamPlayer: ObservableObject {
     }
 
     func resume(from index: Int? = nil) {
-        guard let idx = index ?? currentItemIndex else { return }
+        guard let idx = index ?? currentStreamIndex else { return }
         
-        if player.currentItem != nil && currentItemIndex == idx {
+        if player.currentItem != nil && currentStreamIndex == idx {
             player.play()
         }
         else {
@@ -155,7 +155,7 @@ class StreamPlayer: ObservableObject {
                     let item = AVPlayerItem(asset: asset)
                     self.player.replaceCurrentItem(with: item)
                     self.player.play()
-                    self.currentItemIndex = idx
+                    self.currentStreamIndex = idx
                     
                     NotificationCenter.default.addObserver(self, selector: #selector(self.advanceForward), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: item)
                     
@@ -186,7 +186,7 @@ class StreamPlayer: ObservableObject {
     }
     
     @objc func advanceForward() {
-        guard let idx = currentItemIndex else { return }
+        guard let idx = currentStreamIndex else { return }
         player.replaceCurrentItem(with: nil)
         if queue.count > idx + 1 {
             resume(from: idx + 1)
@@ -198,7 +198,7 @@ class StreamPlayer: ObservableObject {
     }
     
     func advanceBackward() {
-        guard let idx = currentItemIndex else { return }
+        guard let idx = currentStreamIndex else { return }
         
         if player.currentTime() < CMTime(value: 15, timescale: 1) {
             player.replaceCurrentItem(with: nil)
@@ -206,7 +206,7 @@ class StreamPlayer: ObservableObject {
                 resume(from: idx - 1)
             }
             else {
-                currentItemIndex = nil
+                currentStreamIndex = nil
             }
         }
         else {
@@ -228,7 +228,7 @@ class StreamPlayer: ObservableObject {
         pause()
         player.replaceCurrentItem(with: nil)
         queue = []
-        currentItemIndex = nil
+        currentStreamIndex = nil
     }
     
     func enqueue(_ streams: [Track], playNext: Bool = false) {
