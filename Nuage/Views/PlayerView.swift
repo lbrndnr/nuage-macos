@@ -119,14 +119,14 @@ struct PlayerView: View {
                 resizableImage(name: "speaker.wave.2.fill")
             }
             .buttonStyle(.borderless)
-            .if(showingVolumeControls) { $0.foregroundColor(.accentColor) }
+            .if(showingVolumeControls) { $0.foregroundColor(.primary) }
             .popover(isPresented: $showingVolumeControls, content: volumeControls)
             
             Button(action: { self.showingQueue.toggle() }) {
                 resizableImage(name: "text.line.first.and.arrowtriangle.forward")
             }
             .buttonStyle(.borderless)
-            .if(showingQueue) { $0.foregroundColor(.accentColor) }
+            .if(showingQueue) { $0.foregroundColor(.primary) }
             .popover(isPresented: $showingQueue, content: queue)
         }
     }
@@ -136,7 +136,7 @@ struct PlayerView: View {
             Button(action: {
                 player.volume = 0
             }, label: {
-                resizableImage(name: "speaker.fill")
+                resizableImage(name: "speaker.fill", height: 13, width: nil)
             })
             .focusable(false)
             .buttonStyle(.borderless)
@@ -147,7 +147,7 @@ struct PlayerView: View {
             Button(action: {
                 player.volume = 1
             }, label: {
-                resizableImage(name: "speaker.wave.3.fill")
+                resizableImage(name: "speaker.wave.3.fill", height: 13, width: nil)
             })
             .focusable(false)
             .buttonStyle(.borderless)
@@ -203,16 +203,12 @@ struct PlayerView: View {
         }
     }
     
-    @ViewBuilder private func resizableImage(name: String) -> some View {
+    @ViewBuilder private func resizableImage(name: String, height: CGFloat? = 15, width: CGFloat? = 15) -> some View {
         Image(systemName: name)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: 15, height: 15)
+            .frame(width: width, height: height)
     }
-    
-    private var backgroundColor: Color { colorScheme == .light ? .white : Color(hex: 0x1A1A1A) }
-    
-    private var controlColor: Color { colorScheme == .light ? Color(hex: 0xBFBFBF) : Color(hex: 0x5B5B5B) }
     
 }
 
