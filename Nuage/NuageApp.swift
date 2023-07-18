@@ -25,8 +25,9 @@ struct NuageApp: App {
     
     private var player = StreamPlayer()
     private var commands = Commands()
+    
     @State private var loggedIn: Bool
-    private var subscriptions = Set<AnyCancellable>()
+    @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some Scene {
         WindowGroup {
@@ -34,6 +35,14 @@ struct NuageApp: App {
                 MainView()
                     .environmentObject(player)
                     .environmentObject(commands)
+                    .onAppear {
+                        SoundCloud.shared.get(all: .library())
+                            .map { $0.map { $0.item } }
+                            .replaceError(with: SoundCloud.shared.user?.playlists ?? [])
+                            .receive(on: RunLoop.main)
+                            .sink { SoundCloud.shared.user?.playlists = $0 }
+                            .store(in: &subscriptions)
+                    }
             }
             else {
                 LoginView { accessToken, expiryDate in

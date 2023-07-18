@@ -73,7 +73,19 @@ extension Post: Filterable {
     
 }
 
-extension Playlist: Filterable {
+extension UserPlaylist: Filterable {
+    
+    func contains(_ text: String) -> Bool {
+        let contained = title.containsCaseInsensitive(text) || (description?.containsCaseInsensitive(text) ?? false)
+        if let tracks = tracks {
+            return contained || tracks.contains { $0.contains(text) }
+        }
+        return contained
+        
+    }
+}
+
+extension SystemPlaylist: Filterable {
     
     func contains(_ text: String) -> Bool {
         let contained = title.containsCaseInsensitive(text) || (description?.containsCaseInsensitive(text) ?? false)

@@ -9,12 +9,12 @@ import SwiftUI
 import StackNavigationView
 import SoundCloud
 
-struct PlaylistRow: View {
+struct PlaylistRow<T: Playlist>: View {
     
-    private var playlist: Playlist
+    private var playlist: T
     private var onPlay: () -> ()
     
-    init(playlist: Playlist, onPlay: @escaping () -> ()) {
+    init(playlist: T, onPlay: @escaping () -> ()) {
         self.playlist = playlist
         self.onPlay = onPlay
     }

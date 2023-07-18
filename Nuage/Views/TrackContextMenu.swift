@@ -12,6 +12,8 @@ import SoundCloud
 
 struct TrackContextMenu: ViewModifier {
     
+    @ObservedObject private var soundCloud = SoundCloud.shared
+    
     @EnvironmentObject private var player: StreamPlayer
     @State private var subscriptions = Set<AnyCancellable>()
     
@@ -36,21 +38,19 @@ struct TrackContextMenu: ViewModifier {
                     print("new playlist lel")
                 }
 
-                let playlists = SoundCloud.shared.user?.playlists?
-                    .filter { $0 is UserPlaylist }
-                    .map { $0 as! UserPlaylist }
+                let playlists = (soundCloud.user?.playlists ?? [])
+                    .compactMap { $0.userPlaylist }
                     .filter { $0.secretToken != nil }
-                if let playlists = playlists,
-                   playlists.count > 0 {
+                if playlists.count > 0 {
                     Divider()
                     ForEach(playlists, id: \.id) { playlist in
                         Button(playlist.title) {
-//                            SoundCloud.shared.get(.add(to: playlist, trackIDs: [track.id]))
-//                                .receive(on: RunLoop.main)
-//                                .sink(receiveCompletion: { _ in
-//                                }, receiveValue: { success in
-//                                    print("added track to playlist")
-//                                }).store(in: &subscriptions)
+                            SoundCloud.shared.get(.add(to: playlist, trackIDs: [track.id]))
+                                .receive(on: RunLoop.main)
+                                .sink(receiveCompletion: { _ in
+                                }, receiveValue: { success in
+                                    print("added track to playlist")
+                                }).store(in: &subscriptions)
                         }
                     }
 

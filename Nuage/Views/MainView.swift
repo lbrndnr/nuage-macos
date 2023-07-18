@@ -16,8 +16,9 @@ import SoundCloud
 
 struct MainView: View {
     
+    @ObservedObject private var soundCloud = SoundCloud.shared
+    
     @State private var navigationSelection: Int? = 0
-    @State private var playlists: [Playlist] = []
     @State private var searchQuery = ""
     @State private var presentProfile = false
     
@@ -54,21 +55,6 @@ struct MainView: View {
         .frame(minWidth: 800, minHeight: 400)
         .toolbar(content: toolbar)
         .touchBar { TouchBar() }
-        .onAppear {
-            SoundCloud.shared.$user
-                .map { $0?.playlists ?? [] }
-                .assign(to: \.playlists, on: self)
-                .store(in: &subscriptions)
-            
-            SoundCloud.shared.get(all: .library())
-                .map { $0.map { $0.item } }
-                .replaceError(with: SoundCloud.shared.user?.playlists ?? [])
-                .receive(on: RunLoop.main)
-                .sink { playlists in
-                    SoundCloud.shared.user?.playlists = playlists
-                }
-                .store(in: &subscriptions)
-        }
     }
     
     @ViewBuilder private func sidebar() -> some View {
@@ -96,7 +82,10 @@ struct MainView: View {
                 sidebarNavigationLink(title: "Following", imageName: "person.2.fill", destination: followingView, tag: 3)
             }
             Section(header: Text("Playlists")) {
+                let playlists = soundCloud.user?.playlists ?? []
                 ForEach(Array(playlists.enumerated()), id: \.element.id) { idx, playlist in
+                    let playlist = playlists[idx]
+
                     let ids = SoundCloud.shared.get(.playlist(playlist.id))
                         .map { $0.trackIDs ?? [] }
                         .eraseToAnyPublisher()
