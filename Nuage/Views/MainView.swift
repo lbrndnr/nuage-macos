@@ -84,8 +84,6 @@ struct MainView: View {
             Section(header: Text("Playlists")) {
                 let playlists = soundCloud.user?.playlists ?? []
                 ForEach(Array(playlists.enumerated()), id: \.element.id) { idx, playlist in
-                    let playlist = playlists[idx]
-
                     let ids = SoundCloud.shared.get(.playlist(playlist.id))
                         .map { $0.trackIDs ?? [] }
                         .eraseToAnyPublisher()

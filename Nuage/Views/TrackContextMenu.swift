@@ -45,11 +45,15 @@ struct TrackContextMenu: ViewModifier {
                     Divider()
                     ForEach(playlists, id: \.id) { playlist in
                         Button(playlist.title) {
-                            SoundCloud.shared.get(.add(to: playlist, trackIDs: [track.id]))
+                            let newTrackID = Int(track.id)!
+                            
+                            soundCloud.get(.playlist(playlist.id))
+                                .map { ($0.trackIDs ?? []).map { Int($0)! } }
+                                .flatMap { soundCloud.get(.set(playlist, trackIDs: $0 + [newTrackID])) }
                                 .receive(on: RunLoop.main)
                                 .sink(receiveCompletion: { _ in
                                 }, receiveValue: { success in
-                                    print("added track to playlist")
+                                    print("added track to playlist: \(success)")
                                 }).store(in: &subscriptions)
                         }
                     }
