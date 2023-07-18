@@ -105,7 +105,7 @@ struct NuageApp: App {
         
         let defaults = UserDefaults.standard
         if let data = defaults.data(forKey: userKey) {
-            SoundCloud.shared.user = try? JSONDecoder().decode(User.self, from: data)
+            SoundCloud.shared.user = try! JSONDecoder().decode(User.self, from: data)
         }
         let token = defaults.object(forKey: accessTokenKey)
         let expiryDate = defaults.object(forKey: accessTokenExpiryDateKey)
@@ -124,7 +124,7 @@ struct NuageApp: App {
         
         SoundCloud.shared.$user.sink { user in
             if let user = user {
-                let data = try? JSONEncoder().encode(user)
+                let data = try! JSONEncoder().encode(user)
                 defaults.set(data, forKey: userKey)
             }
             else {
