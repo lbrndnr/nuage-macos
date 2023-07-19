@@ -80,9 +80,7 @@ class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
         if keyPath == "URL" {
             let webView = object! as! WKWebView
           
-            if (webView != nil) {
-                webView.reload()
-            
+            if (webView != nil) {            
                 self.scanCookiesForAccessToken(webView: webView)
             }
         }
