@@ -50,16 +50,9 @@ class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
     var handlers = [(String, CookieHandler)]()
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let store = webView.configuration.websiteDataStore
-        store.httpCookieStore.getAllCookies { cookies in
-            for cookie in cookies {
-                for (name, handler) in self.handlers {
-                    if name == cookie.name {
-                        handler(cookie)
-                    }
-                }
-            }
-        }
+        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.url), options: .new, context: nil)
+        
+        self.scanCookiesForAccessToken(webView: webView)
         
         decisionHandler(.allow)
     }
@@ -81,6 +74,32 @@ class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
     
     func webViewDidClose(_ webView: WKWebView) {
         webView.window?.close()
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "URL" {
+            let webView = object! as! WKWebView
+          
+            if (webView != nil) {
+                webView.reload()
+            
+                self.scanCookiesForAccessToken(webView: webView)
+            }
+        }
+    }
+    
+    private func scanCookiesForAccessToken(webView: WKWebView) {
+        let store = webView.configuration.websiteDataStore
+        
+        store.httpCookieStore.getAllCookies { cookies in
+            for cookie in cookies {
+                for (name, handler) in self.handlers {
+                    if name == cookie.name {
+                        handler(cookie)
+                    }
+                }
+            }
+        }
     }
     
 }
