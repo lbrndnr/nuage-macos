@@ -105,29 +105,7 @@ class StreamPlayer: ObservableObject {
             .sink(receiveValue: updateNowPlayingPlaybackStatus)
             .store(in: &subscriptions)
         
-        let center = MPRemoteCommandCenter.shared()
-        center.togglePlayPauseCommand.addTarget { _ in
-            self.togglePlayback()
-            return .success
-        }
-        
-        center.nextTrackCommand.addTarget { _ in
-            self.advanceForward()
-            return .success
-        }
-        
-        center.previousTrackCommand.addTarget { _ in
-            self.advanceBackward()
-            return .success
-        }
-        
-        center.changePlaybackPositionCommand.addTarget { event in
-            guard let event = event as? MPChangePlaybackPositionCommandEvent else {
-                return .commandFailed
-            }
-            self.progress = event.positionTime
-            return .success
-        }
+        addRemoteCommandTargets()
     }
     
     deinit {
@@ -229,6 +207,32 @@ class StreamPlayer: ObservableObject {
     }
     
     // MARK: - MPNowPlayingInfoCenter
+    
+    private func addRemoteCommandTargets() {
+        let center = MPRemoteCommandCenter.shared()
+        center.togglePlayPauseCommand.addTarget { _ in
+            self.togglePlayback()
+            return .success
+        }
+        
+        center.nextTrackCommand.addTarget { _ in
+            self.advanceForward()
+            return .success
+        }
+        
+        center.previousTrackCommand.addTarget { _ in
+            self.advanceBackward()
+            return .success
+        }
+        
+        center.changePlaybackPositionCommand.addTarget { event in
+            guard let event = event as? MPChangePlaybackPositionCommandEvent else {
+                return .commandFailed
+            }
+            self.progress = event.positionTime
+            return .success
+        }
+    }
     
     private func updateNowPlayingInfo() {
         let center = MPNowPlayingInfoCenter.default()
