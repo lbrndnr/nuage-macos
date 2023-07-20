@@ -120,6 +120,14 @@ class StreamPlayer: ObservableObject {
             self.advanceBackward()
             return .success
         }
+        
+        center.changePlaybackPositionCommand.addTarget { event in
+            guard let event = event as? MPChangePlaybackPositionCommandEvent else {
+                return .commandFailed
+            }
+            self.progress = event.positionTime
+            return .success
+        }
     }
     
     deinit {
