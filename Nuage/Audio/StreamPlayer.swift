@@ -263,10 +263,6 @@ class StreamPlayer: ObservableObject {
     }
     
     private func updateNowPlayingProgress(to time: CMTime) {
-        guard let currentStream = currentStream else {
-            return
-        }
-        
         let center = MPNowPlayingInfoCenter.default()
         guard var info = center.nowPlayingInfo else {
             updateNowPlayingInfo()
