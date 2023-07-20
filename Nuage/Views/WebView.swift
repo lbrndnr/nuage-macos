@@ -8,6 +8,7 @@
 import SwiftUI
 import AppKit
 import WebKit
+import Combine
 
 typealias CookieHandler = ((HTTPCookie) -> ())
 
@@ -45,22 +46,14 @@ struct WebView: NSViewRepresentable {
     
 }
 
-class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
-    
+class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate, ObservableObject {
+
     var handlers = [(String, CookieHandler)]()
-    
+    private var cancellables = Set<AnyCancellable>()
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        let store = webView.configuration.websiteDataStore
-        store.httpCookieStore.getAllCookies { cookies in
-            for cookie in cookies {
-                for (name, handler) in self.handlers {
-                    if name == cookie.name {
-                        handler(cookie)
-                    }
-                }
-            }
-        }
-        
+        self.observeURLChanges(webView: webView)
+        self.scanCookiesForAccessToken(webView: webView)
         decisionHandler(.allow)
     }
     
@@ -81,6 +74,27 @@ class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
     
     func webViewDidClose(_ webView: WKWebView) {
         webView.window?.close()
+    }
+
+    private func observeURLChanges(webView: WKWebView) {
+        webView
+          .publisher(for: \.url)
+          .sink { _url in self.scanCookiesForAccessToken(webView: webView) }
+          .store(in: &cancellables)
+    }
+    
+    private func scanCookiesForAccessToken(webView: WKWebView) {
+        let store = webView.configuration.websiteDataStore
+        
+        store.httpCookieStore.getAllCookies { cookies in
+            for cookie in cookies {
+                for (name, handler) in self.handlers {
+                    if name == cookie.name {
+                        handler(cookie)
+                    }
+                }
+            }
+        }
     }
     
 }
