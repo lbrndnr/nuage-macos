@@ -34,6 +34,8 @@ struct WebView: NSViewRepresentable {
         view.navigationDelegate = context.coordinator
         view.uiDelegate = context.coordinator
         
+        coordinator.webView = view
+        
         return view
     }
     
@@ -49,11 +51,17 @@ struct WebView: NSViewRepresentable {
 class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate, ObservableObject {
 
     var handlers = [(String, CookieHandler)]()
+    var webView: WKWebView? {
+        didSet {
+            webView?.publisher(for: \.url)
+                .sink { _ in self.scanCookiesForAccessToken() }
+                .store(in: &cancellables)
+        }
+    }
     private var cancellables = Set<AnyCancellable>()
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        self.observeURLChanges(webView: webView)
-        self.scanCookiesForAccessToken(webView: webView)
+        scanCookiesForAccessToken()
         decisionHandler(.allow)
     }
     
@@ -75,15 +83,9 @@ class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate, Observab
     func webViewDidClose(_ webView: WKWebView) {
         webView.window?.close()
     }
-
-    private func observeURLChanges(webView: WKWebView) {
-        webView
-          .publisher(for: \.url)
-          .sink { _url in self.scanCookiesForAccessToken(webView: webView) }
-          .store(in: &cancellables)
-    }
     
-    private func scanCookiesForAccessToken(webView: WKWebView) {
+    private func scanCookiesForAccessToken() {
+        guard let webView = webView else { return }
         let store = webView.configuration.websiteDataStore
         
         store.httpCookieStore.getAllCookies { cookies in
