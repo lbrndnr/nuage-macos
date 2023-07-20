@@ -8,6 +8,7 @@
 import SwiftUI
 import AppKit
 import WebKit
+import Combine
 
 typealias CookieHandler = ((HTTPCookie) -> ())
 
@@ -45,15 +46,14 @@ struct WebView: NSViewRepresentable {
     
 }
 
-class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
-    
+class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate, ObservableObject {
+
     var handlers = [(String, CookieHandler)]()
-    
+    private var cancellables = Set<AnyCancellable>()
+
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
-        webView.addObserver(self, forKeyPath: #keyPath(WKWebView.url), options: .new, context: nil)
-        
+        self.observeURLChanges(webView: webView)
         self.scanCookiesForAccessToken(webView: webView)
-        
         decisionHandler(.allow)
     }
     
@@ -75,15 +75,12 @@ class WebViewCoordinator: NSObject, WKNavigationDelegate, WKUIDelegate {
     func webViewDidClose(_ webView: WKWebView) {
         webView.window?.close()
     }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if keyPath == "URL" {
-            let webView = object! as! WKWebView
-          
-            if (webView != nil) {            
-                self.scanCookiesForAccessToken(webView: webView)
-            }
-        }
+
+    private func observeURLChanges(webView: WKWebView) {
+        webView
+          .publisher(for: \.url)
+          .sink { _url in self.scanCookiesForAccessToken(webView: webView) }
+          .store(in: &cancellables)
     }
     
     private func scanCookiesForAccessToken(webView: WKWebView) {
