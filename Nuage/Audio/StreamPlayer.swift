@@ -49,7 +49,9 @@ class StreamPlayer: ObservableObject {
     @Published var progress: TimeInterval = 0.0 {
         didSet {
             if shouldSeek {
-                player.seek(to: CMTime(seconds: progress, preferredTimescale: 1))
+                let time = CMTime(seconds: progress, preferredTimescale: 1)
+                player.seek(to: time)
+                updateNowPlayingProgress(to: time)
             }
         }
     }
@@ -99,27 +101,22 @@ class StreamPlayer: ObservableObject {
             .assign(to: \.isPlaying, on: self)
             .store(in: &subscriptions)
         
-        MPRemoteCommandCenter.shared().playCommand.addTarget { _ in
-            self.resume()
-            return .success
-        }
+        player.publisher(for: \.timeControlStatus)
+            .sink(receiveValue: updateNowPlayingPlaybackStatus)
+            .store(in: &subscriptions)
         
-        MPRemoteCommandCenter.shared().pauseCommand.addTarget { _ in
-            self.pause()
-            return .success
-        }
-        
-        MPRemoteCommandCenter.shared().togglePlayPauseCommand.addTarget { _ in
+        let center = MPRemoteCommandCenter.shared()
+        center.togglePlayPauseCommand.addTarget { _ in
             self.togglePlayback()
             return .success
         }
         
-        MPRemoteCommandCenter.shared().seekForwardCommand.addTarget { _ in
+        center.nextTrackCommand.addTarget { _ in
             self.advanceForward()
             return .success
         }
         
-        MPRemoteCommandCenter.shared().seekBackwardCommand.addTarget { _ in
+        center.previousTrackCommand.addTarget { _ in
             self.advanceBackward()
             return .success
         }
@@ -159,24 +156,7 @@ class StreamPlayer: ObservableObject {
                     
                     NotificationCenter.default.addObserver(self, selector: #selector(self.advanceForward), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: item)
                     
-                    var info: [String: Any] = [
-                        MPMediaItemPropertyTitle: self.currentStream?.title ?? "",
-                        MPMediaItemPropertyAssetURL: asset.url,
-                        MPMediaItemPropertyPlaybackDuration: self.currentStream?.duration ?? 0,
-                    ]
-                    MPNowPlayingInfoCenter.default().nowPlayingInfo = info
-                    
-                    if let artworkURL = self.currentStream?.artworkURL {
-                        URLImageService.shared.remoteImagePublisher(artworkURL)
-                            .sink(receiveCompletion: { _ in },
-                                  receiveValue: { imageInfo in
-                                let image = NSImage(cgImage: imageInfo.cgImage, size: imageInfo.size)
-                                let artwork = MPMediaItemArtwork(boundsSize: image.size) { _ in return image }
-                                info[MPMediaItemPropertyArtwork] = artwork
-                                MPNowPlayingInfoCenter.default().nowPlayingInfo = info
-                            })
-                            .store(in: &self.subscriptions)
-                    }
+                    self.updateNowPlayingInfo()
                 }).store(in: &subscriptions)
         }
     }
@@ -215,13 +195,11 @@ class StreamPlayer: ObservableObject {
     }
     
     func seekForward() {
-        let time = player.currentTime() + CMTime(seconds: 15, preferredTimescale: 1)
-        player.seek(to: time)
+        progress += 15
     }
     
     func seekBackward() {
-        let time = player.currentTime() - CMTime(seconds: 15, preferredTimescale: 1)
-        player.seek(to: time)
+        progress -= 15
     }
     
     func reset() {
@@ -240,6 +218,63 @@ class StreamPlayer: ObservableObject {
         else {
             queue = queue + streams
         }
+    }
+    
+    // MARK: - MPNowPlayingInfoCenter
+    
+    private func updateNowPlayingInfo() {
+        let center = MPNowPlayingInfoCenter.default()
+        guard let currentStream = currentStream else {
+            center.nowPlayingInfo = nil
+            return
+        }
+        
+        var info: [String: Any] = [
+            MPMediaItemPropertyPersistentID: currentStream.id,
+            MPMediaItemPropertyTitle: currentStream.title,
+            MPMediaItemPropertyArtist: currentStream.user.username,
+            MPMediaItemPropertyAssetURL: currentStream.permalinkURL,
+            MPMediaItemPropertyPlaybackDuration: currentStream.duration,
+            MPNowPlayingInfoPropertyPlaybackProgress: Float(player.currentTime().seconds)/currentStream.duration
+        ]
+        center.nowPlayingInfo = info
+        
+        let url = currentStream.artworkURL ?? currentStream.user.avatarURL
+        URLImageService.shared.remoteImagePublisher(url)
+            .sink(receiveCompletion: { _ in },
+                  receiveValue: { imageInfo in
+                let image = NSImage(cgImage: imageInfo.cgImage, size: imageInfo.size)
+                let artwork = MPMediaItemArtwork(boundsSize: image.size) { _ in return image }
+                info[MPMediaItemPropertyArtwork] = artwork
+                
+                center.nowPlayingInfo = info
+            })
+            .store(in: &self.subscriptions)
+    }
+    
+    private func updateNowPlayingPlaybackStatus(for status: AVPlayer.TimeControlStatus) {
+        let center = MPNowPlayingInfoCenter.default()
+        switch status {
+        case .paused: center.playbackState = .paused
+        case .playing: center.playbackState = .playing
+        case .waitingToPlayAtSpecifiedRate: center.playbackState = .interrupted
+        default: center.playbackState = .unknown
+        }
+    }
+    
+    private func updateNowPlayingProgress(to time: CMTime) {
+        guard let currentStream = currentStream else {
+            return
+        }
+        
+        let center = MPNowPlayingInfoCenter.default()
+        guard var info = center.nowPlayingInfo else {
+            updateNowPlayingInfo()
+            return
+        }
+        
+        info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = time.seconds
+        center.nowPlayingInfo = info
     }
     
 }
