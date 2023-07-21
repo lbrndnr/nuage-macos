@@ -17,6 +17,8 @@ struct TrackRow: View {
     
     @State private var subscriptions = Set<AnyCancellable>()
     
+    @Environment(\.likes) private var likes: [Track]
+    
     init(track: Track, onPlay: @escaping () -> ()) {
         self.track = track
         self.onPlay = onPlay
@@ -31,12 +33,16 @@ struct TrackRow: View {
                     .frame(width: 100, height: 100)
                 Spacer()
                 HStack {
-                    Button(action: toggleLike(track)) {
-                        Image(systemName: "heart")
-                    }.buttonStyle(.borderless)
+                    Button(action: toggleLike) {
+                        let name = likes.contains(track) ? "heart.fill" : "heart"
+                        Image(systemName: name)
+                    }
+                    .buttonStyle(.borderless)
+                    
                     Button(action: toggleRepost(track)) {
                         Image(systemName: "arrow.triangle.2.circlepath")
-                    }.buttonStyle(.borderless)
+                    }
+                    .buttonStyle(.borderless)
                 }
                 Spacer()
             }

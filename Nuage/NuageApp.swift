@@ -12,6 +12,35 @@ import SoundCloud
 private let accessTokenKey = "accessToken"
 private let accessTokenExpiryDateKey = "accessTokenExpiryDate"
 private let userKey = "user"
+private let playlistsKey = "playlists"
+private let likesKey = "likes"
+
+struct PlaylistKey: EnvironmentKey {
+    
+    static let defaultValue = [AnyPlaylist]()
+    
+}
+
+struct LikesKey: EnvironmentKey {
+    
+    static let defaultValue = [Track]()
+    
+}
+
+extension EnvironmentValues {
+    
+    var playlists: [AnyPlaylist] {
+        get { self[PlaylistKey.self] }
+        set { self[PlaylistKey.self] = newValue }
+    }
+    
+    var likes: [Track] {
+        get { self[LikesKey.self] }
+        set { self[LikesKey.self] = newValue }
+    }
+    
+}
+
 
 class Commands: ObservableObject {
     
@@ -26,6 +55,8 @@ struct NuageApp: App {
     private var player = StreamPlayer()
     private var commands = Commands()
     
+    @State private var playlists: [AnyPlaylist]
+    @State private var likes: [Track]
     @State private var loggedIn: Bool
     @State private var subscriptions = Set<AnyCancellable>()
     
@@ -35,12 +66,23 @@ struct NuageApp: App {
                 MainView()
                     .environmentObject(player)
                     .environmentObject(commands)
+                    .environment(\.playlists, playlists)
+                    .environment(\.likes, likes)
                     .onAppear {
                         SoundCloud.shared.get(all: .library())
                             .map { $0.map { $0.item } }
-                            .replaceError(with: SoundCloud.shared.user?.playlists ?? [])
+                            .replaceError(with: playlists)
                             .receive(on: RunLoop.main)
-                            .sink { SoundCloud.shared.user?.playlists = $0 }
+                            .assign(to: \.playlists, on: self)
+                            .store(in: &subscriptions)
+                        
+                        SoundCloud.shared.$user
+                            .filter { $0 != nil}
+                            .flatMap { SoundCloud.shared.get(all: .trackLikes(of: $0!)) }
+                            .map { $0.map { $0.item } }
+                            .replaceError(with: likes)
+                            .receive(on: RunLoop.main)
+                            .assign(to: \.likes, on: self)
                             .store(in: &subscriptions)
                     }
             }
@@ -121,6 +163,26 @@ struct NuageApp: App {
                 _loggedIn = State(initialValue: true)
             }
         }
+        
+        if let data = defaults.data(forKey: playlistsKey) {
+            playlists = try! JSONDecoder().decode([AnyPlaylist].self, from: data)
+        }
+        else {
+            playlists = []
+        }
+        
+        if let data = defaults.data(forKey: likesKey) {
+            likes = try! JSONDecoder().decode([Track].self, from: data)
+        }
+        else {
+            likes = []
+        }
+        
+//        playlists.publisher.sink { playlists in
+//            let data = try! JSONEncoder().encode(playlists)
+//            defaults.set(data, forKey: playlistsKey)
+//        }
+//        .store(in: &subscriptions)
         
         SoundCloud.shared.$user.sink { user in
             if let user = user {

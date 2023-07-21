@@ -20,10 +20,11 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable, Row: View>: View
     
     private var publisher: InfinitePublisher<Element>
     private var row: ([Element], Int) -> Row
-    @Environment(\.header) private var header: AnyView
+    
     @State private var filter = ""
     @State private var isSearching = false
     
+    @Environment(\.header) private var header: AnyView
     @EnvironmentObject private var commands: Commands
     
     var body: some View {

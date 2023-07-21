@@ -14,8 +14,10 @@ struct TrackContextMenu: ViewModifier {
     
     @ObservedObject private var soundCloud = SoundCloud.shared
     
-    @EnvironmentObject private var player: StreamPlayer
     @State private var subscriptions = Set<AnyCancellable>()
+    
+    @EnvironmentObject private var player: StreamPlayer
+    @Environment(\.playlists) private var playlists: [AnyPlaylist]
     
     private var track: Track
     private var onPlay: () -> ()
@@ -38,7 +40,7 @@ struct TrackContextMenu: ViewModifier {
                     print("new playlist lel")
                 }
 
-                let playlists = (soundCloud.user?.playlists ?? [])
+                let playlists = playlists
                     .compactMap { $0.userPlaylist }
                     .filter { $0.secretToken != nil }
                 if playlists.count > 0 {
@@ -57,7 +59,6 @@ struct TrackContextMenu: ViewModifier {
                                 }).store(in: &subscriptions)
                         }
                     }
-
                 }
             }
             Divider()

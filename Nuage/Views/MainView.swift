@@ -21,11 +21,11 @@ struct MainView: View {
     @State private var navigationSelection: Int? = 0
     @State private var searchQuery = ""
     @State private var presentProfile = false
+    @State private var subscriptions = Set<AnyCancellable>()
     
     @EnvironmentObject private var commands: Commands
     @EnvironmentObject private var player: StreamPlayer
-    
-    @State private var subscriptions = Set<AnyCancellable>()
+    @Environment(\.playlists) private var playlists: [AnyPlaylist]
     
     var body: some View {
         VStack(spacing: 0) {
@@ -82,7 +82,6 @@ struct MainView: View {
                 sidebarNavigationLink(title: "Following", imageName: "person.2.fill", destination: followingView, tag: 3)
             }
             Section(header: Text("Playlists")) {
-                let playlists = soundCloud.user?.playlists ?? []
                 ForEach(Array(playlists.enumerated()), id: \.element.id) { idx, playlist in
                     let ids = SoundCloud.shared.get(.playlist(playlist.id))
                         .map { $0.trackIDs ?? [] }

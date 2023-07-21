@@ -17,11 +17,10 @@ struct PlayerView: View {
     
     @State private var showingVolumeControls = false
     @State private var showingQueue = false
+    @State private var subscriptions = Set<AnyCancellable>()
     
     @EnvironmentObject private var player: StreamPlayer
     @Environment(\.colorScheme) private var colorScheme
-    
-    @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
         ZStack {
