@@ -14,6 +14,8 @@ struct PlaylistRow<T: Playlist>: View {
     private var playlist: T
     private var onPlay: () -> ()
     
+    @Environment(\.toggleLikePlaylist) private var toggleLike: (AnyPlaylist) -> () -> ()
+    
     init(playlist: T, onPlay: @escaping () -> ()) {
         self.playlist = playlist
         self.onPlay = onPlay
@@ -28,7 +30,7 @@ struct PlaylistRow<T: Playlist>: View {
                     .frame(width: 100, height: 100)
                 Spacer()
                 HStack {
-                    Button(action: toggleLike(playlist)) {
+                    Button(action: toggleLike(playlist.eraseToAnyPlaylist())) {
                         Image(systemName: "heart")
                     }.buttonStyle(.borderless)
                     if let playlist = playlist as? UserPlaylist {

@@ -11,17 +11,6 @@ import SoundCloud
 
 private var subscriptions = Set<AnyCancellable>()
 
-func toggleLike(_ track: Track) -> () -> ()  {
-    return {
-        SoundCloud.shared.perform(.like(track))
-        .receive(on: RunLoop.main)
-        .sink(receiveCompletion: { _ in
-        }, receiveValue: { success in
-            print("liked track:", success)
-        }).store(in: &subscriptions)
-    }
-}
-
 func toggleRepost(_ track: Track) -> () -> () {
     return {
         SoundCloud.shared.perform(.repost(track))
@@ -29,17 +18,6 @@ func toggleRepost(_ track: Track) -> () -> () {
             .sink(receiveCompletion: { _ in
             }, receiveValue: { success in
                 print("reposted track:", success)
-            }).store(in: &subscriptions)
-    }
-}
-
-func toggleLike<P: Playlist>(_ playlist: P) -> () -> () {
-    return {
-        SoundCloud.shared.perform(.like(playlist))
-            .receive(on: RunLoop.main)
-            .sink(receiveCompletion: { _ in
-            }, receiveValue: { success in
-                print("liked playlist:", success)
             }).store(in: &subscriptions)
     }
 }

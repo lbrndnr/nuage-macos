@@ -27,6 +27,18 @@ struct LikesKey: EnvironmentKey {
     
 }
 
+struct ToggleLikeTrackKey: EnvironmentKey {
+    
+    static let defaultValue: (Track) -> () -> () = { _ in return { fatalError("Did not set the toggleLike action") } }
+    
+}
+
+struct ToggleLikePlaylistKey: EnvironmentKey {
+    
+    static let defaultValue: (AnyPlaylist) -> () -> () = { _ in return { fatalError("Did not set the toggleLike action") } }
+    
+}
+
 extension EnvironmentValues {
     
     var playlists: [AnyPlaylist] {
@@ -37,6 +49,16 @@ extension EnvironmentValues {
     var likes: [Track] {
         get { self[LikesKey.self] }
         set { self[LikesKey.self] = newValue }
+    }
+    
+    var toggleLikeTrack: (Track) -> () -> () {
+        get { self[ToggleLikeTrackKey.self] }
+        set { self[ToggleLikeTrackKey.self] = newValue }
+    }
+    
+    var toggleLikePlaylist: (AnyPlaylist) -> () -> () {
+        get { self[ToggleLikePlaylistKey.self] }
+        set { self[ToggleLikePlaylistKey.self] = newValue }
     }
     
 }
@@ -68,6 +90,8 @@ struct NuageApp: App {
                     .environmentObject(commands)
                     .environment(\.playlists, playlists)
                     .environment(\.likes, likes)
+                    .environment(\.toggleLikeTrack, toggleLike)
+                    .environment(\.toggleLikePlaylist, toggleLike)
                     .onAppear {
                         SoundCloud.shared.get(all: .library())
                             .map { $0.map { $0.item } }
@@ -178,11 +202,17 @@ struct NuageApp: App {
             likes = []
         }
         
-//        playlists.publisher.sink { playlists in
-//            let data = try! JSONEncoder().encode(playlists)
-//            defaults.set(data, forKey: playlistsKey)
-//        }
-//        .store(in: &subscriptions)
+        playlists.publisher.sink { playlists in
+            let data = try! JSONEncoder().encode(playlists)
+            defaults.set(data, forKey: playlistsKey)
+        }
+        .store(in: &subscriptions)
+        
+        likes.publisher.sink { likes in
+            let data = try! JSONEncoder().encode(likes)
+            defaults.set(data, forKey: likesKey)
+        }
+        .store(in: &subscriptions)
         
         SoundCloud.shared.$user.sink { user in
             if let user = user {
@@ -194,6 +224,50 @@ struct NuageApp: App {
             }
         }
         .store(in: &subscriptions)
+    }
+    
+    private func toggleLike(_ track: Track) -> () -> () {
+        let shouldUnlike = likes.contains(track)
+        let request: APIRequest = shouldUnlike ? .unlike(track) : .like(track)
+        
+        return {
+            return SoundCloud.shared.perform(request)
+                .replaceError(with: false)
+                .receive(on: RunLoop.main)
+                .sink { success in
+                    if success {
+                        if shouldUnlike {
+                            likes.removeAll { $0 == track }
+                        }
+                        else {
+                            likes.append(track)
+                        }
+                    }
+                }
+                .store(in: &subscriptions)
+        }
+    }
+    
+    private func toggleLike(_ playlist: AnyPlaylist) -> () -> () {
+        let shouldUnlike = playlists.contains(playlist)
+        let request: APIRequest = shouldUnlike ? .unlike(playlist) : .like(playlist)
+        
+        return {
+            return SoundCloud.shared.perform(request)
+                .replaceError(with: false)
+                .receive(on: RunLoop.main)
+                .sink { success in
+                    if success {
+                        if shouldUnlike {
+                            playlists.removeAll { $0 == playlist }
+                        }
+                        else {
+                            playlists.append(playlist)
+                        }
+                    }
+                }
+                .store(in: &subscriptions)
+        }
     }
     
 }
