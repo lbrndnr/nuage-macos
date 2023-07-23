@@ -215,6 +215,16 @@ class StreamPlayer: ObservableObject {
             return .success
         }
         
+        center.playCommand.addTarget { _ in
+            self.resume()
+            return .success
+        }
+        
+        center.pauseCommand.addTarget { _ in
+            self.pause()
+            return .success
+        }
+        
         center.nextTrackCommand.addTarget { _ in
             self.advanceForward()
             return .success
