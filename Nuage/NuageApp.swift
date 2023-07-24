@@ -56,7 +56,7 @@ struct ToggleLikePlaylistKey: EnvironmentKey {
 
 struct ToggleRepostPlaylistKey: EnvironmentKey {
     
-    static let defaultValue: (AnyPlaylist) -> () -> () = { _ in return { fatalError("Did not set the toggleRepost action") } }
+    static let defaultValue: (UserPlaylist) -> () -> () = { _ in return { fatalError("Did not set the toggleRepost action") } }
     
 }
 
@@ -92,7 +92,7 @@ extension EnvironmentValues {
         set { self[ToggleLikePlaylistKey.self] = newValue }
     }
     
-    var toggleRepostPlaylist: (AnyPlaylist) -> () -> () {
+    var toggleRepostPlaylist: (UserPlaylist) -> () -> () {
         get { self[ToggleRepostPlaylistKey.self] }
         set { self[ToggleRepostPlaylistKey.self] = newValue }
     }
@@ -133,29 +133,9 @@ struct NuageApp: App {
                     .environment(\.toggleLikePlaylist, toggleLike)
                     .environment(\.toggleRepostPlaylist, toggleRepost)
                     .onAppear {
-                        SoundCloud.shared.get(all: .library())
-                            .map { $0.map { $0.item } }
-                            .replaceError(with: playlists)
-                            .receive(on: RunLoop.main)
-                            .assign(to: \.playlists, on: self)
-                            .store(in: &subscriptions)
-                        
-                        SoundCloud.shared.$user
-                            .filter { $0 != nil}
-                            .flatMap { SoundCloud.shared.get(all: .trackLikes(of: $0!)) }
-                            .map { $0.map { $0.item } }
-                            .replaceError(with: likes)
-                            .receive(on: RunLoop.main)
-                            .assign(to: \.likes, on: self)
-                            .store(in: &subscriptions)
-                        
-                        SoundCloud.shared.$user
-                            .filter { $0 != nil}
-                            .flatMap { SoundCloud.shared.get(all: .stream(of: $0!)) }
-                            .replaceError(with: posts)
-                            .receive(on: RunLoop.main)
-                            .assign(to: \.posts, on: self)
-                            .store(in: &subscriptions)
+                        reloadLibrary()
+                        reloadLikes()
+                        reloadPosts()
                     }
             }
             else {
@@ -287,93 +267,115 @@ struct NuageApp: App {
         .store(in: &subscriptions)
     }
     
+    private func reloadLibrary() {
+        SoundCloud.shared.get(all: .library())
+            .map { $0.map { $0.item } }
+            .replaceError(with: playlists)
+            .receive(on: RunLoop.main)
+            .assign(to: \.playlists, on: self)
+            .store(in: &subscriptions)
+    }
+    
+    private func reloadLikes() {
+        SoundCloud.shared.$user
+            .filter { $0 != nil}
+            .flatMap { SoundCloud.shared.get(all: .trackLikes(of: $0!)) }
+            .map { $0.map { $0.item } }
+            .replaceError(with: likes)
+            .receive(on: RunLoop.main)
+            .assign(to: \.likes, on: self)
+            .store(in: &subscriptions)
+    }
+    
+    private func reloadPosts() {
+        SoundCloud.shared.$user
+            .filter { $0 != nil}
+            .flatMap { SoundCloud.shared.get(all: .stream(of: $0!)) }
+            .replaceError(with: posts)
+            .receive(on: RunLoop.main)
+            .assign(to: \.posts, on: self)
+            .store(in: &subscriptions)
+    }
+    
     private func toggleLike(_ track: Track) -> () -> () {
-        let shouldUnlike = likes.contains(track)
-        let request: APIRequest = shouldUnlike ? .unlike(track) : .like(track)
-        
         return {
+            let shouldUnlike = likes.contains(track)
+            let request: APIRequest = shouldUnlike ? .unlike(track) : .like(track)
+            
             return SoundCloud.shared.perform(request)
-                .replaceError(with: false)
                 .receive(on: RunLoop.main)
-                .sink { success in
-                    if success {
-                        if shouldUnlike {
-                            likes.removeAll { $0 == track }
-                        }
-                        else {
-                            likes.append(track)
-                        }
+                .sink(receiveCompletion: { completion in
+                    if case let .failure(error) = completion  {
+                        print("Failed to like track: \(error)")
                     }
-                }
+                }, receiveValue: {
+                    if shouldUnlike {
+                        likes.removeAll { $0 == track }
+                    }
+                    else {
+                        likes.append(track)
+                    }
+                })
                 .store(in: &subscriptions)
         }
     }
     
     private func toggleLike(_ playlist: AnyPlaylist) -> () -> () {
-        let shouldUnlike = playlists.contains(playlist)
-        let request: APIRequest = shouldUnlike ? .unlike(playlist) : .like(playlist)
-        
         return {
+            let shouldUnlike = playlists.contains(playlist)
+            let request: APIRequest = shouldUnlike ? .unlike(playlist) : .like(playlist)
+            
             return SoundCloud.shared.perform(request)
-                .replaceError(with: false)
                 .receive(on: RunLoop.main)
-                .sink { success in
-                    if success {
-                        if shouldUnlike {
-                            playlists.removeAll { $0 == playlist }
-                        }
-                        else {
-                            playlists.append(playlist)
-                        }
+                .sink(receiveCompletion: { completion in
+                    if case let .failure(error) = completion  {
+                        print("Failed to like playlist: \(error)")
                     }
-                }
+                }, receiveValue: {
+                    if shouldUnlike {
+                        playlists.removeAll { $0 == playlist }
+                    }
+                    else {
+                        playlists.append(playlist)
+                    }
+                })
                 .store(in: &subscriptions)
         }
     }
     
     private func toggleRepost(_ track: Track) -> () -> () {
-        let shouldDeleteRepost = posts.filter { $0.isRepost && $0.isTrack }
-            .map { $0.tracks.first! }
-            .contains(track)
-        return {}
-//        let request: APIRequest = shouldUnlike ? .unlike(track) : .like(track)
-//
-//        return {
-//            return SoundCloud.shared.perform(request)
-//                .replaceError(with: false)
-//                .receive(on: RunLoop.main)
-//                .sink { success in
-//                    if success {
-//                        if shouldUnlike {
-//                            likes.removeAll { $0 == track }
-//                        }
-//                        else {
-//                            likes.append(track)
-//                        }
-//                    }
-//                }
-//                .store(in: &subscriptions)
-//        }
+        return {
+            let shouldDeleteRepost = posts.filter { $0.isRepost && $0.isTrack }
+                .map { $0.tracks.first! }
+                .contains(track)
+            let request: APIRequest = shouldDeleteRepost ? .unrepost(track) : .repost(track)
+            
+            return SoundCloud.shared.perform(request)
+                .receive(on: RunLoop.main)
+                .sink(receiveCompletion: { completion in
+                    if case let .failure(error) = completion  {
+                        print("Failed to repost track: \(error)")
+                    }
+                }, receiveValue: { reloadPosts() })
+                .store(in: &subscriptions)
+        }
     }
     
-    private func toggleRepost(_ playlist: AnyPlaylist) -> () -> () {
-        let shouldUnlike = playlists.contains(playlist)
-        let request: APIRequest = shouldUnlike ? .unlike(playlist) : .like(playlist)
-        
+    private func toggleRepost(_ playlist: UserPlaylist) -> () -> () {
         return {
+            let shouldDeleteRepost = posts.filter { $0.isRepost && !$0.isTrack }
+                .compactMap { $0.playlist }
+                .contains(playlist)
+            
+            let request: APIRequest = shouldDeleteRepost ? .unrepost(playlist) : .repost(playlist)
+            
             return SoundCloud.shared.perform(request)
-                .replaceError(with: false)
                 .receive(on: RunLoop.main)
-                .sink { success in
-                    if success {
-                        if shouldUnlike {
-                            playlists.removeAll { $0 == playlist }
-                        }
-                        else {
-                            playlists.append(playlist)
-                        }
+                .sink(receiveCompletion: { completion in
+                    if case let .failure(error) = completion  {
+                        print("Failed to repost playlist: \(error)")
                     }
-                }
+                }, receiveValue: { reloadPosts() })
                 .store(in: &subscriptions)
         }
     }

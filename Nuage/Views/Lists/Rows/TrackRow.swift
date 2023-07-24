@@ -17,12 +17,6 @@ struct TrackRow: View {
     
     @State private var subscriptions = Set<AnyCancellable>()
     
-    @Environment(\.likes) private var likes: [Track]
-    @Environment(\.posts) private var posts: [Post]
-    
-    @Environment(\.toggleLikeTrack) private var toggleLike: (Track) -> () -> ()
-    @Environment(\.toggleRepostTrack) private var toggleRepost: (Track) -> () -> ()
-    
     init(track: Track, onPlay: @escaping () -> ()) {
         self.track = track
         self.onPlay = onPlay
@@ -36,23 +30,7 @@ struct TrackRow: View {
                 Artwork(url: track.artworkURL ?? track.user.avatarURL, onPlay: onPlay)
                     .frame(width: 100, height: 100)
                 Spacer()
-                HStack {
-                    Button(action: toggleLike(track)) {
-                        let name = likes.contains(track) ? "heart.fill" : "heart"
-                        Image(systemName: name)
-                    }
-                    .buttonStyle(.borderless)
-                    
-                    Button(action: toggleRepost(track)) {
-                        let isRepost = posts
-                            .filter { $0.isTrack }
-                            .map { $0.tracks.first! }
-                            .contains(track)
-                        let name = isRepost ? "arrow.triangle.2.circlepath.circle.fill" : "arrow.triangle.2.circlepath"
-                        Image(systemName: name)
-                    }
-                    .buttonStyle(.borderless)
-                }
+                FeedbackStack(for: track)
                 Spacer()
             }
             VStack(alignment: .leading) {
