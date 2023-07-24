@@ -14,6 +14,7 @@ private let accessTokenExpiryDateKey = "accessTokenExpiryDate"
 private let userKey = "user"
 private let playlistsKey = "playlists"
 private let likesKey = "likes"
+private let postsKey = "posts"
 
 struct PlaylistKey: EnvironmentKey {
     
@@ -27,15 +28,35 @@ struct LikesKey: EnvironmentKey {
     
 }
 
+struct PostsKey: EnvironmentKey {
+    
+    static let defaultValue = [Post]()
+    
+}
+
+
 struct ToggleLikeTrackKey: EnvironmentKey {
     
     static let defaultValue: (Track) -> () -> () = { _ in return { fatalError("Did not set the toggleLike action") } }
     
 }
 
+struct ToggleRepostTrackKey: EnvironmentKey {
+    
+    static let defaultValue: (Track) -> () -> () = { _ in return { fatalError("Did not set the toggleRepost action") } }
+    
+}
+
+
 struct ToggleLikePlaylistKey: EnvironmentKey {
     
     static let defaultValue: (AnyPlaylist) -> () -> () = { _ in return { fatalError("Did not set the toggleLike action") } }
+    
+}
+
+struct ToggleRepostPlaylistKey: EnvironmentKey {
+    
+    static let defaultValue: (AnyPlaylist) -> () -> () = { _ in return { fatalError("Did not set the toggleRepost action") } }
     
 }
 
@@ -51,14 +72,29 @@ extension EnvironmentValues {
         set { self[LikesKey.self] = newValue }
     }
     
+    var posts: [Post] {
+        get { self[PostsKey.self] }
+        set { self[PostsKey.self] = newValue }
+    }
+    
     var toggleLikeTrack: (Track) -> () -> () {
         get { self[ToggleLikeTrackKey.self] }
         set { self[ToggleLikeTrackKey.self] = newValue }
     }
     
+    var toggleRepostTrack: (Track) -> () -> () {
+        get { self[ToggleRepostTrackKey.self] }
+        set { self[ToggleRepostTrackKey.self] = newValue }
+    }
+    
     var toggleLikePlaylist: (AnyPlaylist) -> () -> () {
         get { self[ToggleLikePlaylistKey.self] }
         set { self[ToggleLikePlaylistKey.self] = newValue }
+    }
+    
+    var toggleRepostPlaylist: (AnyPlaylist) -> () -> () {
+        get { self[ToggleRepostPlaylistKey.self] }
+        set { self[ToggleRepostPlaylistKey.self] = newValue }
     }
     
 }
@@ -79,6 +115,7 @@ struct NuageApp: App {
     
     @State private var playlists: [AnyPlaylist]
     @State private var likes: [Track]
+    @State private var posts: [Post]
     @State private var loggedIn: Bool
     @State private var subscriptions = Set<AnyCancellable>()
     
@@ -90,8 +127,11 @@ struct NuageApp: App {
                     .environmentObject(commands)
                     .environment(\.playlists, playlists)
                     .environment(\.likes, likes)
+                    .environment(\.posts, posts)
                     .environment(\.toggleLikeTrack, toggleLike)
+                    .environment(\.toggleRepostTrack, toggleRepost)
                     .environment(\.toggleLikePlaylist, toggleLike)
+                    .environment(\.toggleRepostPlaylist, toggleRepost)
                     .onAppear {
                         SoundCloud.shared.get(all: .library())
                             .map { $0.map { $0.item } }
@@ -107,6 +147,14 @@ struct NuageApp: App {
                             .replaceError(with: likes)
                             .receive(on: RunLoop.main)
                             .assign(to: \.likes, on: self)
+                            .store(in: &subscriptions)
+                        
+                        SoundCloud.shared.$user
+                            .filter { $0 != nil}
+                            .flatMap { SoundCloud.shared.get(all: .stream(of: $0!)) }
+                            .replaceError(with: posts)
+                            .receive(on: RunLoop.main)
+                            .assign(to: \.posts, on: self)
                             .store(in: &subscriptions)
                     }
             }
@@ -202,6 +250,13 @@ struct NuageApp: App {
             likes = []
         }
         
+        if let data = defaults.data(forKey: postsKey) {
+            posts = try! JSONDecoder().decode([Post].self, from: data)
+        }
+        else {
+            posts = []
+        }
+        
         playlists.publisher.sink { playlists in
             let data = try! JSONEncoder().encode(playlists)
             defaults.set(data, forKey: playlistsKey)
@@ -211,6 +266,12 @@ struct NuageApp: App {
         likes.publisher.sink { likes in
             let data = try! JSONEncoder().encode(likes)
             defaults.set(data, forKey: likesKey)
+        }
+        .store(in: &subscriptions)
+        
+        posts.publisher.sink { posts in
+            let data = try! JSONEncoder().encode(posts)
+            defaults.set(data, forKey: postsKey)
         }
         .store(in: &subscriptions)
         
@@ -249,6 +310,53 @@ struct NuageApp: App {
     }
     
     private func toggleLike(_ playlist: AnyPlaylist) -> () -> () {
+        let shouldUnlike = playlists.contains(playlist)
+        let request: APIRequest = shouldUnlike ? .unlike(playlist) : .like(playlist)
+        
+        return {
+            return SoundCloud.shared.perform(request)
+                .replaceError(with: false)
+                .receive(on: RunLoop.main)
+                .sink { success in
+                    if success {
+                        if shouldUnlike {
+                            playlists.removeAll { $0 == playlist }
+                        }
+                        else {
+                            playlists.append(playlist)
+                        }
+                    }
+                }
+                .store(in: &subscriptions)
+        }
+    }
+    
+    private func toggleRepost(_ track: Track) -> () -> () {
+        let shouldDeleteRepost = posts.filter { $0.isRepost && $0.isTrack }
+            .map { $0.tracks.first! }
+            .contains(track)
+        return {}
+//        let request: APIRequest = shouldUnlike ? .unlike(track) : .like(track)
+//
+//        return {
+//            return SoundCloud.shared.perform(request)
+//                .replaceError(with: false)
+//                .receive(on: RunLoop.main)
+//                .sink { success in
+//                    if success {
+//                        if shouldUnlike {
+//                            likes.removeAll { $0 == track }
+//                        }
+//                        else {
+//                            likes.append(track)
+//                        }
+//                    }
+//                }
+//                .store(in: &subscriptions)
+//        }
+    }
+    
+    private func toggleRepost(_ playlist: AnyPlaylist) -> () -> () {
         let shouldUnlike = playlists.contains(playlist)
         let request: APIRequest = shouldUnlike ? .unlike(playlist) : .like(playlist)
         

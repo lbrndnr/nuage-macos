@@ -14,7 +14,11 @@ struct PlaylistRow<T: Playlist>: View {
     private var playlist: T
     private var onPlay: () -> ()
     
+    @Environment(\.playlists) private var playlists: [AnyPlaylist]
+    @Environment(\.posts) private var posts: [Post]
+    
     @Environment(\.toggleLikePlaylist) private var toggleLike: (AnyPlaylist) -> () -> ()
+    @Environment(\.toggleRepostPlaylist) private var toggleRepost: (AnyPlaylist) -> () -> ()
     
     init(playlist: T, onPlay: @escaping () -> ()) {
         self.playlist = playlist
@@ -31,10 +35,17 @@ struct PlaylistRow<T: Playlist>: View {
                 Spacer()
                 HStack {
                     Button(action: toggleLike(playlist.eraseToAnyPlaylist())) {
-                        Image(systemName: "heart")
+                        let isLiked = playlists.contains(playlist.eraseToAnyPlaylist())
+                        let name = isLiked ? "heart.fill" : "heart"
+                        Image(systemName: name)
                     }.buttonStyle(.borderless)
                     if let playlist = playlist as? UserPlaylist {
-                        Button(action: toggleRepost(playlist)) {
+                        let isRepost = posts
+                            .compactMap { $0.playlist }
+                            .contains(playlist)
+                        let name = isRepost ? "arrow.triangle.2.circlepath.circle.fill" : "arrow.triangle.2.circlepath"
+                        
+                        Button(action: toggleRepost(playlist.eraseToAnyPlaylist())) {
                             Image(systemName: "arrow.triangle.2.circlepath")
                         }.buttonStyle(.borderless)
                     }
@@ -76,14 +87,5 @@ struct PlaylistRow<T: Playlist>: View {
             }
         }
     }
-
-}
-
-extension PlaylistRow: Equatable {
-
-    static func == (lhs: PlaylistRow, rhs: PlaylistRow) -> Bool {
-        return lhs.playlist == rhs.playlist
-    }
-
 
 }

@@ -18,7 +18,10 @@ struct TrackRow: View {
     @State private var subscriptions = Set<AnyCancellable>()
     
     @Environment(\.likes) private var likes: [Track]
+    @Environment(\.posts) private var posts: [Post]
+    
     @Environment(\.toggleLikeTrack) private var toggleLike: (Track) -> () -> ()
+    @Environment(\.toggleRepostTrack) private var toggleRepost: (Track) -> () -> ()
     
     init(track: Track, onPlay: @escaping () -> ()) {
         self.track = track
@@ -41,7 +44,12 @@ struct TrackRow: View {
                     .buttonStyle(.borderless)
                     
                     Button(action: toggleRepost(track)) {
-                        Image(systemName: "arrow.triangle.2.circlepath")
+                        let isRepost = posts
+                            .filter { $0.isTrack }
+                            .map { $0.tracks.first! }
+                            .contains(track)
+                        let name = isRepost ? "arrow.triangle.2.circlepath.circle.fill" : "arrow.triangle.2.circlepath"
+                        Image(systemName: name)
                     }
                     .buttonStyle(.borderless)
                 }
@@ -74,14 +82,6 @@ struct TrackRow: View {
                 }
             }
         }
-    }
-
-}
-
-extension TrackRow: Equatable {
-
-    static func == (lhs: TrackRow, rhs: TrackRow) -> Bool {
-        return lhs.track == rhs.track
     }
 
 }

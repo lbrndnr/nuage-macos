@@ -37,11 +37,3 @@ struct CommentRow: View {
     }
 
 }
-
-extension CommentRow: Equatable {
-
-    static func == (lhs: CommentRow, rhs: CommentRow) -> Bool {
-        return lhs.comment == rhs.comment
-    }
-
-}

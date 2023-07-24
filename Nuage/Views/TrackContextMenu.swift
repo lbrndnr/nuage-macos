@@ -19,6 +19,7 @@ struct TrackContextMenu: ViewModifier {
     @EnvironmentObject private var player: StreamPlayer
     @Environment(\.playlists) private var playlists: [AnyPlaylist]
     @Environment(\.toggleLikeTrack) private var toggleLike: (Track) -> () -> ()
+    @Environment(\.toggleRepostTrack) private var toggleRepost: (Track) -> () -> ()
     
     private var track: Track
     private var onPlay: () -> ()
