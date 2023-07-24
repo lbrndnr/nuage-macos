@@ -33,4 +33,4 @@ Nuage uses [StackNavigationView](https://github.com/lbrndnr/StackNavigationView)
 Developed by [Laurin Brandner](https://twitter.com/lbrndnr), icon designed by [Yannick Lung](https://twitter.com/yannicklu).
 
 ## License
-Nuage is licensed under the [MIT License](http://opensource.org/licenses/mit-license.php).
+Nuage is licensed under GPL-3.0. You can use Nuage's code as long as your app is also licensed as GPL-3.0. For all other applications please [contact me](https://twitter.com/lbrndnr).
