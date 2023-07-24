@@ -220,3 +220,47 @@ extension View {
     }
     
 }
+
+extension String {
+    
+    func withAttributedLinks() -> AttributedString {
+        var linkRanges = [(NSRange, URL)]()
+        var handleRanges = [(NSRange, URL)]()
+        do {
+            let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
+            detector.enumerateMatches(in: self, range: NSMakeRange(0, count)) { result, _, _ in
+                if let match = result,
+                    let url = match.url {
+                    linkRanges.append((match.range, url))
+                }
+            }
+            
+            if #available(macOS 13.0, *) {
+                let handle = /@([a-zA-Z0-9_-]{3,})/
+                for match in self.matches(of: handle) {
+                    let range = NSRange(match.range, in: self)
+                    let username = match.output.1
+                    let url = URL(string: "https://soundcloud.com/\(username)")!
+                    handleRanges.append((range, url))
+                }
+            }
+        }
+        catch {
+            print("Failed to parse text: \(error)")
+        }
+        
+        let attributedText = NSMutableAttributedString(string: self)
+        for (range, url) in (linkRanges + handleRanges)  {
+            let attributes: [NSAttributedString.Key: Any] = [
+                .link: url,
+                .foregroundColor: NSColor.controlAccentColor
+            ]
+            
+            attributedText.addAttributes(attributes, range: range)
+        }
+        
+        return AttributedString(attributedText)
+    }
+
+    
+}

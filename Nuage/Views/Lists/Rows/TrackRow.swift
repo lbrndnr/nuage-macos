@@ -54,8 +54,11 @@ struct TrackRow: View {
                     .frame(height: 8)
 
                 if let description = track.description {
-                    let text = description.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let text = description
+                        .trimmingCharacters(in: .whitespacesAndNewlines)
                         .replacingOccurrences(of: "\n", with: " ")
+                        .withAttributedLinks()
+                        
                     Text(text).lineLimit(3)
                 }
             }

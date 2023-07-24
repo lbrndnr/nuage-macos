@@ -56,9 +56,7 @@ struct TrackDetail: View {
             CommentList(for: SoundCloud.shared.get(.comments(of: track)))
                 .header {
                     if let description = track.description {
-                        let text = description.trimmingCharacters(in: .whitespacesAndNewlines)
-                            .replacingOccurrences(of: "\n", with: " ")
-                        Text(text)
+                        Text(description.withAttributedLinks())
                     }
                 }
         }
