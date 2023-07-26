@@ -16,7 +16,7 @@ struct PostList: View {
     @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
-        InfiniteList(publisher: publisher) { posts, idx -> AnyView in
+        InfiniteList(publisher: publisher) { posts, idx in
             let post = posts[idx]
             let onPlay = {
                 let allTracks = posts.flatMap { $0.tracks }
@@ -25,12 +25,10 @@ struct PostList: View {
                 play(allTracks, from: startIndex, on: player)
             }
             
-            return AnyView(
-                VStack(alignment: .leading) {
-                    PostRow(post: post, onPlay: onPlay)
-                    Divider()
-                }
-            )
+            VStack(alignment: .leading) {
+                PostRow(post: post, onPlay: onPlay)
+                Divider()
+            }
         }
     }
     

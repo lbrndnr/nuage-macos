@@ -19,21 +19,20 @@ struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
     @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
-        InfiniteList(publisher: publisher) { elements, idx -> AnyView in
+        InfiniteList(publisher: publisher) { elements, idx in
             let track = transform(elements[idx])
-            
             let onPlay = {
                 let tracks = elements.map(transform)
                 play(tracks, from: idx, on: player)
             }
 
-            return AnyView(StackNavigationLink(destination: TrackDetail(track: track)) {
+            StackNavigationLink(destination: TrackDetail(track: track)) {
                 VStack(alignment: .leading) {
                     TrackRow(track: track, onPlay: onPlay)
                     Divider()
                 }
                 .trackContextMenu(track: track, onPlay: onPlay)
-            })
+            }
         }
     }
     
