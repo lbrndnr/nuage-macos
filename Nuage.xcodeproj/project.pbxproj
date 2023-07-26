@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4908205025C86DD100AC92EC /* PlayerSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4908204F25C86DD100AC92EC /* PlayerSlider.swift */; };
+		490857292A718FFF002D4FD0 /* PostRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 490857282A718FFF002D4FD0 /* PostRow.swift */; };
 		492AF079258F877E0079035F /* PostList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 492AF078258F877E0079035F /* PostList.swift */; };
 		49328ECF25C4B71500A2A34D /* SoundCloud in Frameworks */ = {isa = PBXBuildFile; productRef = 49328ECE25C4B71500A2A34D /* SoundCloud */; };
 		49328ED125C4B71500A2A34D /* StackNavigationView in Frameworks */ = {isa = PBXBuildFile; productRef = 49328ED025C4B71500A2A34D /* StackNavigationView */; };
@@ -50,6 +51,7 @@
 
 /* Begin PBXFileReference section */
 		4908204F25C86DD100AC92EC /* PlayerSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerSlider.swift; sourceTree = "<group>"; };
+		490857282A718FFF002D4FD0 /* PostRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRow.swift; sourceTree = "<group>"; };
 		492AF078258F877E0079035F /* PostList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostList.swift; sourceTree = "<group>"; };
 		49328EC225C4B6F300A2A34D /* StackNavigationView */ = {isa = PBXFileReference; lastKnownFileType = folder; path = StackNavigationView; sourceTree = "<group>"; };
 		49328EC625C4B6F900A2A34D /* SoundCloud */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SoundCloud; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 		49332BA925961A2A0034A161 /* Rows */ = {
 			isa = PBXGroup;
 			children = (
+				490857282A718FFF002D4FD0 /* PostRow.swift */,
 				49332BA425961A260034A161 /* TrackRow.swift */,
 				49332BAD25961A3B0034A161 /* PlaylistRow.swift */,
 				4964299125E054E9008AFBD5 /* CommentRow.swift */,
@@ -335,6 +338,7 @@
 				4998E12125CADC8300EB986F /* Artwork.swift in Sources */,
 				4969F428257CFB100048E29B /* Helpers.swift in Sources */,
 				49FA14C62589693E00CEF925 /* InfiniteList.swift in Sources */,
+				490857292A718FFF002D4FD0 /* PostRow.swift in Sources */,
 				4969F42E257CFB100048E29B /* LoginView.swift in Sources */,
 				492AF079258F877E0079035F /* PostList.swift in Sources */,
 				4964299225E054E9008AFBD5 /* CommentRow.swift in Sources */,

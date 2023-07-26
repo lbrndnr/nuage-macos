@@ -17,11 +17,6 @@ struct TrackRow: View {
     
     @State private var subscriptions = Set<AnyCancellable>()
     
-    init(track: Track, onPlay: @escaping () -> ()) {
-        self.track = track
-        self.onPlay = onPlay
-    }
-    
     var body: some View {
         let duration = format(time: track.duration)
         
@@ -63,6 +58,11 @@ struct TrackRow: View {
                 }
             }
         }
+    }
+    
+    init(track: Track, onPlay: @escaping () -> ()) {
+        self.track = track
+        self.onPlay = onPlay
     }
 
 }
