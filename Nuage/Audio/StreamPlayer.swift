@@ -51,16 +51,12 @@ class StreamPlayer: ObservableObject {
             if shouldSeek {
                 let time = CMTime(seconds: progress, preferredTimescale: 1)
                 player.seek(to: time)
-                updateNowPlayingProgress(to: time)
+                updateNowPlayingInfo(with: time)
             }
         }
     }
     
-    @Published private(set) var isPlaying = false {
-        didSet {
-            MPNowPlayingInfoCenter.default().playbackState = isPlaying ? .playing : .paused
-        }
-    }
+    @Published private(set) var isPlaying = false
     
     // MARK: - Initialization
     
@@ -102,7 +98,7 @@ class StreamPlayer: ObservableObject {
             .store(in: &subscriptions)
         
         player.publisher(for: \.timeControlStatus)
-            .sink(receiveValue: updateNowPlayingPlaybackStatus)
+            .sink { _ in self.updateNowPlayingInfo() }
             .store(in: &subscriptions)
         
         addRemoteCommandTargets()
@@ -244,55 +240,51 @@ class StreamPlayer: ObservableObject {
         }
     }
     
-    private func updateNowPlayingInfo() {
+    private func updateNowPlayingInfo(with time: CMTime? = nil) {
         let center = MPNowPlayingInfoCenter.default()
         guard let currentStream = currentStream else {
             center.nowPlayingInfo = nil
             return
         }
         
-        var info: [String: Any] = [
-            MPMediaItemPropertyPersistentID: currentStream.id,
-            MPMediaItemPropertyTitle: currentStream.title,
-            MPMediaItemPropertyArtist: currentStream.user.username,
-            MPMediaItemPropertyAssetURL: currentStream.permalinkURL,
-            MPMediaItemPropertyPlaybackDuration: currentStream.duration,
-            MPNowPlayingInfoPropertyPlaybackProgress: Float(player.currentTime().seconds)/currentStream.duration
-        ]
+        var info = center.nowPlayingInfo
+        let currentID = info?[MPMediaItemPropertyPersistentID] as? String
+        let currentTime = (time ?? player.currentTime()).seconds
+        
+        if currentID == currentStream.id {
+            info![MPNowPlayingInfoPropertyElapsedPlaybackTime] = currentTime
+        }
+        else {
+            info = [
+                MPMediaItemPropertyPersistentID: currentStream.id,
+                MPMediaItemPropertyTitle: currentStream.title,
+                MPMediaItemPropertyArtist: currentStream.user.username,
+                MPMediaItemPropertyAssetURL: currentStream.permalinkURL,
+                MPMediaItemPropertyPlaybackDuration: currentStream.duration,
+                MPNowPlayingInfoPropertyElapsedPlaybackTime: currentTime
+            ]
+            
+            let url = currentStream.artworkURL ?? currentStream.user.avatarURL
+            URLImageService.shared.remoteImagePublisher(url)
+                .sink(receiveCompletion: { _ in },
+                      receiveValue: { imageInfo in
+                    let image = NSImage(cgImage: imageInfo.cgImage, size: imageInfo.size)
+                    let artwork = MPMediaItemArtwork(boundsSize: image.size) { _ in image }
+                    info![MPMediaItemPropertyArtwork] = artwork
+                    
+                    center.nowPlayingInfo = info
+                })
+                .store(in: &self.subscriptions)
+        }
+        
         center.nowPlayingInfo = info
         
-        let url = currentStream.artworkURL ?? currentStream.user.avatarURL
-        URLImageService.shared.remoteImagePublisher(url)
-            .sink(receiveCompletion: { _ in },
-                  receiveValue: { imageInfo in
-                let image = NSImage(cgImage: imageInfo.cgImage, size: imageInfo.size)
-                let artwork = MPMediaItemArtwork(boundsSize: image.size) { _ in return image }
-                info[MPMediaItemPropertyArtwork] = artwork
-                
-                center.nowPlayingInfo = info
-            })
-            .store(in: &self.subscriptions)
-    }
-    
-    private func updateNowPlayingPlaybackStatus(for status: AVPlayer.TimeControlStatus) {
-        let center = MPNowPlayingInfoCenter.default()
-        switch status {
+        switch player.timeControlStatus {
         case .paused: center.playbackState = .paused
         case .playing: center.playbackState = .playing
         case .waitingToPlayAtSpecifiedRate: center.playbackState = .interrupted
         default: center.playbackState = .unknown
         }
-    }
-    
-    private func updateNowPlayingProgress(to time: CMTime) {
-        let center = MPNowPlayingInfoCenter.default()
-        guard var info = center.nowPlayingInfo else {
-            updateNowPlayingInfo()
-            return
-        }
-        
-        info[MPNowPlayingInfoPropertyElapsedPlaybackTime] = time.seconds
-        center.nowPlayingInfo = info
     }
     
 }
