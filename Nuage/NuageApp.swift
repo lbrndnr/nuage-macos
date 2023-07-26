@@ -199,7 +199,13 @@ struct NuageApp: App {
         
         let defaults = UserDefaults.standard
         if let data = defaults.data(forKey: userKey) {
-            SoundCloud.shared.user = try! JSONDecoder().decode(User.self, from: data)
+            do {
+                SoundCloud.shared.user = try JSONDecoder().decode(User.self, from: data)
+            }
+            catch {
+                defaults.removeObject(forKey: userKey)
+                print("Failed to load user from UserDefaults: \(error)")
+            }
         }
         let token = defaults.object(forKey: accessTokenKey)
         let expiryDate = defaults.object(forKey: accessTokenExpiryDateKey)
