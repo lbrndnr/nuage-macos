@@ -24,8 +24,16 @@ struct PostRow: View {
                     RemoteImage(url: post.user.avatarURL, cornerRadius: 15)
                         .frame(width: 30, height: 30)
                     
-                    let action = post.isRepost ? "reposted" : "posted"
-                    Text("\(post.user.username) \(action)")
+                    let title: AttributedString = {
+                        var attributes = AttributeContainer()
+                        attributes.font = .body.bold()
+                        let username = AttributedString(post.user.username, attributes: attributes)
+                        
+                        let action = post.isRepost ? " reposted" : " posted"
+                        return username + AttributedString(action)
+                    }()
+                    
+                    Text(title)
                 }
             }
             Spacer()
