@@ -27,10 +27,13 @@ struct PostRow: View {
                     let title: AttributedString = {
                         var attributes = AttributeContainer()
                         attributes.font = .body.bold()
+                        attributes.foregroundColor = .primary
                         let username = AttributedString(post.user.username, attributes: attributes)
                         
                         let action = post.isRepost ? " reposted" : " posted"
-                        return username + AttributedString(action)
+                        attributes = AttributeContainer()
+                        attributes.foregroundColor = .secondary
+                        return username + AttributedString(action, attributes: attributes)
                     }()
                     
                     Text(title)
