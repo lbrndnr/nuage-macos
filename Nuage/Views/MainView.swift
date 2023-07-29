@@ -50,6 +50,28 @@ struct MainView: View {
         .frame(minWidth: 800, minHeight: 400)
         .toolbar(content: toolbar)
         .touchBar { TouchBar() }
+        .onOpenURL { url in
+            guard var components = URLComponents(url: url, resolvingAgainstBaseURL: true) else { return }
+            
+            components.scheme = "https"
+            guard let newURL = components.url else { return }
+            
+            soundCloud.get(.resolve(newURL))
+                .receive(on: RunLoop.main)
+                .sink(receiveCompletion: { completion in
+                    if case let .failure(error) = completion  {
+                        print("Failed to resolve url: \(error)")
+                    }
+                }, receiveValue: { elem in
+                    switch elem {
+                    case .track(let track): navigationPath.append(track)
+                    case .user(let user): navigationPath.append(user)
+                    default: print("Not implemented.")
+                    }
+                })
+                .store(in: &subscriptions)
+        }
+        .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
     }
     
     @ViewBuilder private func sidebar() -> some View {

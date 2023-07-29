@@ -223,14 +223,19 @@ extension View {
 
 extension String {
     
-    func withAttributedLinks() -> AttributedString {
+    func withAttributedLinks(useAppURLScheme: Bool = true) -> AttributedString {
         var linkRanges = [(NSRange, URL)]()
         var handleRanges = [(NSRange, URL)]()
         do {
             let detector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
             detector.enumerateMatches(in: self, range: NSMakeRange(0, count)) { result, _, _ in
                 if let match = result,
-                    let url = match.url {
+                    var url = match.url {
+                    if url.absoluteString.contains("soundcloud") && useAppURLScheme {
+                        var components = URLComponents(url: url, resolvingAgainstBaseURL: true)
+                        components?.scheme = "nuage"
+                        url = components?.url ?? url
+                    }
                     linkRanges.append((match.range, url))
                 }
             }
@@ -240,7 +245,9 @@ extension String {
                 for match in self.matches(of: handle) {
                     let range = NSRange(match.range, in: self)
                     let username = match.output.1
-                    let url = URL(string: "https://soundcloud.com/\(username)")!
+                    let scheme = useAppURLScheme ? "nuage" : "https"
+                    let url = URL(string: "\(scheme)://soundcloud.com/\(username)")!
+
                     handleRanges.append((range, url))
                 }
             }
