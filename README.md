@@ -7,8 +7,9 @@
 
 ---
 
-[![Twitter: @lbrndnr](https://img.shields.io/badge/contact-@lbrndnr-blue.svg?style=flat)](https://twitter.com/lbrndnr)
-[![SoundCloud: @lerboe](https://img.shields.io/badge/contact-@lerboe-green.svg?style=flat)](https://soundcloud.com/lerboe)
+[![Twitter: @lbrndnr](https://img.shields.io/badge/Twitter-@lbrndnr-blue.svg?style=flat)](https://twitter.com/lbrndnr)
+[![Twitter: @lbrndnr](https://img.shields.io/badge/Mastodon-@lerboe@mastodon.social-purple.svg?style=flat)](https://mastodon.social/@lerboe)
+[![SoundCloud: @lerboe](https://img.shields.io/badge/SoundCloud-@lerboe-orange.svg?style=flat)](https://soundcloud.com/lerboe)
 [![License](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/lbrndnr/nuage-macos/blob/master/LICENSE)
 
 ## About
