@@ -13,26 +13,13 @@ import URLImage
 import Introspect
 import SoundCloud
 
-struct PushViewKey: EnvironmentKey {
-    
-    static let defaultValue: (AnyHashable) -> () = { _ in }
-    
-}
-
-extension EnvironmentValues {
-    
-    var pushView: (AnyHashable) -> () {
-        get { self[PushViewKey.self] }
-        set { self[PushViewKey.self] = newValue }
-    }
-}
-
 struct MainView: View {
     
     @ObservedObject private var soundCloud = SoundCloud.shared
     
     @State private var sidebarSelection: SidebarItem = .stream
-    @State private var navigationPath: [AnyHashable] = []
+    @State private var navigationPath = NavigationPath()
+    @State private var blockingNavigationPath: NavigationPath?
     
     @State private var searchQuery = ""
     @State private var subscriptions = Set<AnyCancellable>()
@@ -46,12 +33,6 @@ struct MainView: View {
             NavigationSplitView(sidebar: sidebar) {
                 NavigationStack(path: $navigationPath) {
                     root(for: sidebarSelection)
-                        .environment(\.pushView, { navigationPath.append($0) })
-                        .navigationDestination(for: AnyHashable.self) { hashable in
-                            if let track = hashable as? Track { TrackDetail(track: track) }
-                            else if let user = hashable as? User { UserDetail(user: user) }
-                            else { fatalError("Unknown view destination: \(hashable)") }
-                        }
                         .navigationDestination(for: Track.self) { TrackDetail(track: $0) }
                         .navigationDestination(for: User.self) { UserDetail(user: $0) }
                     }
@@ -59,17 +40,9 @@ struct MainView: View {
             Divider()
             if player.queue.count > 0 {
                 PlayerView {
-                    if let track = player.currentStream {
-                        // Only show the track if we're not showing it already
-                        
-                        var shouldShow = true
-                        if let displayedTrack = navigationPath.last as? Track {
-                            shouldShow = (track != displayedTrack)
-                        }
-                        
-                        if shouldShow {
-                            navigationPath.append(track)
-                        }
+                    if let track = player.currentStream, navigationPath != blockingNavigationPath {
+                        navigationPath.append(track)
+                        blockingNavigationPath = navigationPath
                     }
                 }
             }

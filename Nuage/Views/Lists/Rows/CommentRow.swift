@@ -25,6 +25,7 @@ struct CommentRow: View {
                 RemoteImage(url: comment.user.avatarURL, cornerRadius: 25)
                     .frame(width: 50, height: 50, alignment: .center)
             }
+            .buttonStyle(.plain)
             VStack(alignment: .leading) {
                 let time = format(time: comment.timestamp)
                 Text("\(comment.user.displayName) at \(time)")

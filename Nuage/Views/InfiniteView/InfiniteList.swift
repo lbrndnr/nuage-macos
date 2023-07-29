@@ -50,19 +50,24 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable, Row: View>: View
                     .introspectTextField { $0.becomeFirstResponder() }
                     .onExitCommand(perform: stopFiltering)
             }
-            List(0..<displayedElements.count+1, id: \.self) { idx in
-                if idx == 0 {
-                    header
-                }
-                else {
-                    row(displayedElements, idx-1)
-                        .id(idx)
-                        .onAppear {
-                        if idx == elements.count/2 {
-                            getNextSlice()
+            ScrollView {
+                LazyVStack(alignment: .leading) {
+                    ForEach(0..<displayedElements.count+1, id: \.self) {idx in
+                        if idx == 0 {
+                            header
+                        }
+                        else {
+                            row(displayedElements, idx-1)
+                                .id(idx)
+                                .onAppear {
+                                    if idx == elements.count/2 {
+                                        getNextSlice()
+                                    }
+                                }
                         }
                     }
                 }
+                .padding()
             }
             .onReceive(commands.filter) { withAnimation { isSearching = true } }
             .onExitCommand(perform: stopFiltering)

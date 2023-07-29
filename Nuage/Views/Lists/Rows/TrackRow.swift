@@ -28,13 +28,15 @@ struct TrackRow: View {
                 Spacer()
             }
             VStack(alignment: .leading) {
-                RowNavigationLink(value: track) {
+                NavigationLink(value: track) {
                     Text(track.title)
                         .font(.title3)
                         .bold()
                         .lineLimit(1)
                 }
-                RowNavigationLink(track.user.displayName, value: track.user)
+                .buttonStyle(.plain)
+                NavigationLink(track.user.displayName, value: track.user)
+                    .buttonStyle(.plain)
                 HStack {
                     Image(systemName: "play.fill")
                     Text(String(track.playbackCount))
