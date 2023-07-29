@@ -14,7 +14,7 @@ struct NoTrackError: Error {}
 
 struct PlayerView: View {
     
-    var onArtworkTap: () -> ()
+    var onTrackDetailTap: () -> ()
     
     @State private var showingVolumeControls = false
     @State private var showingQueue = false
@@ -29,12 +29,15 @@ struct PlayerView: View {
             RemoteImage(url: url, cornerRadius: 0)
             
             HStack(spacing: 16) {
-                artwork()
-                    .aspectRatio(1.0, contentMode: .fit)
-                    .padding(.vertical, 8)
-                
-                trackDetails()
-                    .frame(width: 80)
+                Button(action: onTrackDetailTap) {
+                    artwork()
+                        .aspectRatio(1.0, contentMode: .fit)
+                        .padding(.vertical, 8)
+                    
+                    trackDetails()
+                        .frame(width: 80)
+                }
+                .buttonStyle(.plain)
                 
                 progressSlider()
                     .padding(.vertical)
@@ -54,7 +57,7 @@ struct PlayerView: View {
         if let track = player.currentStream {
             let url = track.artworkURL ?? player.currentStream?.user.avatarURL
             RemoteImage(url: url, cornerRadius: 3)
-                .onTapGesture(perform: onArtworkTap)
+                .onTapGesture(perform: onTrackDetailTap)
         }
         else {
             RemoteImage(url: nil, cornerRadius: 3)
@@ -217,7 +220,7 @@ struct PlayerView_Previews: PreviewProvider {
         let player = StreamPlayer()
         player.enqueue(Preview.tracks)
         
-        return PlayerView(onArtworkTap: {}).environmentObject(player)
+        return PlayerView(onTrackDetailTap: {}).environmentObject(player)
     }
     
 }
