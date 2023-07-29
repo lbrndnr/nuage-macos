@@ -8,12 +8,13 @@
 ---
 
 [![Twitter: @lbrndnr](https://img.shields.io/badge/contact-@lbrndnr-blue.svg?style=flat)](https://twitter.com/lbrndnr)
+[![SoundCloud: @lerboe](https://img.shields.io/badge/contact-@lerboe-green.svg?style=flat)](https://soundcloud.com/lerboe)
 [![License](http://img.shields.io/badge/license-MIT-green.svg?style=flat)](https://github.com/lbrndnr/nuage-macos/blob/master/LICENSE)
 
 ## About
 Nuage is an independent and open-source project to build a native SoundCloud client for macOS using SwiftUI. Its overall goal is to make listening to tracks on SoundCloud more enjoyable by providing a light-weight and beautiful interface. As of now, the app is still very much in development, lots of features are still missing and the UI needs a lot of work too. So if you want to learn a little bit of SwiftUI or if you have a suggestion regarding the user experience, feel free to open an issue or a merge request.
 
-<img alt="Nuage Main View" src="https://github.com/lbrndnr/nuage-macos/assets/762049/919de8d7-8f29-4176-a701-33a52c21f74d">
+<img alt="Nuage Main View" src="https://github.com/lbrndnr/nuage-macos/assets/762049/99d5e344-9b1b-4890-ac8d-6f15fd114be0">
 
 Note that Nuage is not affiliated in any way to SoundCloud. Nuage uses private APIs which I have not been granted access to, so functionality may break in the future.
 
@@ -27,7 +28,7 @@ or by downloading the latest version right [here](https://github.com/lbrndnr/nua
 
 ## Dependencies
 
-Nuage uses [StackNavigationView](https://github.com/lbrndnr/StackNavigationView) to push views onto the view hierarchy (which is not currently possible with SwiftUI 2) and [SoundCloud](https://github.com/lbrndnr/soundcloud) to access SoundCloud's private API.
+Nuage uses [SoundCloud](https://github.com/lbrndnr/soundcloud) to access SoundCloud's private API.
 
 ## Code & Design
 Developed by [Laurin Brandner](https://twitter.com/lbrndnr), icon designed by [Yannick Lung](https://twitter.com/yannicklu).
