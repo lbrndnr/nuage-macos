@@ -8,12 +8,13 @@
 
 import SwiftUI
 import Combine
-import StackNavigationView
 import SoundCloud
 
 struct NoTrackError: Error {}
 
 struct PlayerView: View {
+    
+    var onArtworkTap: () -> ()
     
     @State private var showingVolumeControls = false
     @State private var showingQueue = false
@@ -51,10 +52,9 @@ struct PlayerView: View {
     
     @ViewBuilder private func artwork() -> some View {
         if let track = player.currentStream {
-            StackNavigationLink(destination: TrackDetail(track: track)) {
-                let url = track.artworkURL ?? player.currentStream?.user.avatarURL
-                RemoteImage(url: url, cornerRadius: 3)
-            }
+            let url = track.artworkURL ?? player.currentStream?.user.avatarURL
+            RemoteImage(url: url, cornerRadius: 3)
+                .onTapGesture(perform: onArtworkTap)
         }
         else {
             RemoteImage(url: nil, cornerRadius: 3)
@@ -217,7 +217,7 @@ struct PlayerView_Previews: PreviewProvider {
         let player = StreamPlayer()
         player.enqueue(Preview.tracks)
         
-        return PlayerView().environmentObject(player)
+        return PlayerView(onArtworkTap: {}).environmentObject(player)
     }
     
 }

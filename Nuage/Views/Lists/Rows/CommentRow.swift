@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import StackNavigationView
 import SoundCloud
 
 struct CommentRow: View {
@@ -22,7 +21,7 @@ struct CommentRow: View {
     
     var body: some View {
         HStack {
-            StackNavigationLink(destination: UserDetail(user: comment.user)) {
+            NavigationLink(value: comment.user) {
                 RemoteImage(url: comment.user.avatarURL, cornerRadius: 25)
                     .frame(width: 50, height: 50, alignment: .center)
             }

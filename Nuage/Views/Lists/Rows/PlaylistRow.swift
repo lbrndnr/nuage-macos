@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import StackNavigationView
 import SoundCloud
 
 struct PlaylistRow<T: Playlist>: View {
@@ -35,9 +34,7 @@ struct PlaylistRow<T: Playlist>: View {
                     .font(.title3)
                     .bold()
                     .lineLimit(1)
-                StackNavigationLink(playlist.user.displayName, destination: UserDetail(user: playlist.user))
-                    .buttonStyle(.plain)
-                
+                RowNavigationLink(playlist.user.displayName, value: playlist.user)
                 Spacer()
                     .frame(height: 8)
 

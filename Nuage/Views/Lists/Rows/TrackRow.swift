@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import StackNavigationView
 import SoundCloud
 
 struct TrackRow: View {
@@ -29,12 +28,13 @@ struct TrackRow: View {
                 Spacer()
             }
             VStack(alignment: .leading) {
-                Text(track.title)
-                    .font(.title3)
-                    .bold()
-                    .lineLimit(1)
-                StackNavigationLink(track.user.displayName, destination: UserDetail(user: track.user))
-                    .buttonStyle(.plain)
+                RowNavigationLink(value: track) {
+                    Text(track.title)
+                        .font(.title3)
+                        .bold()
+                        .lineLimit(1)
+                }
+                RowNavigationLink(track.user.displayName, value: track.user)
                 HStack {
                     Image(systemName: "play.fill")
                     Text(String(track.playbackCount))

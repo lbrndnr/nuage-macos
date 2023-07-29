@@ -8,7 +8,6 @@
 import SwiftUI
 import Combine
 import SoundCloud
-import StackNavigationView
 
 struct PostRow: View {
     
@@ -20,7 +19,7 @@ struct PostRow: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack(spacing: 10) {
-                StackNavigationLink(destination: UserDetail(user: post.user)) {
+                RowNavigationLink(value: post.user) {
                     RemoteImage(url: post.user.avatarURL, cornerRadius: 15)
                         .frame(width: 30, height: 30)
                     
@@ -43,10 +42,8 @@ struct PostRow: View {
                 .frame(height: 18)
             
             if case let .track(track) = post.item {
-                StackNavigationLink(destination: TrackDetail(track: track)) {
-                    TrackRow(track: track, onPlay: onPlay)
-                }
-                .trackContextMenu(track: track, onPlay: onPlay)
+                TrackRow(track: track, onPlay: onPlay)
+                    .trackContextMenu(track: track, onPlay: onPlay)
             }
             else if case let .playlist(playlist) = post.item {
                 PlaylistRow(playlist: playlist, onPlay: onPlay)

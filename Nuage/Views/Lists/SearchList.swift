@@ -7,7 +7,6 @@
 
 import SwiftUI
 import Combine
-import StackNavigationView
 import SoundCloud
 
 struct SearchList: View {
@@ -27,10 +26,10 @@ struct SearchList: View {
             
             switch element {
             case .track(let track):
-                return AnyView(StackNavigationLink(destination: TrackDetail(track: track)) {
+                return AnyView(
                     TrackRow(track: track, onPlay: onPlay)
-                }
-                .trackContextMenu(track: track, onPlay: onPlay))
+                        .trackContextMenu(track: track, onPlay: onPlay)
+                )
             case .userPlaylist(let playlist):
                 return AnyView(VStack(alignment: .leading) {
                     PlaylistRow(playlist: playlist, onPlay: onPlay)

@@ -9,7 +9,6 @@
 import SwiftUI
 import Combine
 import SoundCloud
-import StackNavigationView
 
 struct UserGrid<Element: Decodable&Identifiable&Filterable>: View {
     
@@ -17,11 +16,12 @@ struct UserGrid<Element: Decodable&Identifiable&Filterable>: View {
     private var transform: (Element) -> User
     
     var body: some View {
-        InfiniteGrid(publisher: publisher) { users, idx -> AnyView in
+        InfiniteGrid(publisher: publisher) { users, idx in
             let user = transform(users[idx])
-            AnyView(StackNavigationLink(destination: UserDetail(user: user)) {
+            NavigationLink(value: user) {
                 UserItem(user: user)
-            })
+            }
+            .buttonStyle(.plain)
         }
     }
     
