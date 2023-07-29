@@ -131,7 +131,7 @@ struct MainView: View {
             }
         }
             .navigationTitle(item.title)
-            .id(item.id)
+            .id(item.id) // Set id so that SwiftUI knows when to render new view
     }
     
     @ViewBuilder private func navigationDestination<T: SoundCloudIdentifiable>(for element: T) -> some View {
