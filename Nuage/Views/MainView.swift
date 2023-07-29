@@ -102,32 +102,36 @@ struct MainView: View {
     }
     
     @ViewBuilder private func root(for item: SidebarItem) -> some View {
-        switch item {
-        case .stream:
-            let stream = SoundCloud.shared.get(.stream())
-            PostList(for: stream).navigationTitle(item.title)
-        case .likes:
-            let likes = SoundCloud.shared.$user.filter { $0 != nil}
-                .flatMap { SoundCloud.shared.get(.trackLikes(of: $0!)) }
-                .eraseToAnyPublisher()
-            TrackList(for: likes).navigationTitle(item.title)
-        case .history:
-            let history = SoundCloud.shared.get(.history())
-            TrackList(for: history).navigationTitle(item.title)
-        case .following:
-            let following = SoundCloud.shared.$user.filter { $0 != nil }
-                .flatMap { SoundCloud.shared.get(.followings(of: $0!)) }
-                .eraseToAnyPublisher()
-            UserGrid(for: following).navigationTitle(item.title)
-        case .playlist(_, let id):
-            let ids = SoundCloud.shared.get(.playlist(id))
-                .map { $0.trackIDs ?? [] }
-                .eraseToAnyPublisher()
-            let slice = { ids in
-                return SoundCloud.shared.get(.tracks(ids))
+        Group {
+            switch item {
+            case .stream:
+                let stream = SoundCloud.shared.get(.stream())
+                PostList(for: stream)
+            case .likes:
+                let likes = SoundCloud.shared.$user.filter { $0 != nil}
+                    .flatMap { SoundCloud.shared.get(.trackLikes(of: $0!)) }
+                    .eraseToAnyPublisher()
+                TrackList(for: likes)
+            case .history:
+                let history = SoundCloud.shared.get(.history())
+                TrackList(for: history)
+            case .following:
+                let following = SoundCloud.shared.$user.filter { $0 != nil }
+                    .flatMap { SoundCloud.shared.get(.followings(of: $0!)) }
+                    .eraseToAnyPublisher()
+                UserGrid(for: following)
+            case .playlist(_, let id):
+                let ids = SoundCloud.shared.get(.playlist(id))
+                    .map { $0.trackIDs ?? [] }
+                    .eraseToAnyPublisher()
+                let slice = { ids in
+                    return SoundCloud.shared.get(.tracks(ids))
+                }
+                TrackList(for: ids, slice: slice)
             }
-            TrackList(for: ids, slice: slice).navigationTitle(item.title)
         }
+            .navigationTitle(item.title)
+            .id(item.id)
     }
     
     @ViewBuilder private func navigationDestination<T: SoundCloudIdentifiable>(for element: T) -> some View {
