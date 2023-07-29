@@ -11,6 +11,7 @@ import SoundCloud
 struct FeedbackStack<T: SoundCloudIdentifiable>: View {
     
     private var item: T
+    private var horizontal: Bool
     
     private var isLiked: Bool {
         if let track = item as? Track {
@@ -79,20 +80,27 @@ struct FeedbackStack<T: SoundCloudIdentifiable>: View {
     @Environment(\.toggleRepostPlaylist) private var toggleRepostPlaylist: (UserPlaylist) -> () -> ()
     
     var body: some View {
-        HStack {
-            Button(action: toggleLike) {
-                let name = isLiked ? "heart.fill" : "heart"
+        if horizontal {
+            HStack(content: content)
+        }
+        else {
+            VStack(content: content)
+        }
+    }
+    
+    @ViewBuilder private func content() -> some View {
+        Button(action: toggleLike) {
+            let name = isLiked ? "heart.fill" : "heart"
+            Image(systemName: name)
+        }
+        .buttonStyle(.borderless)
+
+        if let isRepost = isRepost {
+            Button(action: toggleRepost) {
+                let name = isRepost ? "arrow.triangle.2.circlepath.circle.fill" : "arrow.triangle.2.circlepath.circle"
                 Image(systemName: name)
             }
             .buttonStyle(.borderless)
-
-            if let isRepost = isRepost {
-                Button(action: toggleRepost) {
-                    let name = isRepost ? "arrow.triangle.2.circlepath.circle.fill" : "arrow.triangle.2.circlepath.circle"
-                    Image(systemName: name)
-                }
-                .buttonStyle(.borderless)
-            }
         }
     }
     
@@ -103,8 +111,9 @@ struct FeedbackStack<T: SoundCloudIdentifiable>: View {
             .frame(width: width, height: height)
     }
     
-    init(for item: T) {
+    init(for item: T, horizontal: Bool = true) {
         self.item = item
+        self.horizontal = horizontal
     }
     
 }
