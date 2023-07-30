@@ -12,7 +12,7 @@ import SoundCloud
 
 struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
     
-    var publisher: InfinitePublisher<Element>
+    private var publisher: InfinitePublisher<Element>
     private var transform: (Element) -> Track
     
     @EnvironmentObject private var player: StreamPlayer

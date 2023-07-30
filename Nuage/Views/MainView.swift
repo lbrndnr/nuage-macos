@@ -32,13 +32,23 @@ struct MainView: View {
         VStack(spacing: 0) {
             NavigationSplitView(sidebar: sidebar) {
                 NavigationStack(path: $navigationPath) {
+                    let presentSearch: Binding<Bool> = Binding(
+                        get: { searchQuery.count > 0 },
+                        set: { if !$0 { searchQuery = "" } }
+                    )
+                    
                     root(for: sidebarSelection)
                         .navigationDestination(for: Track.self) { TrackDetail(track: $0) }
                         .navigationDestination(for: User.self) { UserDetail(user: $0) }
-                    }
+                        .navigationDestination(isPresented: presentSearch) {
+                            let search = soundCloud.get(.search(searchQuery))
+                            SearchList(for: search)
+                                .id(searchQuery)
+                        }
+                }
             }
-            Divider()
             if player.queue.count > 0 {
+                Divider()
                 PlayerView {
                     if let track = player.currentStream, navigationPath != blockingNavigationPath {
                         navigationPath.append(track)

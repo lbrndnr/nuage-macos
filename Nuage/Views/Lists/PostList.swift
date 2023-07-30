@@ -11,7 +11,7 @@ import SoundCloud
 
 struct PostList: View {
     
-    var publisher: InfinitePublisher<Post>
+    private var publisher: InfinitePublisher<Post>
     
     @EnvironmentObject private var player: StreamPlayer
     

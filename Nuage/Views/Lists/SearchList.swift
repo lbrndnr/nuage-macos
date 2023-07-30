@@ -11,38 +11,31 @@ import SoundCloud
 
 struct SearchList: View {
     
-    var publisher: InfinitePublisher<Some>
+    private var publisher: InfinitePublisher<Some>
     
     @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
-        InfiniteList(publisher: publisher) { elements, idx -> AnyView in
+        InfiniteList(publisher: publisher) { elements, idx in
             let element = elements[idx]
-            
+
             let onPlay = {
 //                let tracks = elements.map(transform)
 //                play(tracks, from: idx, on: player)
             }
-            
+
             switch element {
             case .track(let track):
-                return AnyView(
-                    TrackRow(track: track, onPlay: onPlay)
-                        .trackContextMenu(track: track, onPlay: onPlay)
-                )
+                TrackRow(track: track, onPlay: onPlay)
+                    .trackContextMenu(track: track, onPlay: onPlay)
             case .userPlaylist(let playlist):
-                return AnyView(VStack(alignment: .leading) {
-                    PlaylistRow(playlist: playlist, onPlay: onPlay)
-                    Divider()
-                })
+                PlaylistRow(playlist: playlist, onPlay: onPlay)
             case .systemPlaylist(let playlist):
-                return AnyView(VStack(alignment: .leading) {
-                    PlaylistRow(playlist: playlist, onPlay: onPlay)
-                    Divider()
-                })
+                PlaylistRow(playlist: playlist, onPlay: onPlay)
             case .user(let user):
-                return AnyView(UserItem(user: user))
+                UserItem(user: user)
             }
+            Divider()
         }
         .navigationTitle("Search")
     }
