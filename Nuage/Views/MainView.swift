@@ -144,12 +144,6 @@ struct MainView: View {
             .id(item.id) // Set id so that SwiftUI knows when to render new view
     }
     
-    @ViewBuilder private func navigationDestination<T: SoundCloudIdentifiable>(for element: T) -> some View {
-        if let track = element as? Track {
-            TrackDetail(track: track)
-        }
-    }
-    
     @ViewBuilder fileprivate func toolbar() -> some View {
         TextField("􀊫 Search", text: $searchQuery)
             .onExitCommand { searchQuery = "" }
