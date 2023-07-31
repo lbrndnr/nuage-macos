@@ -88,8 +88,8 @@ struct MainView: View {
             NavigationSplitView(sidebar: sidebar) {
                 NavigationStack(path: $navigationPath) {
                     let presentSearch: Binding<Bool> = Binding(
-                        get: { searchQuery.count > 0 },
-                        set: { if !$0 { searchQuery = "" } }
+                        get: { searchQuery.count > 0 || searchTokens.count > 0 },
+                        set: { if !$0 { searchQuery = ""; searchTokens = [] } }
                     )
                     
                     root(for: sidebarSelection)
