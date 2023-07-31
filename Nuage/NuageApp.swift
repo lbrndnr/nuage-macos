@@ -148,6 +148,7 @@ struct NuageApp: App {
                 }
             }
         }
+        .defaultSize(width: 800, height: 400)
         .commands {
             SidebarCommands()
             CommandGroup(after: .textEditing) {
