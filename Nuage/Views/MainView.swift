@@ -17,7 +17,7 @@ struct MainView: View {
     
     @ObservedObject private var soundCloud = SoundCloud.shared
     
-    @State private var sidebarSelection: SidebarItem = .stream
+    @AppStorage("sidebarSelection") private var sidebarSelection: SidebarItem = .stream
     @State private var navigationPath = NavigationPath()
     @State private var blockingNavigationPath: NavigationPath?
     
