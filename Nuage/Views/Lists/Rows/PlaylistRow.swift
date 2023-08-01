@@ -10,13 +10,8 @@ import SoundCloud
 
 struct PlaylistRow<T: Playlist>: View {
     
-    private var playlist: T
-    private var onPlay: () -> ()
-    
-    init(playlist: T, onPlay: @escaping () -> ()) {
-        self.playlist = playlist
-        self.onPlay = onPlay
-    }
+    var playlist: T
+    @Environment(\.onPlay) private var onPlay: () -> ()
     
     var body: some View {
         let artworkURL = playlist.artworkURL ?? playlist.tracks?.first?.artworkURL

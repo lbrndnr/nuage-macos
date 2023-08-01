@@ -17,15 +17,8 @@ struct PostList: View {
     
     var body: some View {
         InfiniteList(publisher: publisher) { posts, idx in
-            let post = posts[idx]
-            let onPlay = {
-                let allTracks = posts.flatMap { $0.tracks }
-                let trackCounts = posts.map { $0.tracks.count }
-                let startIndex = trackCounts[0..<idx].reduce(0, +)
-                play(allTracks, from: startIndex, on: player)
-            }
-            
-            PostRow(post: post, onPlay: onPlay)
+            PostRow(post: posts[idx])
+                .playbackStart(at: posts[idx])
         }
     }
     

@@ -201,7 +201,7 @@ struct PlayerView: View {
         ForEach(Array(tracks.enumerated()), id: \.element.id) { idx, track in
             HStack {
                 Artwork(url: track.artworkURL ?? track.user.avatarURL, onPlay: {
-                    play(Array(tracks), from: idx, on: player)
+                    play(Array(tracks), from: idx, with: player)
                 })
                 .frame(width: 60, height: 60)
                 VStack(alignment: .leading) {

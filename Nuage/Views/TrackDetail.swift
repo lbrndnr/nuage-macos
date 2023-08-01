@@ -17,6 +17,8 @@ struct TrackDetail: View {
     
     @State private var subscriptions = Set<AnyCancellable>()
     
+    @Environment(\.onPlay) private var onPlay: () -> ()
+    
     var body: some View {
         let duration = format(time: track.duration)
         let url = track.artworkURL ?? track.user.avatarURL
@@ -45,11 +47,8 @@ struct TrackDetail: View {
             }
             
             HStack(alignment: .center, spacing: 10) {
-                VStack(alignment: .leading) {
-                    Artwork(url: track.artworkURL) { }
-                        .frame(width: 100, height: 100)
-                    
-                }
+                Artwork(url: url, onPlay: onPlay)
+                    .frame(width: 100, height: 100)
                 
                 WaveformView(with: waveform)
                     .foregroundColor(.secondary)

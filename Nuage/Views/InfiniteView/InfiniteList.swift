@@ -76,6 +76,7 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable, Row: View>: View
                 }
                 .padding(.horizontal)
             }
+            .queue(displayedElements)
             .onReceive(commands.filter) { withAnimation { isSearching = true } }
             .onExitCommand(perform: stopFiltering)
         }

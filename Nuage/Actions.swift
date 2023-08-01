@@ -9,7 +9,7 @@ import SwiftUI
 import Combine
 import SoundCloud
 
-func play(_ tracks: [Track], from idx: Int, on player: StreamPlayer, animated: Bool = true) {
+func play(_ tracks: [Track], from idx: Int, with player: StreamPlayer, animated: Bool = true) {
     let animation = player.queue.count > 0 ? nil : Animation.default
     
     withAnimation(animation) {

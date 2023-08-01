@@ -19,19 +19,14 @@ struct SearchList: View {
         InfiniteList(publisher: publisher) { elements, idx in
             let element = elements[idx]
 
-            let onPlay = {
-//                let tracks = elements.map(transform)
-//                play(tracks, from: idx, on: player)
-            }
-
             switch element {
             case .track(let track):
-                TrackRow(track: track, onPlay: onPlay)
-                    .trackContextMenu(track: track, onPlay: onPlay)
+                TrackRow(track: track)
+                    .trackContextMenu(with: track)
             case .userPlaylist(let playlist):
-                PlaylistRow(playlist: playlist, onPlay: onPlay)
+                PlaylistRow(playlist: playlist)
             case .systemPlaylist(let playlist):
-                PlaylistRow(playlist: playlist, onPlay: onPlay)
+                PlaylistRow(playlist: playlist)
             case .user(let user):
                 UserItem(user: user)
             }

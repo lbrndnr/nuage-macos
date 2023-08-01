@@ -11,8 +11,7 @@ import SoundCloud
 
 struct PostRow: View {
     
-    private var post: Post
-    private var onPlay: () -> ()
+    var post: Post
     
     @State private var subscriptions = Set<AnyCancellable>()
     
@@ -43,20 +42,13 @@ struct PostRow: View {
                 .frame(height: 18)
             
             if case let .track(track) = post.item {
-                TrackRow(track: track, onPlay: onPlay)
-                    .trackContextMenu(track: track, onPlay: onPlay)
+                TrackRow(track: track)
+                    .trackContextMenu(with: track)
             }
             else if case let .playlist(playlist) = post.item {
-                PlaylistRow(playlist: playlist, onPlay: onPlay)
-                    .onTapGesture(count: 2, perform: onPlay)
+                PlaylistRow(playlist: playlist)
             }
         }
-    }
-        
-        
-    init(post: Post, onPlay: @escaping () -> ()) {
-        self.post = post
-        self.onPlay = onPlay
     }
     
 }

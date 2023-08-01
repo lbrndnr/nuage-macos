@@ -11,10 +11,11 @@ import SoundCloud
 
 struct TrackRow: View {
     
-    private var track: Track
-    private var onPlay: () -> ()
+    var track: Track
     
     @State private var subscriptions = Set<AnyCancellable>()
+    
+    @Environment(\.onPlay) private var onPlay: () -> ()
     
     var body: some View {
         let duration = format(time: track.duration)
@@ -57,11 +58,6 @@ struct TrackRow: View {
                 }
             }
         }
-    }
-    
-    init(track: Track, onPlay: @escaping () -> ()) {
-        self.track = track
-        self.onPlay = onPlay
     }
 
 }

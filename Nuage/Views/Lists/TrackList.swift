@@ -20,13 +20,10 @@ struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
     var body: some View {
         InfiniteList(publisher: publisher) { elements, idx in
             let track = transform(elements[idx])
-            let onPlay = {
-                let tracks = elements.map(transform)
-                play(tracks, from: idx, on: player)
-            }
             
-            TrackRow(track: track, onPlay: onPlay)
-                .trackContextMenu(track: track, onPlay: onPlay)
+            TrackRow(track: track)
+                .playbackStart(at: track)
+                .trackContextMenu(with: track)
         }
     }
     

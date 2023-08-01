@@ -10,9 +10,11 @@ import SwiftUI
 import Combine
 import SoundCloud
 
-struct TrackContextMenu: ViewModifier {
+private struct TrackContextMenu: ViewModifier {
     
     @ObservedObject private var soundCloud = SoundCloud.shared
+    
+    var track: Track
     
     @State private var subscriptions = Set<AnyCancellable>()
     
@@ -20,9 +22,7 @@ struct TrackContextMenu: ViewModifier {
     @Environment(\.playlists) private var playlists: [AnyPlaylist]
     @Environment(\.toggleLikeTrack) private var toggleLike: (Track) -> () -> ()
     @Environment(\.toggleRepostTrack) private var toggleRepost: (Track) -> () -> ()
-    
-    private var track: Track
-    private var onPlay: () -> ()
+    @Environment(\.onPlay) private var onPlay: () -> ()
     
     func body(content: Content) -> some View {
         content.contextMenu {
@@ -71,18 +71,96 @@ struct TrackContextMenu: ViewModifier {
             }
         }
     }
+
+}
+
+extension View {
     
-    init(track: Track, onPlay: @escaping () -> ()) {
-        self.track = track
-        self.onPlay = onPlay
+    func trackContextMenu(with track: Track) -> some View {
+        return modifier(TrackContextMenu(track: track))
+    }
+    
+}
+
+struct OnPlayKey: EnvironmentKey {
+    
+    static let defaultValue: () -> () = { }
+    
+}
+
+private struct QueueKey: EnvironmentKey {
+    
+    static let defaultValue = [Any]()
+    
+}
+
+extension EnvironmentValues {
+    
+    fileprivate var queue: [Any] {
+        get { self[QueueKey.self] }
+        set { self[QueueKey.self] = newValue }
+    }
+
+    var onPlay: () -> () {
+        get { self[OnPlayKey.self] }
+        set { self[OnPlayKey.self] = newValue }
+    }
+    
+}
+
+private struct PlaybackStart<T: SoundCloudIdentifiable>: ViewModifier {
+    
+    var element: T
+    var transform: (T) -> [Track]
+    
+    @Environment(\.queue) private var queue: [Any]
+    @EnvironmentObject private var player: StreamPlayer
+    
+    func body(content: Content) -> some View {
+        content
+            .environment(\.onPlay, onPlay)
+    }
+    
+    private func onPlay() {
+        guard let elements = queue as? [T], !elements.isEmpty else {
+            print("Tried to play a track with an empty queue.")
+            return
+        }
+        
+        let idx = elements.firstIndex(of: element)
+        guard let idx = idx else {
+            print("Tried to play a track that is not in the current queue.")
+            return
+        }
+        
+        let allTracks = elements.flatMap(transform)
+        let startIndex = elements
+            .prefix(upTo: idx)
+            .flatMap(transform)
+            .count
+        
+        play(allTracks, from: startIndex, with: player)
     }
 
 }
 
 extension View {
     
-    func trackContextMenu(track: Track, onPlay: @escaping () -> ()) -> some View {
-        return modifier(TrackContextMenu(track: track, onPlay: onPlay))
+    func queue(_ elements: [Any]) -> some View {
+        return environment(\.queue, elements)
+    }
+    
+    func playbackStart<T: SoundCloudIdentifiable>(at element: T, transform: @escaping (T) -> [Track]) -> some View {
+        return modifier(PlaybackStart(element: element, transform: transform))
+    }
+    
+    func playbackStart(at track: Track) -> some View {
+        return modifier(PlaybackStart(element: track, transform: { [$0] }))
+    }
+    
+    func playbackStart(at post: Post) -> some View {
+        return modifier(PlaybackStart(element: post, transform: { $0.tracks }))
     }
     
 }
+
