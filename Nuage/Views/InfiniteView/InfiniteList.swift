@@ -51,12 +51,15 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable, Row: View>: View
                     .onExitCommand(perform: stopFiltering)
             }
             ScrollView {
-                LazyVStack(alignment: .leading) {
+                LazyVStack(alignment: .leading, spacing: 0) {
                     ForEach(0..<displayedElements.count+1, id: \.self) {idx in
                         if idx == 0 {
                             header
                         }
                         else {
+                            Spacer()
+                                .frame(height: 16)
+                            
                             row(displayedElements, idx-1)
                                 .id(idx)
                                 .onAppear {
@@ -64,10 +67,14 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable, Row: View>: View
                                         getNextSlice()
                                     }
                                 }
+                            
+                            Spacer()
+                                .frame(height: 8)
+                            Divider()
                         }
                     }
                 }
-                .padding()
+                .padding(.horizontal)
             }
             .onReceive(commands.filter) { withAnimation { isSearching = true } }
             .onExitCommand(perform: stopFiltering)

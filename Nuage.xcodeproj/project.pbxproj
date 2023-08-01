@@ -38,6 +38,7 @@
 		4980FD4025CD704E004640D5 /* GridStack in Frameworks */ = {isa = PBXBuildFile; productRef = 4980FD3F25CD704E004640D5 /* GridStack */; };
 		498286F825969AE800147DBE /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 498286F725969AE800147DBE /* Introspect */; };
 		4988D84625A1C62E0092BAFF /* UserDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4988D84525A1C62E0092BAFF /* UserDetail.swift */; };
+		498C72F32A790AF300AA1AAF /* StatsStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 498C72F22A790AF300AA1AAF /* StatsStack.swift */; };
 		4998E12125CADC8300EB986F /* Artwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4998E12025CADC8300EB986F /* Artwork.swift */; };
 		4999998D25B0886700F42D9B /* WaveformView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4999998C25B0886700F42D9B /* WaveformView.swift */; };
 		49A89C032A5EA1B70019648F /* Likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 49A89C022A5EA12D0019648F /* Likes.json */; };
@@ -82,6 +83,7 @@
 		497F43B128F757DA0090CAD6 /* WaveformSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformSlider.swift; sourceTree = "<group>"; };
 		4980FD2225CD6333004640D5 /* InfiniteGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfiniteGrid.swift; sourceTree = "<group>"; };
 		4988D84525A1C62E0092BAFF /* UserDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetail.swift; sourceTree = "<group>"; };
+		498C72F22A790AF300AA1AAF /* StatsStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatsStack.swift; sourceTree = "<group>"; };
 		4998E12025CADC8300EB986F /* Artwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artwork.swift; sourceTree = "<group>"; };
 		4999998C25B0886700F42D9B /* WaveformView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaveformView.swift; sourceTree = "<group>"; };
 		49A89C022A5EA12D0019648F /* Likes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Likes.json; sourceTree = "<group>"; };
@@ -220,6 +222,7 @@
 				49E6259C25BE1E7E005BEF8C /* WebView.swift */,
 				4998E12025CADC8300EB986F /* Artwork.swift */,
 				493AB3542A6E668C00E20656 /* FeedbackStack.swift */,
+				498C72F22A790AF300AA1AAF /* StatsStack.swift */,
 				49FEEBDE2A5B56C9002C8865 /* TouchBar.swift */,
 			);
 			path = Views;
@@ -329,6 +332,7 @@
 				4908205025C86DD100AC92EC /* PlayerSlider.swift in Sources */,
 				4999998D25B0886700F42D9B /* WaveformView.swift in Sources */,
 				49332BAE25961A3B0034A161 /* PlaylistRow.swift in Sources */,
+				498C72F32A790AF300AA1AAF /* StatsStack.swift in Sources */,
 				4969F41E257CFB100048E29B /* Preview.swift in Sources */,
 				4980FD2325CD6333004640D5 /* InfiniteGrid.swift in Sources */,
 				4964297B25DFCF04008AFBD5 /* CommentList.swift in Sources */,

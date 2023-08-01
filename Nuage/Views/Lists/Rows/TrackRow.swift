@@ -23,10 +23,10 @@ struct TrackRow: View {
             VStack(alignment: .leading) {
                 Artwork(url: track.artworkURL ?? track.user.avatarURL, onPlay: onPlay)
                     .frame(width: 100, height: 100)
-                Spacer()
                 FeedbackStack(for: track)
-                Spacer()
             }
+            .padding(.bottom, 8)
+            
             VStack(alignment: .leading) {
                 NavigationLink(value: track) {
                     Text(track.title)
@@ -37,16 +37,12 @@ struct TrackRow: View {
                 .buttonStyle(.plain)
                 NavigationLink(track.user.displayName, value: track.user)
                     .buttonStyle(.plain)
-                HStack {
-                    Image(systemName: "play.fill")
-                    Text(String(track.playbackCount))
-                    Image(systemName: "heart.fill")
-                    Text(String(track.likeCount))
-                    Image(systemName: "arrow.triangle.2.circlepath")
-                    Text(String(track.repostCount))
-                }.foregroundColor(Color(NSColor.secondaryLabelColor))
+                
+                StatsStack(for: track)
+                    .foregroundColor(.secondary)
                 Text(duration)
-                    .foregroundColor(Color(NSColor.secondaryLabelColor))
+                    .foregroundColor(.secondary)
+                
                 Spacer()
                     .frame(height: 8)
 
@@ -56,7 +52,8 @@ struct TrackRow: View {
                         .replacingOccurrences(of: "\n", with: " ")
                         .withAttributedLinks()
                         
-                    Text(text).lineLimit(3)
+                    Text(text)
+                        .lineLimit(3)
                 }
             }
         }

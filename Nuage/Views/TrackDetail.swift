@@ -40,18 +40,8 @@ struct TrackDetail: View {
                 Spacer()
                     .frame(width: 16)
                 
-                HStack(spacing: 4) {
-                    Image(systemName: "play.fill")
-                    Text(String(track.playbackCount))
-                    Spacer().frame(width: 2)
-                    Image(systemName: "heart.fill")
-                    Text(String(track.likeCount))
-                    Spacer().frame(width: 2)
-                    Image(systemName: "arrow.triangle.2.circlepath")
-                    Text(String(track.repostCount))
-                }
-                .foregroundColor(.secondary)
-                
+                StatsStack(for: track)
+                    .foregroundColor(.secondary)
             }
             
             HStack(alignment: .center, spacing: 10) {

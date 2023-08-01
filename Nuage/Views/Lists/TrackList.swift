@@ -25,11 +25,8 @@ struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
                 play(tracks, from: idx, on: player)
             }
             
-            VStack(alignment: .leading) {
-                TrackRow(track: track, onPlay: onPlay)
-                Divider()
-            }
-            .trackContextMenu(track: track, onPlay: onPlay)
+            TrackRow(track: track, onPlay: onPlay)
+                .trackContextMenu(track: track, onPlay: onPlay)
         }
     }
     

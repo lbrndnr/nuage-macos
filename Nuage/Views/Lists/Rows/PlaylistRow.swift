@@ -25,10 +25,10 @@ struct PlaylistRow<T: Playlist>: View {
             VStack(alignment: .leading) {
                 Artwork(url: artworkURL, onPlay: onPlay)
                     .frame(width: 100, height: 100)
-                Spacer()
                 FeedbackStack(for: playlist)
-                Spacer()
             }
+            .padding(.bottom, 16)
+            
             VStack(alignment: .leading) {
                 Text(playlist.title)
                     .font(.title3)
@@ -40,26 +40,27 @@ struct PlaylistRow<T: Playlist>: View {
                     .frame(height: 8)
 
                 if let description = playlist.description {
-                    let text = description.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let text = description
+                        .trimmingCharacters(in: .whitespacesAndNewlines)
                         .replacingOccurrences(of: "\n", with: " ")
+                        .withAttributedLinks()
+                    
                     Text(text).lineLimit(3)
                 }
                 
                 if let tracks = playlist.tracks {
-                    Divider()
-                    ForEach(tracks, id: \.id) { track in
+                    ForEach(tracks) { track in
+                        Divider()
                         HStack {
                             Text(track.title)
-                            Image(systemName: "play.fill")
-                            Text(String(track.playbackCount))
-                            Image(systemName: "heart.fill")
-                            Text(String(track.likeCount))
-                            Image(systemName: "arrow.triangle.2.circlepath")
-                            Text(String(track.repostCount))
-                        }.foregroundColor(Color(NSColor.secondaryLabelColor))
-                        Divider()
+                            StatsStack(for: track)
+                        }
                     }
+                    .foregroundColor(.secondary)
                 }
+                
+                Spacer()
+                    .frame(height: 8)
             }
         }
     }

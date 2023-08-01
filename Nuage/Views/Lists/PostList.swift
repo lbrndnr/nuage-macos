@@ -25,10 +25,7 @@ struct PostList: View {
                 play(allTracks, from: startIndex, on: player)
             }
             
-            VStack(alignment: .leading) {
-                PostRow(post: post, onPlay: onPlay)
-                Divider()
-            }
+            PostRow(post: post, onPlay: onPlay)
         }
     }
     
