@@ -29,7 +29,6 @@ struct PlayerView: View {
             RemoteImage(url: url, cornerRadius: 0)
             
             HStack() {
-                
                 Button(action: onTrackDetailTap) {
                     artwork()
                         .aspectRatio(1.0, contentMode: .fit)
