@@ -77,7 +77,7 @@ struct PlayerView: View {
     @ViewBuilder private func trackDetails() -> some View {
         if let track = player.currentStream {
             VStack(alignment: .leading, spacing: 4) {
-                Text(track.user.displayName)
+                Text(track.user.username)
                     .bold()
                     .lineLimit(1)
                 Text(track.title)
@@ -205,7 +205,7 @@ struct PlayerView: View {
                 })
                 .frame(width: 60, height: 60)
                 VStack(alignment: .leading) {
-                    Text(track.user.displayName)
+                    Text(track.user.username)
                         .bold()
                     Text(track.title)
                         .foregroundColor(.secondary)

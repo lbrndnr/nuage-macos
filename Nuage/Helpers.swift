@@ -169,15 +169,6 @@ extension Post: DateComparable {}
 extension Track: DateComparable {}
 extension UserPlaylist: DateComparable {}
 
-extension User {
-    
-    var displayName: String {
-        if name.count > 0 { return name }
-        return username
-    }
-    
-}
-
 @ViewBuilder func RemoteImage(url: URL?, cornerRadius: CGFloat) -> some View {
     let placeholder = Rectangle()
         .foregroundColor(Color(NSColor.underPageBackgroundColor))

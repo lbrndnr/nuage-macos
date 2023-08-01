@@ -34,7 +34,7 @@ struct PlaylistRow<T: Playlist>: View {
                     .font(.title3)
                     .bold()
                     .lineLimit(1)
-                NavigationLink(playlist.user.displayName, value: playlist.user)
+                NavigationLink(playlist.user.username, value: playlist.user)
                     .buttonStyle(.plain)
                 Spacer()
                     .frame(height: 8)

@@ -22,7 +22,7 @@ struct TouchBar: View {
                 .monospacedDigit()
             HStack {
                 VStack(alignment: .leading) {
-                    Text(track.user.displayName)
+                    Text(track.user.username)
                         .bold()
                         .lineLimit(1)
                         .font(font)

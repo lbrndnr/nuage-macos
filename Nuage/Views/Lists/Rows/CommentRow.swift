@@ -28,7 +28,7 @@ struct CommentRow: View {
             .buttonStyle(.plain)
             VStack(alignment: .leading) {
                 let time = format(time: comment.timestamp)
-                Text("\(comment.user.displayName) at \(time)")
+                Text("\(comment.user.username) at \(time)")
                     .bold()
                 Text(comment.body)
             }
