@@ -8,7 +8,7 @@
 import SwiftUI
 import GridStack
 
-struct InfiniteGrid<Element: Decodable&Identifiable&Filterable, Item: View>: View {
+struct InfiniteGrid<Element: Decodable&Identifiable&Filterable&Hashable, Item: View>: View {
     
     private var publisher: InfinitePublisher<Element>
     private var item: ([Element], Int) -> Item

@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 import SoundCloud
 
-struct TrackList<Element: Decodable&Identifiable&Filterable>: View {
+struct TrackList<Element: Decodable&Identifiable&Filterable&Hashable>: View {
     
     private var publisher: InfinitePublisher<Element>
     private var transform: (Element) -> Track

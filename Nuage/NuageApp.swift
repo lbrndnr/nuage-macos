@@ -16,45 +16,45 @@ private let playlistsKey = "playlists"
 private let likesKey = "likes"
 private let postsKey = "posts"
 
-struct PlaylistKey: EnvironmentKey {
+private struct PlaylistKey: EnvironmentKey {
     
     static let defaultValue = [AnyPlaylist]()
     
 }
 
-struct LikesKey: EnvironmentKey {
+private struct LikesKey: EnvironmentKey {
     
     static let defaultValue = [Track]()
     
 }
 
-struct PostsKey: EnvironmentKey {
+private struct PostsKey: EnvironmentKey {
     
     static let defaultValue = [Post]()
     
 }
 
 
-struct ToggleLikeTrackKey: EnvironmentKey {
+private struct ToggleLikeTrackKey: EnvironmentKey {
     
     static let defaultValue: (Track) -> () -> () = { _ in return { fatalError("Did not set the toggleLike action") } }
     
 }
 
-struct ToggleRepostTrackKey: EnvironmentKey {
+private struct ToggleRepostTrackKey: EnvironmentKey {
     
     static let defaultValue: (Track) -> () -> () = { _ in return { fatalError("Did not set the toggleRepost action") } }
     
 }
 
 
-struct ToggleLikePlaylistKey: EnvironmentKey {
+private struct ToggleLikePlaylistKey: EnvironmentKey {
     
     static let defaultValue: (AnyPlaylist) -> () -> () = { _ in return { fatalError("Did not set the toggleLike action") } }
     
 }
 
-struct ToggleRepostPlaylistKey: EnvironmentKey {
+private struct ToggleRepostPlaylistKey: EnvironmentKey {
     
     static let defaultValue: (UserPlaylist) -> () -> () = { _ in return { fatalError("Did not set the toggleRepost action") } }
     

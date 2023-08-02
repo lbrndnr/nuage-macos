@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 import SoundCloud
 
-struct UserGrid<Element: Decodable&Identifiable&Filterable>: View {
+struct UserGrid<Element: Decodable&Identifiable&Filterable&Hashable>: View {
     
     var publisher: InfinitePublisher<Element>
     private var transform: (Element) -> User

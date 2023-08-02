@@ -29,7 +29,7 @@ struct TrackRow: View {
             .padding(.bottom, 8)
             
             VStack(alignment: .leading) {
-                NavigationLink(value: track) {
+                PlaybackNavigationLink(value: track) {
                     Text(track.title)
                         .font(.title3)
                         .bold()

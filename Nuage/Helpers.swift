@@ -260,5 +260,9 @@ extension String {
         return AttributedString(attributedText)
     }
 
+}
+
+extension NavigationLink where Destination == Never {
+    
     
 }

@@ -11,12 +11,12 @@ import Introspect
 import AppKit
 import SoundCloud
 
-enum InfinitePublisher<Element: Decodable&Identifiable&Filterable> {
+enum InfinitePublisher<Element: Decodable&Identifiable&Filterable&Hashable> {
     case slice(AnyPublisher<Slice<Element>, Error>)
     case array(AnyPublisher<[String], Error>, ([String]) -> AnyPublisher<[Element], Error>)
 }
 
-struct InfiniteList<Element: Decodable&Identifiable&Filterable, Row: View>: View {
+struct InfiniteList<Element: Decodable&Identifiable&Filterable&Hashable, Row: View>: View {
     
     private var publisher: InfinitePublisher<Element>
     private var row: ([Element], Int) -> Row
@@ -76,7 +76,7 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable, Row: View>: View
                 }
                 .padding(.horizontal)
             }
-            .queue(displayedElements)
+            .playbackContext(displayedElements)
             .onReceive(commands.filter) { withAnimation { isSearching = true } }
             .onExitCommand(perform: stopFiltering)
         }

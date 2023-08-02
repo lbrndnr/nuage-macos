@@ -38,7 +38,7 @@ struct MainView: View {
                     )
                     
                     root(for: sidebarSelection)
-                        .navigationDestination(for: Track.self) { TrackDetail(track: $0) }
+                        .navigationDestinationWithPlaybackContext(for: Track.self) { TrackDetail(track: $0) }
                         .navigationDestination(for: User.self) { UserDetail(user: $0) }
                         .navigationDestination(isPresented: presentSearch) {
                             let search = soundCloud.get(.search(searchQuery))
