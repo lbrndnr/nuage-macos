@@ -231,16 +231,14 @@ extension String {
                 }
             }
             
-            if #available(macOS 13.0, *) {
-                let handle = /@([a-zA-Z0-9_-]{3,})/
-                for match in self.matches(of: handle) {
-                    let range = NSRange(match.range, in: self)
-                    let username = match.output.1
-                    let scheme = useAppURLScheme ? "nuage" : "https"
-                    let url = URL(string: "\(scheme)://soundcloud.com/\(username)")!
+            let handle = /@([a-zA-Z0-9_-]{3,})/
+            for match in self.matches(of: handle) {
+                let range = NSRange(match.range, in: self)
+                let username = match.output.1
+                let scheme = useAppURLScheme ? "nuage" : "https"
+                let url = URL(string: "\(scheme)://soundcloud.com/\(username)")!
 
-                    handleRanges.append((range, url))
-                }
+                handleRanges.append((range, url))
             }
         }
         catch {

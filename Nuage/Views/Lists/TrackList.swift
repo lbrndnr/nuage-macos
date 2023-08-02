@@ -40,6 +40,16 @@ extension TrackList where Element == Track {
         self.init(publisher: .array(arrayPublisher, slicePublisher), transform: { $0 })
     }
     
+    init(for playlistID: String) {
+        let ids = SoundCloud.shared.get(.playlist(playlistID))
+            .map { $0.trackIDs ?? [] }
+            .eraseToAnyPublisher()
+        let slice = { ids in
+            return SoundCloud.shared.get(.tracks(ids))
+        }
+        self.init(for: ids, slice: slice)
+    }
+    
 }
 
 extension TrackList where Element == Like<Track> {

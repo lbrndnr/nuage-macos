@@ -40,6 +40,7 @@ struct MainView: View {
                     root(for: sidebarSelection)
                         .navigationDestinationWithPlaybackContext(for: Track.self) { TrackDetail(track: $0) }
                         .navigationDestination(for: User.self) { UserDetail(user: $0) }
+                        .navigationDestination(for: URL.self) { URLDetail(url: $0) }
                         .navigationDestination(isPresented: presentSearch) {
                             let search = soundCloud.get(.search(searchQuery))
                             SearchList(for: search)
@@ -64,21 +65,7 @@ struct MainView: View {
             
             components.scheme = "https"
             guard let newURL = components.url else { return }
-            
-            soundCloud.get(.resolve(newURL))
-                .receive(on: RunLoop.main)
-                .sink(receiveCompletion: { completion in
-                    if case let .failure(error) = completion  {
-                        print("Failed to resolve url: \(error)")
-                    }
-                }, receiveValue: { elem in
-                    switch elem {
-                    case .track(let track): navigationPath.append(track)
-                    case .user(let user): navigationPath.append(user)
-                    default: print("Not implemented.")
-                    }
-                })
-                .store(in: &subscriptions)
+            navigationPath.append(newURL)
         }
         .handlesExternalEvents(preferring: ["*"], allowing: ["*"])
     }
@@ -130,13 +117,7 @@ struct MainView: View {
                     .eraseToAnyPublisher()
                 UserGrid(for: following)
             case .playlist(_, let id):
-                let ids = SoundCloud.shared.get(.playlist(id))
-                    .map { $0.trackIDs ?? [] }
-                    .eraseToAnyPublisher()
-                let slice = { ids in
-                    return SoundCloud.shared.get(.tracks(ids))
-                }
-                TrackList(for: ids, slice: slice)
+                TrackList(for: id)
             }
         }
             .navigationTitle(item.title)
