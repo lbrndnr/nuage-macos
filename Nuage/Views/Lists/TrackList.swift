@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 import SoundCloud
 
-struct TrackList<Element: Decodable&Identifiable&Filterable&Hashable>: View {
+struct TrackList<Element: Decodable&SoundCloudIdentifiable&Filterable&Hashable>: View {
     
     private var publisher: InfinitePublisher<Element>
     private var transform: (Element) -> Track
@@ -18,11 +18,10 @@ struct TrackList<Element: Decodable&Identifiable&Filterable&Hashable>: View {
     @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
-        InfiniteList(publisher: publisher) { elements, idx in
-            let track = transform(elements[idx])
-            
+        InfiniteList(publisher: publisher) { elem in
+            let track = transform(elem)
             TrackRow(track: track)
-                .playbackStart(at: track)
+                .playbackStart(at: elem) { [transform($0)] }
                 .trackContextMenu(with: track)
         }
     }

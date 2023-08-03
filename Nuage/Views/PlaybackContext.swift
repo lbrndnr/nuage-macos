@@ -48,7 +48,12 @@ private struct PlaybackStart<T: SoundCloudIdentifiable>: ViewModifier {
     }
     
     private func onPlay() {
-        guard let elements = playbackContext as? [T], !playbackContext.isEmpty else {
+        guard let elements = playbackContext as? [T] else {
+            print("Tried to play an element of type \(T.self) in an non-matching playback context.")
+            return
+        }
+                
+        guard !playbackContext.isEmpty else {
             print("Tried to play a track with an empty playback context.")
             return
         }

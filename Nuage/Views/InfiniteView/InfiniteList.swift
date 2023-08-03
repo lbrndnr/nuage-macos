@@ -19,7 +19,7 @@ enum InfinitePublisher<Element: Decodable&Identifiable&Filterable&Hashable> {
 struct InfiniteList<Element: Decodable&Identifiable&Filterable&Hashable, Row: View>: View {
     
     private var publisher: InfinitePublisher<Element>
-    private var row: ([Element], Int) -> Row
+    private var row: (Element) -> Row
     
     @State private var filter = ""
     @State private var isSearching = false
@@ -60,7 +60,7 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable&Hashable, Row: Vi
                             Spacer()
                                 .frame(height: 16)
                             
-                            row(displayedElements, idx-1)
+                            row(displayedElements[idx-1])
                                 .id(idx)
                                 .onAppear {
                                     if idx == elements.count/2 {
@@ -89,7 +89,7 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable&Hashable, Row: Vi
         }
     }
     
-    init(publisher: InfinitePublisher<Element>, @ViewBuilder row: @escaping ([Element], Int) -> Row) {
+    init(publisher: InfinitePublisher<Element>, @ViewBuilder row: @escaping (Element) -> Row) {
         self.publisher = publisher
         self.row = row
     }

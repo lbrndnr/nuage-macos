@@ -16,9 +16,9 @@ struct PostList: View {
     @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
-        InfiniteList(publisher: publisher) { posts, idx in
-            PostRow(post: posts[idx])
-                .playbackStart(at: posts[idx])
+        InfiniteList(publisher: publisher) { post in
+            PostRow(post: post)
+                .playbackStart(at: post)
         }
     }
     

@@ -16,10 +16,8 @@ struct SearchList: View {
     @EnvironmentObject private var player: StreamPlayer
     
     var body: some View {
-        InfiniteList(publisher: publisher) { elements, idx in
-            let element = elements[idx]
-
-            switch element {
+        InfiniteList(publisher: publisher) { elem in
+            switch elem {
             case .track(let track):
                 TrackRow(track: track)
                     .trackContextMenu(with: track)
