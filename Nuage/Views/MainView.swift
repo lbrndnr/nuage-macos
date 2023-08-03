@@ -125,10 +125,21 @@ struct MainView: View {
     }
     
     @ViewBuilder fileprivate func toolbar() -> some View {
-        TextField("􀊫 Search", text: $searchQuery)
-            .onExitCommand { searchQuery = "" }
-            .textFieldStyle(RoundedBorderTextFieldStyle())
-            .frame(minWidth: 150)
+        HStack{
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(Color(nsColor: .secondaryLabelColor))
+            TextField("Search", text: $searchQuery)
+                .onExitCommand { searchQuery = "" }
+                .textFieldStyle(PlainTextFieldStyle())
+                .frame(minWidth: 150)
+        }
+        .padding(.horizontal, 5)
+        .padding(.vertical, 3)
+        .background(content: {
+            // TODO: Implememnt background selection
+        })
+        .clipShape(RoundedRectangle(cornerRadius: 6))
+        .overlay(RoundedRectangle(cornerRadius: 6).stroke(Color.gray, lineWidth: 0.5).cornerRadius(6))
         Button {
             if let user = soundCloud.user {
                 navigationPath.append(user)
