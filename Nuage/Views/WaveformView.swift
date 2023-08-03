@@ -15,7 +15,10 @@ private let emptyWaveform = Waveform(samples: Array(repeating: 2, count: 100))
 
 struct WaveformView: View {
     
-    var waveform: Waveform
+    var url: URL?
+    @State private var waveform = emptyWaveform
+    
+    @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
         GeometryReader { geometry in
@@ -40,6 +43,19 @@ struct WaveformView: View {
                 }
             }
             .frame(minHeight: 0, maxHeight: .infinity)
+            .animation(.spring(), value: waveform)
+        }
+        .onAppear {
+            guard let url = url else { return }
+            SoundCloud.shared.get(.waveform(url))
+                .replaceError(with: emptyWaveform)
+                .receive(on: RunLoop.main)
+                .sink { waveform in
+                    withAnimation {
+                        self.waveform = waveform
+                    }
+                }
+                .store(in: &subscriptions)
         }
     }
     
@@ -52,19 +68,15 @@ struct WaveformView: View {
         return CGFloat(sum)/CGFloat(cnt)
     }
     
-    init(with waveform: Waveform?) {
-        self.waveform = waveform ?? emptyWaveform
-    }
-    
 }
 
-struct WaveformView_Previews: PreviewProvider {
-    static var previews: some View {
-        let half = Array(1...50)
-        let samples = half.reversed() + half
-        let waveform = Waveform(samples: samples)
-        WaveformView(with: waveform)
-            .frame(width: 400, height: 100)
-            .foregroundColor(.accentColor)
-    }
-}
+//struct WaveformView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let half = Array(1...50)
+//        let samples = half.reversed() + half
+//        let waveform = Waveform(samples: samples)
+//        WaveformView(with: waveform)
+//            .frame(width: 400, height: 100)
+//            .foregroundColor(.accentColor)
+//    }
+//}

@@ -10,8 +10,7 @@ import SoundCloud
 
 struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValueLabel: View>: View {
     
-    var waveform: Waveform?
-    
+    var url: URL?
     @Binding private var value: Value
     @State private var updatingValue: Value?
     
@@ -70,7 +69,7 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
                             .foregroundColor(waveformBackgroundColor)
                             .frame(width: max(0, geometry.size.width-barValue))
                     }
-                    .mask(WaveformView(with: waveform))
+                    .mask(WaveformView(url: url))
                     
                     knob()
                         .frame(width: knobDiameter, height: knobDiameter)
@@ -92,8 +91,8 @@ struct WaveformSlider<Value : BinaryFloatingPoint, MinValueLabel: View, MaxValue
         }
     }
     
-    init(waveform: Waveform?, value: Binding<Value>, in range: ClosedRange<Value>, @ViewBuilder minValueLabel: @escaping (Value) -> MinValueLabel, @ViewBuilder maxValueLabel: @escaping (Value) -> MaxValueLabel, knobColor: Color? = nil, knobBorderColor: Color? = nil, waveformForegroundColor: Color? = nil, waveformBackgroundColor: Color? = nil) {
-        self.waveform = waveform
+    init(url: URL?, value: Binding<Value>, in range: ClosedRange<Value>, @ViewBuilder minValueLabel: @escaping (Value) -> MinValueLabel, @ViewBuilder maxValueLabel: @escaping (Value) -> MaxValueLabel, knobColor: Color? = nil, knobBorderColor: Color? = nil, waveformForegroundColor: Color? = nil, waveformBackgroundColor: Color? = nil) {
+        self.url = url
         self._value = value
         self.range = range
         self.minValueLabel = minValueLabel

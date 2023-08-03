@@ -42,7 +42,7 @@ struct TouchBar: View {
         let duration = TimeInterval(player.currentStream?.duration ?? 0)
         let font = Font.system(size: 14).monospacedDigit()
         
-        WaveformSlider(waveform: track.waveform, value: $player.progress, in: 0...duration, minValueLabel: { progress in
+        WaveformSlider(url: track.waveformURL, value: $player.progress, in: 0...duration, minValueLabel: { progress in
             Text(format(time: progress))
                 .font(font)
                 .frame(width: 70, alignment: .trailing)

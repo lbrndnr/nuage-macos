@@ -12,8 +12,7 @@ import SoundCloud
 
 struct TrackDetail: View {
     
-    private var track: Track
-    @State private var waveform: Waveform
+    var track: Track
     
     @State private var subscriptions = Set<AnyCancellable>()
     
@@ -50,7 +49,7 @@ struct TrackDetail: View {
                 Artwork(url: url, onPlay: onPlay)
                     .frame(width: 100, height: 100)
                 
-                WaveformView(with: waveform)
+                WaveformView(url: track.waveformURL)
                     .foregroundColor(.secondary)
                     .frame(height: 80)
             }
@@ -80,18 +79,6 @@ struct TrackDetail: View {
         }
         .padding(16)
         .navigationTitle(track.title)
-        .onAppear {
-            SoundCloud.shared.get(.waveform(track.waveformURL))
-                .replaceError(with: waveform)
-                .receive(on: RunLoop.main)
-                .assign(to: \.waveform, on: self)
-                .store(in: &subscriptions)
-        }
-    }
-    
-    init(track: Track) {
-        self.track = track
-        self._waveform = State(initialValue: Waveform(samples: Array(repeating: 1800, count: 2)))
     }
     
 }
