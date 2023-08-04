@@ -8,6 +8,37 @@
 import SwiftUI
 import SoundCloud
 
+private func createOnPlay<T: SoundCloudIdentifiable>(playbackContext: [AnyHashable],
+                                               start: T,
+                                               transform: @escaping (T) -> [Track],
+                                               player: StreamPlayer) -> () -> () {
+    return {
+        guard let elements = playbackContext as? [T] else {
+            print("Tried to play an element of type \(T.self) in an non-matching playback context.")
+            return
+        }
+        
+        guard !playbackContext.isEmpty else {
+            print("Tried to play a track with an empty playback context.")
+            return
+        }
+        
+        let idx = elements.firstIndex(of: start)
+        guard let idx = idx else {
+            print("Tried to play a track that is not in the current playback context.")
+            return
+        }
+        
+        let allTracks = elements.flatMap(transform)
+        let startIndex = elements
+            .prefix(upTo: idx)
+            .flatMap(transform)
+            .count
+        
+        play(allTracks, from: startIndex, with: player)
+    }
+}
+
 struct OnPlayKey: EnvironmentKey {
     
     static let defaultValue: () -> () = { }
@@ -48,29 +79,7 @@ private struct PlaybackStart<T: SoundCloudIdentifiable>: ViewModifier {
     }
     
     private func onPlay() {
-        guard let elements = playbackContext as? [T] else {
-            print("Tried to play an element of type \(T.self) in an non-matching playback context.")
-            return
-        }
-                
-        guard !playbackContext.isEmpty else {
-            print("Tried to play a track with an empty playback context.")
-            return
-        }
-        
-        let idx = elements.firstIndex(of: element)
-        guard let idx = idx else {
-            print("Tried to play a track that is not in the current playback context.")
-            return
-        }
-        
-        let allTracks = elements.flatMap(transform)
-        let startIndex = elements
-            .prefix(upTo: idx)
-            .flatMap(transform)
-            .count
-        
-        play(allTracks, from: startIndex, with: player)
+        createOnPlay(playbackContext: playbackContext, start: element, transform: transform, player: player)()
     }
 
 }
@@ -140,6 +149,34 @@ extension View {
                 .environment(\.playbackContext, comp.playbackContext)
                 .environment(\.onPlay, comp.onPlay)
         }
+    }
+    
+}
+
+extension NavigationPath {
+    
+    mutating func append<V>(_ value: V,
+                            with playbackContext: [AnyHashable],
+                            startPlaybackAt start: V,
+                            transform: @escaping (V) -> [Track],
+                            player: StreamPlayer) where V : Hashable & SoundCloudIdentifiable {
+        let onPlay = createOnPlay(playbackContext: playbackContext,
+                                  start: start,
+                                  transform: transform,
+                                  player: player)
+        let pathValue = PlaybackPathComponent(value: value, playbackContext: playbackContext, onPlay: onPlay)
+        append(pathValue)
+    }
+    
+    mutating func append<V>(_ value: V,
+                            with playbackContext: [AnyHashable],
+                            startPlaybackAt start: V,
+                            player: StreamPlayer) where V == Track {
+        append(value,
+               with: playbackContext,
+               startPlaybackAt: start,
+               transform: { [$0] },
+               player: player)
     }
     
 }

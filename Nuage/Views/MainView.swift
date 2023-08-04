@@ -8,9 +8,6 @@
 
 import SwiftUI
 import Combine
-import AppKit
-import URLImage
-import Introspect
 import SoundCloud
 
 struct MainView: View {
@@ -52,7 +49,7 @@ struct MainView: View {
                 Divider()
                 PlayerView {
                     if let track = player.currentStream, navigationPath != blockingNavigationPath {
-                        navigationPath.append(track)
+                        navigationPath.append(track, with: player.queue, startPlaybackAt: track, player: player)
                         blockingNavigationPath = navigationPath
                     }
                 }
