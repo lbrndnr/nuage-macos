@@ -210,7 +210,7 @@ struct MainView: View {
         ToolbarItem(placement: .principal) {
             TextField("Search", text: $searchQuery)
                 .textFieldStyle(.roundedBorder)
-                .frame(width: 200)
+                .frame(width: 250)
         }
         ToolbarItemGroup {
             Spacer()
