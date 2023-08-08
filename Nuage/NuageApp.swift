@@ -123,6 +123,7 @@ struct NuageApp: App {
         WindowGroup {
             if loggedIn {
                 MainView()
+                    .frame(minWidth: 800, minHeight: 400)
                     .environmentObject(player)
                     .environmentObject(commands)
                     .environment(\.playlists, playlists)

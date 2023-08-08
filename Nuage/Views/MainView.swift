@@ -112,13 +112,14 @@ struct MainView: View {
                 }
             }
         }
-        .searchable(text: $searchQuery, tokens: $searchTokens, suggestedTokens: .constant(suggestedTokens), prompt: Text("Search")) { Text($0.text) }
-        .onSubmit(of: .search) {
-            if suggestedTokens.count == 1 {
-                searchTokens.append(suggestedTokens[0])
-                searchQuery = ""
-            }
-        }
+//        .searchable(text: $searchQuery, tokens: $searchTokens, suggestedTokens: .constant(suggestedTokens), prompt: Text("Search")) { Text($0.text) }
+//        .onSubmit(of: .search) {
+//            if suggestedTokens.count == 1 {
+//                searchTokens.append(suggestedTokens[0])
+//                searchQuery = ""
+//            }
+//        }
+        .toolbarRole(.editor)
         .toolbar(content: toolbar)
         .touchBar { TouchBar() }
         .onOpenURL { url in
@@ -205,16 +206,24 @@ struct MainView: View {
             .id(item.id) // Set id so that SwiftUI knows when to render new view
     }
     
-    @ViewBuilder fileprivate func toolbar() -> some View {
-        Button {
-            if let user = soundCloud.user {
-                navigationPath.append(user)
-            }
-        } label: {
-            RemoteImage(url: SoundCloud.shared.user?.avatarURL, cornerRadius: 15)
-                .frame(width: 30, height: 30)
+    @ToolbarContentBuilder private func toolbar() -> some ToolbarContent {
+        ToolbarItem(placement: .principal) {
+            TextField("Search", text: $searchQuery)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 200)
         }
-        .buttonStyle(.plain)
+        ToolbarItemGroup {
+            Spacer()
+            Button {
+                if let user = soundCloud.user {
+                    navigationPath.append(user)
+                }
+            } label: {
+                RemoteImage(url: SoundCloud.shared.user?.avatarURL, cornerRadius: 15)
+                    .frame(width: 30, height: 30)
+            }
+            .buttonStyle(.plain)
+        }
     }
     
 }
@@ -222,19 +231,15 @@ struct MainView: View {
 struct MainView_Previews: PreviewProvider {
     
     static var previews: some View {
-        let player = StreamPlayer()
-        player.enqueue(Preview.tracks)
-        let mainView = MainView()
+        let player: StreamPlayer = {
+            let player = StreamPlayer()
+            player.enqueue(Preview.tracks)
+            return player
+        }()
         
-        return Group {
-            mainView
-            HStack {
-                mainView.toolbar()
-            }
-            .previewDisplayName("Toolbar")
-        }
-        .environmentObject(player)
-        .environmentObject(Commands())
+        MainView()
+            .environmentObject(player)
+            .environmentObject(Commands())
     }
     
 }
