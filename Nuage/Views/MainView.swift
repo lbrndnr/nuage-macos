@@ -10,37 +10,6 @@ import SwiftUI
 import Combine
 import SoundCloud
 
-struct Token: Identifiable, Equatable {
-    
-    var id: String { key }
-    
-    var key: String
-    var value: String
-    var separator: String
-    var excluding: Bool
-    
-    var text: String {
-        return key + separator + value
-    }
-    
-    init(key: String, separator: String = ":", excluding: Bool = true) {
-        self.key = key
-        self.separator = separator
-        self.value = ""
-        self.excluding = excluding
-    }
-    
-    func with(value: String) -> Token {
-        var newToken = self
-        newToken.value = value
-        
-        return newToken
-    }
-    
-}
-
-let allTokens = [Token(key: "User"), Token(key: "Track"), Token(key: "Playlist"), Token(key: "Album"), Token(key: "", separator: "#", excluding: false)]
-
 struct MainView: View {
     
     @ObservedObject private var soundCloud = SoundCloud.shared
@@ -50,30 +19,6 @@ struct MainView: View {
     @State private var blockingNavigationPath: NavigationPath?
     
     @State private var searchQuery = ""
-    @State private var searchTokens = [Token]()
-    
-    private var suggestedTokens: [Token] {
-        guard !searchQuery.isEmpty else { return [] }
-        
-        // Only consider tokens that are not excluding each other
-        let hasExcludingToken = searchTokens.contains { $0.excluding }
-        let availableTokens = hasExcludingToken ? allTokens.filter { !$0.excluding } : allTokens
-        
-        // Check if the user is typing a token
-        let typedToken = availableTokens.compactMap { token -> Token? in
-            let length = token.text.lengthOfBytes(using: .utf8)
-            guard token.text.lowercased().starts(with: searchQuery.lowercased().prefix(length)) else { return nil }
-            
-            let components = searchQuery.components(separatedBy: token.separator)
-            guard let value = components.last, components.count == 2 else { return token }
-            
-            return token.with(value: value)
-        }
-        guard typedToken.isEmpty else { return typedToken }
-        
-        return availableTokens.map { $0.with(value: searchQuery) }
-    }
-    
     @State private var subscriptions = Set<AnyCancellable>()
     
     @EnvironmentObject private var commands: Commands
@@ -85,8 +30,8 @@ struct MainView: View {
             NavigationSplitView(sidebar: sidebar) {
                 NavigationStack(path: $navigationPath) {
                     let presentSearch: Binding<Bool> = Binding(
-                        get: { searchQuery.count > 0 || searchTokens.count > 0 },
-                        set: { if !$0 { searchQuery = ""; searchTokens = [] } }
+                        get: { searchQuery.count > 0 },
+                        set: { if !$0 { searchQuery = "" } }
                     )
                     
                     root(for: sidebarSelection)
@@ -110,13 +55,6 @@ struct MainView: View {
                 }
             }
         }
-//        .searchable(text: $searchQuery, tokens: $searchTokens, suggestedTokens: .constant(suggestedTokens), prompt: Text("Search")) { Text($0.text) }
-//        .onSubmit(of: .search) {
-//            if suggestedTokens.count == 1 {
-//                searchTokens.append(suggestedTokens[0])
-//                searchQuery = ""
-//            }
-//        }
         .toolbarRole(.editor)
         .toolbar(content: toolbar)
         .touchBar { TouchBar() }
