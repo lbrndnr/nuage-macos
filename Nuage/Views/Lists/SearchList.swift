@@ -72,7 +72,7 @@ struct SearchList: View {
                     LazyVStack(alignment: .leading) {
                         if !users.isEmpty {
                             Section(content: {
-                                HStack {
+                                HStack(alignment: .top) {
                                     ForEach(users) { UserItem(user: $0) }
                                 }
                             }, header: header(for: .users), footer: footer)
