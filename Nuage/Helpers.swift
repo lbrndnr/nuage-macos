@@ -249,7 +249,7 @@ extension String {
         for (range, url) in (linkRanges + handleRanges)  {
             let attributes: [NSAttributedString.Key: Any] = [
                 .link: url,
-                .foregroundColor: NSColor.controlAccentColor
+                .foregroundColor: NSColor.controlAccentColor,
             ]
             
             attributedText.addAttributes(attributes, range: range)
@@ -258,9 +258,4 @@ extension String {
         return AttributedString(attributedText)
     }
 
-}
-
-extension NavigationLink where Destination == Never {
-    
-    
 }

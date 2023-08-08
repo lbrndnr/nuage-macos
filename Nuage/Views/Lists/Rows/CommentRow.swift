@@ -11,13 +11,9 @@ import SoundCloud
 
 struct CommentRow: View {
     
-    private var comment: Comment
+    var comment: Comment
     
     @State private var subscriptions = Set<AnyCancellable>()
-    
-    init(comment: Comment) {
-        self.comment = comment
-    }
     
     var body: some View {
         HStack {
@@ -26,6 +22,7 @@ struct CommentRow: View {
                     .frame(width: 50, height: 50, alignment: .center)
             }
             .buttonStyle(.plain)
+            
             VStack(alignment: .leading) {
                 let time = format(time: comment.timestamp)
                 Text("\(comment.user.username) at \(time)")

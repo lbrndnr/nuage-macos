@@ -63,3 +63,14 @@ struct UserDetail: View {
     }
     
 }
+
+struct UserDetail_Previews: PreviewProvider {
+    
+    static var previews: some View {
+        UserDetail(user: Preview.tracks.first!.user)
+            .environmentObject(StreamPlayer())
+            .environmentObject(Commands())
+    }
+    
+}
+
