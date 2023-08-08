@@ -40,7 +40,7 @@ struct MainView: View {
                         .navigationDestination(for: URL.self) { URLDetail(url: $0) }
                         .navigationDestination(isPresented: presentSearch) {
                             let search = soundCloud.get(.search(searchQuery))
-                            SearchList(for: search)
+                            SearchList(publisher: search)
                                 .id(searchQuery)
                         }
                 }
