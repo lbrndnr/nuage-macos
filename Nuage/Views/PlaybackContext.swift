@@ -25,12 +25,12 @@ private func createOnPlay<T: SoundCloudIdentifiable>(playbackContext: [AnyHashab
         
         var queue = [Track]()
         var startIndex: Int?
-        for (idx, elem) in elements.enumerated() {
-            queue += transform(elem)
-
-            if elem == start {
-                startIndex = idx
+        for elem in elements {
+            if elem == start && startIndex == nil {
+                startIndex = queue.count
             }
+            
+            queue += transform(elem)
         }
 
         guard let startIndex = startIndex else {
