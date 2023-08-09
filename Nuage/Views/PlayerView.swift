@@ -28,7 +28,7 @@ struct PlayerView: View {
             let url = player.currentStream?.artworkURL ?? player.currentStream?.user.avatarURL
             RemoteImage(url: url, cornerRadius: 0)
             
-            HStack() {
+            HStack {
                 Button(action: onTrackDetailTap) {
                     artwork()
                         .aspectRatio(1.0, contentMode: .fit)
@@ -36,7 +36,7 @@ struct PlayerView: View {
 
                     trackDetails()
                 }
-                .frame(width: 150)
+                .frame(width: 150, alignment: .leading)
                 .buttonStyle(.plain)
                 
                 FeedbackStack(for: player.currentStream, horizontal: false)
