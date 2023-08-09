@@ -23,23 +23,24 @@ private func createOnPlay<T: SoundCloudIdentifiable>(playbackContext: [AnyHashab
             return
         }
         
-        let idx = elements.firstIndex(of: start)
-        guard let idx = idx else {
+        var queue = [Track]()
+        var startIndex: Int?
+        for (idx, elem) in elements.enumerated() {
+            queue += transform(elem)
+
+            if elem == start {
+                startIndex = idx
+            }
+        }
+
+        guard let startIndex = startIndex else {
             print("Tried to play a track that is not in the current playback context.")
             return
         }
         
-        let queue = elements.flatMap(transform)
-        let startIndex = elements
-            .prefix(upTo: idx)
-            .flatMap(transform)
-            .count
-        
-        if player.currentStream == queue[startIndex] && player.queue == queue {
-            player.restart()
-        }
-        else {
-            play(queue, from: startIndex, with: player)
+        let animation = player.queue.isEmpty ? Animation.default : nil
+        withAnimation(animation) {
+            player.play(queue, from: startIndex)
         }
     }
 }

@@ -95,6 +95,10 @@ class StreamPlayer: ObservableObject {
     
     // MARK: - Playback
     
+    func restartPlayback() {
+        player.seek(to: .zero)
+    }
+    
     func togglePlayback() {
         if isPlaying {
             pause()
@@ -111,15 +115,23 @@ class StreamPlayer: ObservableObject {
             player.play()
         }
         else {
+            self.currentStreamIndex = idx
+            self.shouldSeek = false
+            self.progress = 0
+            self.shouldSeek = true
+            
             queue[idx].prepare()
                 .receive(on: RunLoop.main)
-                .sink(receiveCompletion: { print($0) }, receiveValue: { [weak self] asset in
+                .sink(receiveCompletion: { completion in
+                    if case let .failure(error) = completion  {
+                        print("Failed to stream track: \(error)")
+                    }
+                }, receiveValue: { [weak self] asset in
                     guard let self = self else { return }
                     
                     let item = AVPlayerItem(asset: asset)
                     self.player.replaceCurrentItem(with: item)
                     self.player.play()
-                    self.currentStreamIndex = idx
                     
                     NotificationCenter.default.addObserver(self, selector: #selector(self.advanceForward), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: item)
                     
@@ -130,6 +142,17 @@ class StreamPlayer: ObservableObject {
 
     func pause() {
         player.pause()
+    }
+    
+    func play(_ tracks: [Track], from idx: Int) {
+        guard !(currentStreamIndex == idx && queue == tracks) else {
+            restartPlayback()
+            return
+        }
+        
+        pause()
+        queue = tracks
+        resume(from: idx)
     }
     
     @objc func advanceForward() {
@@ -157,7 +180,7 @@ class StreamPlayer: ObservableObject {
             }
         }
         else {
-            restart()
+            restartPlayback()
         }
     }
     
@@ -174,10 +197,6 @@ class StreamPlayer: ObservableObject {
         player.replaceCurrentItem(with: nil)
         queue = []
         currentStreamIndex = nil
-    }
-    
-    func restart() {
-        player.seek(to: .zero)
     }
     
     func enqueue(_ streams: [Track], playNext: Bool = false) {

@@ -183,6 +183,7 @@ extension UserPlaylist: DateComparable {}
             image.resizable()
                 .cornerRadius(cornerRadius)
         })
+        .id(url)
     }
     else {
         placeholder

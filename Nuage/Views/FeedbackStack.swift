@@ -10,7 +10,7 @@ import SoundCloud
 
 struct FeedbackStack<T: SoundCloudIdentifiable>: View {
     
-    private var item: T
+    private var item: T?
     private var horizontal: Bool
     
     private var isLiked: Bool {
@@ -21,7 +21,7 @@ struct FeedbackStack<T: SoundCloudIdentifiable>: View {
             return playlists.contains(playlist.eraseToAnyPlaylist())
         }
         else {
-            fatalError("Neither track nor playlist is set.")
+            return false
         }
     }
     
@@ -42,7 +42,7 @@ struct FeedbackStack<T: SoundCloudIdentifiable>: View {
                 .contains(playlist)
         }
         else {
-            fatalError("Neither track nor playlist is set.")
+            return false
         }
     }
     
@@ -54,7 +54,7 @@ struct FeedbackStack<T: SoundCloudIdentifiable>: View {
             return toggleLikePlaylist(playlist.eraseToAnyPlaylist())
         }
         else {
-            fatalError("Neither track nor playlist is set.")
+            return {}
         }
     }
     
@@ -66,7 +66,7 @@ struct FeedbackStack<T: SoundCloudIdentifiable>: View {
             return toggleRepostPlaylist(playlist)
         }
         else {
-            fatalError("Neither track nor playlist is set.")
+            return {}
         }
     }
     
@@ -93,6 +93,7 @@ struct FeedbackStack<T: SoundCloudIdentifiable>: View {
             let name = isLiked ? "heart.fill" : "heart"
             Image(systemName: name)
         }
+        .disabled(item == nil)
         .buttonStyle(.borderless)
 
         if let isRepost = isRepost {
@@ -100,6 +101,7 @@ struct FeedbackStack<T: SoundCloudIdentifiable>: View {
                 let name = isRepost ? "arrow.triangle.2.circlepath.circle.fill" : "arrow.triangle.2.circlepath.circle"
                 Image(systemName: name)
             }
+            .disabled(item == nil)
             .buttonStyle(.borderless)
         }
     }
@@ -111,8 +113,13 @@ struct FeedbackStack<T: SoundCloudIdentifiable>: View {
             .frame(width: width, height: height)
     }
     
-    init(for item: T, horizontal: Bool = true) {
-        self.item = item
+    init(for playlist: T, horizontal: Bool = true) where T: Playlist {
+        self.item = playlist
+        self.horizontal = horizontal
+    }
+    
+    init(for track: T?, horizontal: Bool = true) where T == Track {
+        self.item = track
         self.horizontal = horizontal
     }
     

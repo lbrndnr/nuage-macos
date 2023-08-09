@@ -33,15 +33,13 @@ struct PlayerView: View {
                     artwork()
                         .aspectRatio(1.0, contentMode: .fit)
                         .padding(.vertical, 8)
-                    
+
                     trackDetails()
-                        .frame(width: 80)
                 }
+                .frame(width: 150)
                 .buttonStyle(.plain)
                 
-                if let track = player.currentStream {
-                    FeedbackStack(for: track, horizontal: false)
-                }
+                FeedbackStack(for: player.currentStream, horizontal: false)
                 
                 Spacer()
                     .frame(width: 8)
@@ -202,7 +200,7 @@ struct PlayerView: View {
         ForEach(Array(tracks.enumerated()), id: \.element.id) { idx, track in
             HStack {
                 Artwork(url: track.artworkURL ?? track.user.avatarURL, onPlay: {
-                    play(Array(tracks), from: idx, with: player)
+                    player.play(Array(tracks), from: idx)
                 })
                 .frame(width: 60, height: 60)
                 VStack(alignment: .leading) {

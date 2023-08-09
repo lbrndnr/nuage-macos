@@ -13,7 +13,6 @@
 		49328ECF25C4B71500A2A34D /* SoundCloud in Frameworks */ = {isa = PBXBuildFile; productRef = 49328ECE25C4B71500A2A34D /* SoundCloud */; };
 		49332BA525961A260034A161 /* TrackRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BA425961A260034A161 /* TrackRow.swift */; };
 		49332BAE25961A3B0034A161 /* PlaylistRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BAD25961A3B0034A161 /* PlaylistRow.swift */; };
-		49332BBE2596260A0034A161 /* Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BBD2596260A0034A161 /* Actions.swift */; };
 		49332BCF25962E910034A161 /* SearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49332BCE25962E910034A161 /* SearchList.swift */; };
 		493AB3552A6E668C00E20656 /* FeedbackStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 493AB3542A6E668C00E20656 /* FeedbackStack.swift */; };
 		4964297B25DFCF04008AFBD5 /* CommentList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4964297A25DFCF04008AFBD5 /* CommentList.swift */; };
@@ -59,7 +58,6 @@
 		49328EC625C4B6F900A2A34D /* SoundCloud */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SoundCloud; sourceTree = "<group>"; };
 		49332BA425961A260034A161 /* TrackRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRow.swift; sourceTree = "<group>"; };
 		49332BAD25961A3B0034A161 /* PlaylistRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistRow.swift; sourceTree = "<group>"; };
-		49332BBD2596260A0034A161 /* Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Actions.swift; sourceTree = "<group>"; };
 		49332BCE25962E910034A161 /* SearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchList.swift; sourceTree = "<group>"; };
 		493AB3542A6E668C00E20656 /* FeedbackStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedbackStack.swift; sourceTree = "<group>"; };
 		4964297A25DFCF04008AFBD5 /* CommentList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentList.swift; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 			children = (
 				4969F3C8257CFA7F0048E29B /* NuageApp.swift */,
 				49A99D792A7454EE001B8BCB /* Navigation.swift */,
-				49332BBD2596260A0034A161 /* Actions.swift */,
 				4969F410257CFB100048E29B /* Views */,
 				4969F40D257CFB100048E29B /* Audio */,
 				4969F40B257CFB100048E29B /* Helpers.swift */,
@@ -335,7 +332,6 @@
 				49FEEBDF2A5B56C9002C8865 /* TouchBar.swift in Sources */,
 				4969F434257CFB100048E29B /* PlayerView.swift in Sources */,
 				497F43B228F757DA0090CAD6 /* WaveformSlider.swift in Sources */,
-				49332BBE2596260A0034A161 /* Actions.swift in Sources */,
 				4969F42B257CFB100048E29B /* StreamPlayer.swift in Sources */,
 				4969F42C257CFB100048E29B /* TrackDetail.swift in Sources */,
 				4969F437257CFB100048E29B /* UserGrid.swift in Sources */,
