@@ -157,7 +157,7 @@ class StreamPlayer: ObservableObject {
             }
         }
         else {
-            player.seek(to: .zero)
+            restart()
         }
     }
     
@@ -174,6 +174,10 @@ class StreamPlayer: ObservableObject {
         player.replaceCurrentItem(with: nil)
         queue = []
         currentStreamIndex = nil
+    }
+    
+    func restart() {
+        player.seek(to: .zero)
     }
     
     func enqueue(_ streams: [Track], playNext: Bool = false) {

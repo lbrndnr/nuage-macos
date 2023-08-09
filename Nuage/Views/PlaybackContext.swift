@@ -29,13 +29,18 @@ private func createOnPlay<T: SoundCloudIdentifiable>(playbackContext: [AnyHashab
             return
         }
         
-        let allTracks = elements.flatMap(transform)
+        let queue = elements.flatMap(transform)
         let startIndex = elements
             .prefix(upTo: idx)
             .flatMap(transform)
             .count
         
-        play(allTracks, from: startIndex, with: player)
+        if player.currentStream == queue[startIndex] && player.queue == queue {
+            player.restart()
+        }
+        else {
+            play(queue, from: startIndex, with: player)
+        }
     }
 }
 
