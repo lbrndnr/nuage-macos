@@ -25,6 +25,9 @@ struct MainView: View {
     @EnvironmentObject private var player: StreamPlayer
     @Environment(\.playlists) private var playlists: [AnyPlaylist]
     
+    @Environment(\.showLikedPlaylists) private var showLikedPlaylists: Bool
+    @Environment(\.showCreatedPlaylists) private var showCreatedPlaylists: Bool
+    
     var body: some View {
         VStack(spacing: 0) {
             NavigationSplitView(sidebar: sidebar) {
@@ -75,9 +78,15 @@ struct MainView: View {
             sidebarMenu(for: .history)
             sidebarMenu(for: .following)
             
-            Section(header: Text("Playlists")) {
-                ForEach(playlists) { playlist in
-                    sidebarMenu(for: .playlist(playlist.title, playlist.id))
+            if (showLikedPlaylists || showCreatedPlaylists) && !playlists.isEmpty {
+                Section(header: Text("Playlists")) {
+                    ForEach(playlists) { playlist in
+                        let isLiked = (playlist.userPlaylist?.secretToken == nil)
+                        
+                        if (isLiked && showLikedPlaylists) || (!isLiked && showCreatedPlaylists) {
+                            sidebarMenu(for: .playlist(playlist.title, playlist.id))
+                        }
+                    }
                 }
             }
         }

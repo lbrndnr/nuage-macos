@@ -16,6 +16,18 @@ private let playlistsKey = "playlists"
 private let likesKey = "likes"
 private let postsKey = "posts"
 
+private struct ShowCreatedPlaylistsKey: EnvironmentKey {
+    
+    static let defaultValue = true
+    
+}
+
+private struct ShowLikedPlaylistsKey: EnvironmentKey {
+    
+    static let defaultValue = true
+    
+}
+
 private struct PlaylistKey: EnvironmentKey {
     
     static let defaultValue = [AnyPlaylist]()
@@ -61,6 +73,16 @@ private struct ToggleRepostPlaylistKey: EnvironmentKey {
 }
 
 extension EnvironmentValues {
+    
+    var showCreatedPlaylists: Bool {
+        get { self[ShowCreatedPlaylistsKey.self] }
+        set { self[ShowCreatedPlaylistsKey.self] = newValue }
+    }
+    
+    var showLikedPlaylists: Bool {
+        get { self[ShowLikedPlaylistsKey.self] }
+        set { self[ShowLikedPlaylistsKey.self] = newValue }
+    }
     
     var playlists: [AnyPlaylist] {
         get { self[PlaylistKey.self] }
@@ -113,6 +135,9 @@ struct NuageApp: App {
     private var player = StreamPlayer()
     private var commands = Commands()
     
+    @State private var showCreatedPlaylists = true
+    @State private var showLikedPlaylists = true
+    
     @State private var playlists: [AnyPlaylist]
     @State private var likes: [Track]
     @State private var posts: [Post]
@@ -126,6 +151,8 @@ struct NuageApp: App {
                     .frame(minWidth: 800, minHeight: 400)
                     .environmentObject(player)
                     .environmentObject(commands)
+                    .environment(\.showCreatedPlaylists, showCreatedPlaylists)
+                    .environment(\.showLikedPlaylists, showLikedPlaylists)
                     .environment(\.playlists, playlists)
                     .environment(\.likes, likes)
                     .environment(\.posts, posts)
@@ -159,6 +186,12 @@ struct NuageApp: App {
                 Button("Search") {
                     commands.search.send()
                 }.keyboardShortcut("l", modifiers: .command)
+            }
+            CommandGroup(before: .toolbar) {
+                Menu("Playlists") {
+                    Toggle("Show Created", isOn: $showCreatedPlaylists)
+                    Toggle("Show Liked", isOn: $showLikedPlaylists)
+                }
             }
             CommandMenu("Playback") {
                 let playbackToggleTitle = player.isPlaying ? "Pause" : "Play"
