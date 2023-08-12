@@ -23,7 +23,16 @@ struct ArrayView<ID, Element: Decodable&Identifiable, ContentView: View>: View {
     private var content: ([Element], @escaping () -> ()) -> ContentView
     
     var body: some View {
-        return content(elements, getNextSlice).onAppear {
+        Group {
+            if elements.isEmpty {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            }
+            else {
+                content(elements, getNextSlice)
+            }
+        }
+        .onAppear {
             arrayPublisher.receive(on: RunLoop.main)
                 .replaceError(with: [])
                 .sink { elementIDs in

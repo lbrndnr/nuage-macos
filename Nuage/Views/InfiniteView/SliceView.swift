@@ -27,7 +27,16 @@ struct SliceView<Element: Decodable&Identifiable, ContentView: View>: View {
     private var content: ([Element], @escaping () -> ()) -> ContentView
     
     var body: some View {
-        return content(elements, getNextSlice).onAppear {
+        Group {
+            if elements.isEmpty {
+                ProgressView()
+                    .progressViewStyle(.circular)
+            }
+            else {
+                content(elements, getNextSlice)
+            }
+        }
+        .onAppear {
             publisher.receive(on: RunLoop.main)
                 .sink(receiveCompletion: { _ in }, receiveValue: { slice in
                     slices.append(slice)
