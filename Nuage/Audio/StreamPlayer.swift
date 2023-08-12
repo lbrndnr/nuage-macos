@@ -132,8 +132,10 @@ class StreamPlayer: ObservableObject {
 
     func resume(from index: Int? = nil) {
         guard let idx = index ?? currentStreamIndex, idx < queue.count else { return }
+        let trackIDKey = "trackID"
         
-        if player.currentItem != nil && currentStreamIndex == idx {
+        let currentItemID = player.currentItem?.value(forKey: trackIDKey) as? String
+        if currentItemID != nil && currentItemID == currentStream?.id {
             player.play()
         }
         else {
@@ -142,7 +144,8 @@ class StreamPlayer: ObservableObject {
             self.progress = 0
             self.shouldSeek = true
             
-            currentStream!.prepare()
+            let track = currentStream!
+            track.prepare()
                 .receive(on: RunLoop.main)
                 .sink(receiveCompletion: { completion in
                     if case let .failure(error) = completion  {
@@ -152,6 +155,8 @@ class StreamPlayer: ObservableObject {
                     guard let self = self else { return }
                     
                     let item = AVPlayerItem(asset: asset)
+                    item.setValue(track.id, forKey: trackIDKey)
+                    
                     self.player.replaceCurrentItem(with: item)
                     self.player.play()
                     
