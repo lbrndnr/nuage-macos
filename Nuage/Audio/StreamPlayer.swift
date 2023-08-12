@@ -119,6 +119,7 @@ class StreamPlayer: ObservableObject {
     
     func restartPlayback() {
         player.seek(to: .zero)
+        player.play()
     }
     
     func togglePlayback() {
@@ -129,13 +130,12 @@ class StreamPlayer: ObservableObject {
             resume()
         }
     }
-
+    
     func resume(from index: Int? = nil) {
         guard let idx = index ?? currentStreamIndex, idx < queue.count else { return }
-        let trackIDKey = "trackID"
         
-        let currentItemID = player.currentItem?.value(forKey: trackIDKey) as? String
-        if currentItemID != nil && currentItemID == currentStream?.id {
+        let newStream = index.map { queue[queueOrder[$0]] }
+        if currentStream == newStream {
             player.play()
         }
         else {
@@ -155,7 +155,6 @@ class StreamPlayer: ObservableObject {
                     guard let self = self else { return }
                     
                     let item = AVPlayerItem(asset: asset)
-                    item.setValue(track.id, forKey: trackIDKey)
                     
                     self.player.replaceCurrentItem(with: item)
                     self.player.play()
@@ -166,7 +165,7 @@ class StreamPlayer: ObservableObject {
                 }).store(in: &subscriptions)
         }
     }
-
+    
     func pause() {
         player.pause()
     }
