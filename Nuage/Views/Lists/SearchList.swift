@@ -124,12 +124,8 @@ struct SearchList: View {
     
     private func header(for section: SearchSection) -> () -> some View {
         @ViewBuilder func buildHeader() -> some View {
-            NavigationLink(value: "lol") {
-                Text(section.rawValue.capitalized)
-                    .font(.title)
-                Image(systemName: "chevron.right.square.fill")
-            }
-            .buttonStyle(.plain)
+            Text(section.rawValue.capitalized)
+                .font(.title)
         }
         return buildHeader
     }
