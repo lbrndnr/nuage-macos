@@ -12,7 +12,7 @@ import AppKit
 import SoundCloud
 
 enum InfinitePublisher<Element: Decodable&Identifiable&Filterable&Hashable> {
-    case slice(AnyPublisher<Slice<Element>, Error>)
+    case page(AnyPublisher<Page<Element>, Error>)
     case array(AnyPublisher<[String], Error>, ([String]) -> AnyPublisher<[Element], Error>)
 }
 
@@ -28,22 +28,22 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable&Hashable, Row: Vi
     @EnvironmentObject private var commands: CommandSubject
     
     var body: some View {
-        if case let .slice(publisher) = publisher {
-            SliceView(publisher: publisher, content: list)
+        if case let .page(publisher) = publisher {
+            PageView(publisher: publisher, content: list)
         }
-        else if case let .array(arrayPublisher, slicePublisher) = publisher {
-            ArrayView(arrayPublisher: arrayPublisher, slicePublisher: slicePublisher, content: list)
+        else if case let .array(arrayPublisher, pagePublisher) = publisher {
+            ArrayView(arrayPublisher: arrayPublisher, pagePublisher: pagePublisher, content: list)
         }
     }
     
-    @ViewBuilder func list(for elements: [Element], getNextSlice: @escaping () -> ()) -> some View {
+    @ViewBuilder func list(for elements: [Element], getNextPage: @escaping () -> ()) -> some View {
         let displayedElements = (filter.count > 0) ? elements.filter { $0.contains(filter) } : elements
         
         VStack {
             if isSearching {
                 TextField("Filter", text: $filter)
                     .onChange(of: filter, perform: { _ in
-                        getNextSlice()
+                        getNextPage()
                     })
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
@@ -64,7 +64,7 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable&Hashable, Row: Vi
                                 .id(idx)
                                 .onAppear {
                                     if idx == elements.count/2 {
-                                        getNextSlice()
+                                        getNextPage()
                                     }
                                 }
                             

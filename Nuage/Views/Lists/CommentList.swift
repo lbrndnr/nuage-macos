@@ -21,8 +21,8 @@ struct CommentList: View {
         }
     }
     
-    init(for publisher: AnyPublisher<Slice<Comment>, Error>) {
-        self.publisher = .slice(publisher)
+    init(for publisher: AnyPublisher<Page<Comment>, Error>) {
+        self.publisher = .page(publisher)
     }
     
 }

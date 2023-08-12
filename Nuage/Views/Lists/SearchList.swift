@@ -17,11 +17,11 @@ private enum SearchSection: String {
 
 struct SearchList: View {
     
-    var publisher: AnyPublisher<Slice<Some>, Error>
+    var publisher: AnyPublisher<Page<Some>, Error>
     
     private var userPublisher: AnyPublisher<[User], Error> {
-        publisher.map { slice in
-            return slice.collection.compactMap { elem in
+        publisher.map { page in
+            return page.collection.compactMap { elem in
                 switch elem {
                 case .user(let user): return user
                 default: return nil
@@ -32,8 +32,8 @@ struct SearchList: View {
     }
     
     private var trackPublisher: AnyPublisher<[Track], Error> {
-        publisher.map { slice in
-            return slice.collection.compactMap { elem in
+        publisher.map { page in
+            return page.collection.compactMap { elem in
                 switch elem {
                 case .track(let track): return track
                 default: return nil
@@ -44,8 +44,8 @@ struct SearchList: View {
     }
     
     private var playlistPublisher: AnyPublisher<[UserPlaylist], Error> {
-        publisher.map { slice in
-            return slice.collection.compactMap { elem in
+        publisher.map { page in
+            return page.collection.compactMap { elem in
                 switch elem {
                 case .userPlaylist(let playlist): return playlist
                 default: return nil

@@ -18,22 +18,22 @@ struct InfiniteGrid<Element: Decodable&Identifiable&Filterable&Hashable, Item: V
     @EnvironmentObject private var commands: CommandSubject
     
     var body: some View {
-        if case let .slice(publisher) = publisher {
-            SliceView(publisher: publisher, content: grid)
+        if case let .page(publisher) = publisher {
+            PageView(publisher: publisher, content: grid)
         }
-        else if case let .array(arrayPublisher, slicePublisher) = publisher {
-            ArrayView(arrayPublisher: arrayPublisher, slicePublisher: slicePublisher, content: grid)
+        else if case let .array(arrayPublisher, pagePublisher) = publisher {
+            ArrayView(arrayPublisher: arrayPublisher, pagePublisher: pagePublisher, content: grid)
         }
     }
     
-    @ViewBuilder func grid(for elements: [Element], getNextSlice: @escaping () -> ()) -> some View {
+    @ViewBuilder func grid(for elements: [Element], getNextPage: @escaping () -> ()) -> some View {
         let displayedElements = (filter.count > 0) ? elements.filter { $0.contains(filter) } : elements
         
         VStack {
             if isSearching {
                 TextField("Filter", text: $filter)
                     .onChange(of: filter, perform: { _ in
-                        getNextSlice()
+                        getNextPage()
                     })
                     .textFieldStyle(RoundedBorderTextFieldStyle())
                     .padding()
@@ -46,7 +46,7 @@ struct InfiniteGrid<Element: Decodable&Identifiable&Filterable&Hashable, Item: V
                     .id(idx)
                     .onAppear {
                     if idx == elements.count/2 {
-                        getNextSlice()
+                        getNextPage()
                     }
                 }
             }

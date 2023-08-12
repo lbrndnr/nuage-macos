@@ -22,8 +22,8 @@ struct PostList: View {
         }
     }
     
-    init(for publisher: AnyPublisher<Slice<Post>, Error>) {
-        self.publisher = .slice(publisher)
+    init(for publisher: AnyPublisher<Page<Post>, Error>) {
+        self.publisher = .page(publisher)
     }
 
 }

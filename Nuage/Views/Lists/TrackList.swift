@@ -30,39 +30,39 @@ struct TrackList<Element: Decodable&SoundCloudIdentifiable&Filterable&Hashable>:
 
 extension TrackList where Element == Track {
     
-    init(for publisher: AnyPublisher<Slice<Track>, Error>) {
-        self.init(publisher: .slice(publisher)) { $0 }
+    init(for publisher: AnyPublisher<Page<Track>, Error>) {
+        self.init(publisher: .page(publisher)) { $0 }
     }
     
     init(for arrayPublisher: AnyPublisher<[String], Error>,
-         slice slicePublisher: @escaping ([String]) -> AnyPublisher<[Track], Error>) {
-        self.init(publisher: .array(arrayPublisher, slicePublisher), transform: { $0 })
+         page pagePublisher: @escaping ([String]) -> AnyPublisher<[Track], Error>) {
+        self.init(publisher: .array(arrayPublisher, pagePublisher), transform: { $0 })
     }
     
     init(for playlistID: String) {
         let ids = SoundCloud.shared.get(.playlist(playlistID))
             .map { $0.trackIDs ?? [] }
             .eraseToAnyPublisher()
-        let slice = { ids in
+        let page = { ids in
             return SoundCloud.shared.get(.tracks(ids))
         }
-        self.init(for: ids, slice: slice)
+        self.init(for: ids, page: page)
     }
     
 }
 
 extension TrackList where Element == Like<Track> {
     
-    init(for publisher: AnyPublisher<Slice<Like<Track>>, Error>) {
-        self.init(publisher: .slice(publisher)) { $0.item }
+    init(for publisher: AnyPublisher<Page<Like<Track>>, Error>) {
+        self.init(publisher: .page(publisher)) { $0.item }
     }
     
 }
 
 extension TrackList where Element == HistoryItem {
     
-    init(for publisher: AnyPublisher<Slice<HistoryItem>, Error>) {
-        self.init(publisher: .slice(publisher)) { $0.track }
+    init(for publisher: AnyPublisher<Page<HistoryItem>, Error>) {
+        self.init(publisher: .page(publisher)) { $0.track }
     }
     
 }

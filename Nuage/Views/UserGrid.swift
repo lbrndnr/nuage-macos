@@ -29,16 +29,16 @@ struct UserGrid<Element: Decodable&Identifiable&Filterable&Hashable>: View {
 
 extension UserGrid where Element == User {
     
-    init(for publisher: AnyPublisher<Slice<User>, Error>) {
-        self.init(publisher: .slice(publisher)) { $0 }
+    init(for publisher: AnyPublisher<Page<User>, Error>) {
+        self.init(publisher: .page(publisher)) { $0 }
     }
     
 }
 
 extension UserGrid where Element == Recommendation {
     
-    init(for publisher: AnyPublisher<Slice<Recommendation>, Error>) {
-        self.init(publisher: .slice(publisher)) { $0.user }
+    init(for publisher: AnyPublisher<Page<Recommendation>, Error>) {
+        self.init(publisher: .page(publisher)) { $0.user }
     }
     
 }
