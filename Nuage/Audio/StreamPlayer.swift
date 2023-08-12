@@ -7,6 +7,7 @@
 //
 
 import AppKit
+import SwiftUI
 import AVFoundation
 import Combine
 import MediaPlayer
@@ -40,7 +41,7 @@ class StreamPlayer: ObservableObject {
     
     @Published private(set) var currentStream: Track?
     
-    @Published var shuffleQueue: Bool = false {
+    @AppStorage("shuffleQueue") var shuffleQueue: Bool = false {
         didSet {
             // Here we have to unravel the index again
             // So that we end up in the same spot of the queue
@@ -54,7 +55,7 @@ class StreamPlayer: ObservableObject {
             }
         }
     }
-    @Published var repeatQueue: Bool = false
+    @AppStorage("repeatQueue") var repeatQueue: Bool = false
     
     @Published var volume: Float = 0.5 {
         didSet {
