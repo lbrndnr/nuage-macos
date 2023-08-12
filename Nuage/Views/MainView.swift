@@ -108,19 +108,19 @@ struct MainView: View {
         Group {
             switch item {
             case .stream:
-                let stream = SoundCloud.shared.get(.stream(), limit: 50)
+                let stream = SoundCloud.shared.get(.stream(), count: 50)
                 PostList(for: stream)
             case .likes:
                 let likes = SoundCloud.shared.$user.filter { $0 != nil}
-                    .flatMap { SoundCloud.shared.get(.trackLikes(of: $0!), limit: 50) }
+                    .flatMap { SoundCloud.shared.get(.trackLikes(of: $0!), count: 50) }
                     .eraseToAnyPublisher()
                 TrackList(for: likes)
             case .history:
-                let history = SoundCloud.shared.get(.history(), limit: 50)
+                let history = SoundCloud.shared.get(.history(), count: 50)
                 TrackList(for: history)
             case .following:
                 let following = SoundCloud.shared.$user.filter { $0 != nil }
-                    .flatMap { SoundCloud.shared.get(.followings(of: $0!), limit: 50) }
+                    .flatMap { SoundCloud.shared.get(.followings(of: $0!), count: 50) }
                     .eraseToAnyPublisher()
                 UserGrid(for: following)
             case .playlist(_, let id):
