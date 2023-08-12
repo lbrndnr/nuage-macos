@@ -25,7 +25,7 @@ struct InfiniteList<Element: Decodable&Identifiable&Filterable&Hashable, Row: Vi
     @State private var isSearching = false
     
     @Environment(\.header) private var header: AnyView
-    @EnvironmentObject private var commands: Commands
+    @EnvironmentObject private var commands: CommandSubject
     
     var body: some View {
         if case let .slice(publisher) = publisher {

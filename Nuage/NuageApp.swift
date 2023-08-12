@@ -122,7 +122,7 @@ extension EnvironmentValues {
 }
 
 
-class Commands: ObservableObject {
+class CommandSubject: ObservableObject {
     
     var filter = PassthroughSubject<(), Never>()
     var search = PassthroughSubject<(), Never>()
@@ -132,8 +132,8 @@ class Commands: ObservableObject {
 @main
 struct NuageApp: App {
     
-    private var player = StreamPlayer()
-    private var commands = Commands()
+    @StateObject private var player = StreamPlayer()
+    private var commandSubjects = CommandSubject()
     
     @State private var showCreatedPlaylists = true
     @State private var showLikedPlaylists = true
@@ -150,7 +150,7 @@ struct NuageApp: App {
                 MainView()
                     .frame(minWidth: 800, minHeight: 400)
                     .environmentObject(player)
-                    .environmentObject(commands)
+                    .environmentObject(commandSubjects)
                     .environment(\.showCreatedPlaylists, showCreatedPlaylists)
                     .environment(\.showLikedPlaylists, showLikedPlaylists)
                     .environment(\.playlists, playlists)
@@ -177,54 +177,70 @@ struct NuageApp: App {
             }
         }
         .defaultSize(width: 800, height: 400)
-        .commands {
-            SidebarCommands()
-            CommandGroup(after: .textEditing) {
-                Button("Filter") {
-                    commands.filter.send()
-                }.keyboardShortcut("f", modifiers: .command)
-                Button("Search") {
-                    commands.search.send()
-                }.keyboardShortcut("l", modifiers: .command)
-            }
-            CommandGroup(before: .toolbar) {
-                Menu("Playlists") {
-                    Toggle("Show Created", isOn: $showCreatedPlaylists)
-                    Toggle("Show Liked", isOn: $showLikedPlaylists)
-                }
-            }
-            CommandMenu("Playback") {
-                let playbackToggleTitle = player.isPlaying ? "Pause" : "Play"
-                Button(playbackToggleTitle, action: player.togglePlayback)
-                .keyboardShortcut(.space, modifiers: [])
-                
-                Divider()
-                
-                Button("Next", action: player.advanceForward)
-                .keyboardShortcut(.rightArrow, modifiers: .command)
-                
-                Button("Previous", action: player.advanceBackward)
-                .keyboardShortcut(.leftArrow, modifiers: .command)
-                
-                Button("Seek Forward", action: player.seekForward)
-                .keyboardShortcut(.rightArrow, modifiers: [.command, .shift])
-                
-                Button("Seek Backward", action: player.seekBackward)
-                .keyboardShortcut(.leftArrow, modifiers: [.command, .shift])
-                
-                Divider()
-                
-                Button("Volume Up") {
-                    player.volume += 0.05
-                }
-                .keyboardShortcut(.upArrow, modifiers: [.command])
-                
-                Button("Volume Down") {
-                    player.volume -= 0.05
-                }
-                .keyboardShortcut(.downArrow, modifiers: [.command])
+        .commands(content: commands)
+    }
+    
+    @CommandsBuilder private func commands() -> some Commands {
+        CommandGroup(after: .textEditing) {
+            Button("Filter") {
+                commandSubjects.filter.send()
+            }.keyboardShortcut("f", modifiers: .command)
+            Button("Search") {
+                commandSubjects.search.send()
+            }.keyboardShortcut("l", modifiers: .command)
+        }
+        CommandGroup(before: .toolbar) {
+            Menu("Playlists") {
+                Toggle("Show Created", isOn: $showCreatedPlaylists)
+                Toggle("Show Liked", isOn: $showLikedPlaylists)
             }
         }
+        playbackMenu()
+    }
+    
+    @CommandsBuilder private func playbackMenu() -> some Commands {
+        CommandMenu("Playback") {
+            let playbackToggleTitle = player.isPlaying ? "Pause" : "Play"
+            Button(playbackToggleTitle, action: player.togglePlayback)
+            
+            Divider()
+            
+            playbackControls()
+            
+            Divider()
+            
+            Toggle("Shuffle", isOn: $player.shuffleQueue)
+                .keyboardShortcut("s", modifiers: [.command])
+
+            Toggle("Repeat", isOn: $player.repeatQueue)
+                .keyboardShortcut("r", modifiers: [.command])
+            
+            Divider()
+            
+            Button("Volume Up") {
+                player.volume += 0.05
+            }
+            .keyboardShortcut(.upArrow, modifiers: [.command])
+
+            Button("Volume Down") {
+                player.volume -= 0.05
+            }
+            .keyboardShortcut(.downArrow, modifiers: [.command])
+        }
+    }
+    
+    @ViewBuilder private func playbackControls() -> some View {
+        Button("Next", action: player.advanceForward)
+            .keyboardShortcut(.rightArrow, modifiers: .command)
+        
+        Button("Previous", action: player.advanceBackward)
+            .keyboardShortcut(.leftArrow, modifiers: .command)
+        
+        Button("Seek Forward", action: player.seekForward)
+            .keyboardShortcut(.rightArrow, modifiers: [.command, .shift])
+        
+        Button("Seek Backward", action: player.seekBackward)
+            .keyboardShortcut(.leftArrow, modifiers: [.command, .shift])
     }
     
     init() {

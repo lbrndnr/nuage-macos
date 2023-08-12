@@ -21,7 +21,7 @@ struct MainView: View {
     @State private var searchQuery = ""
     @State private var subscriptions = Set<AnyCancellable>()
     
-    @EnvironmentObject private var commands: Commands
+//    @EnvironmentObject private var commands: Commands
     @EnvironmentObject private var player: StreamPlayer
     @Environment(\.playlists) private var playlists: [AnyPlaylist]
     
@@ -164,7 +164,7 @@ struct MainView_Previews: PreviewProvider {
         
         MainView()
             .environmentObject(player)
-            .environmentObject(Commands())
+//            .environmentObject(Commands())
     }
     
 }

@@ -95,7 +95,7 @@ struct TrackDetail_Previews: PreviewProvider {
         
         TrackDetail(track: Preview.tracks.first!)
             .environmentObject(player)
-            .environmentObject(Commands())
+            .environmentObject(CommandSubject())
     }
     
 }

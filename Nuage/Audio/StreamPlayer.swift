@@ -26,14 +26,35 @@ class StreamPlayer: ObservableObject {
     private var subscriptions = Set<AnyCancellable>()
     
     private var player: AVPlayer
-    private(set) var queue = [Track]()
+    private(set) var queue = [Track]() {
+        didSet {
+            reloadQueueOrder()
+        }
+    }
+    private var queueOrder = [Int]()
     private(set) var currentStreamIndex: Int? {
         didSet {
-            currentStream = self.currentStreamIndex.map { queue[$0] }
+            currentStream = self.currentStreamIndex.map { queue[queueOrder[$0]] }
         }
     }
     
     @Published private(set) var currentStream: Track?
+    
+    @Published var shuffleQueue: Bool = false {
+        didSet {
+            // Here we have to unravel the index again
+            // So that we end up in the same spot of the queue
+            // This should not trigger $currentStream, since it's the same track
+            let index = currentStreamIndex.map { queueOrder[$0] }
+            
+            reloadQueueOrder()
+            
+            if let index = index {
+                currentStreamIndex = queueOrder.firstIndex(of: index)
+            }
+        }
+    }
+    @Published var repeatQueue: Bool = false
     
     @Published var volume: Float = 0.5 {
         didSet {
@@ -109,7 +130,7 @@ class StreamPlayer: ObservableObject {
     }
 
     func resume(from index: Int? = nil) {
-        guard let idx = index ?? currentStreamIndex else { return }
+        guard let idx = index ?? currentStreamIndex, idx < queue.count else { return }
         
         if player.currentItem != nil && currentStreamIndex == idx {
             player.play()
@@ -120,7 +141,7 @@ class StreamPlayer: ObservableObject {
             self.progress = 0
             self.shouldSeek = true
             
-            queue[idx].prepare()
+            currentStream!.prepare()
                 .receive(on: RunLoop.main)
                 .sink(receiveCompletion: { completion in
                     if case let .failure(error) = completion  {
@@ -152,7 +173,11 @@ class StreamPlayer: ObservableObject {
         
         pause()
         queue = tracks
-        resume(from: idx)
+        
+        // If we're in shuffle mode, we first have to unravel `idx`
+        // Otherwise we start playing a random track
+        let start = shuffleQueue ? queueOrder.firstIndex(of: idx) : idx
+        resume(from: start)
     }
     
     @objc func advanceForward() {
@@ -160,6 +185,9 @@ class StreamPlayer: ObservableObject {
         player.replaceCurrentItem(with: nil)
         if queue.count > idx + 1 {
             resume(from: idx + 1)
+        }
+        else if repeatQueue {
+            resume(from: 0)
         }
         else {
             queue = []
@@ -207,6 +235,13 @@ class StreamPlayer: ObservableObject {
         }
         else {
             queue = queue + streams
+        }
+    }
+    
+    private func reloadQueueOrder() {
+        queueOrder = Array(0..<queue.count)
+        if shuffleQueue {
+            queueOrder = queueOrder.shuffled()
         }
     }
     
