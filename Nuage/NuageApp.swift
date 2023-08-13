@@ -164,6 +164,17 @@ struct NuageApp: App {
                         reloadLibrary()
                         reloadLikes()
                         reloadPosts()
+                        
+                        // Whenever the current stream changes, add it to the SoundCloud history
+                        player.$currentStream
+                            .filter { $0 != nil}
+                            .flatMap { SoundCloud.shared.perform(.addToHistory($0!)) }
+                            .sink(receiveCompletion: { completion in
+                                if case let .failure(error) = completion {
+                                    print("Failed to add track to history: \(error)")
+                                }
+                            }, receiveValue: { _ in })
+                            .store(in: &subscriptions)
                     }
             }
             else {
