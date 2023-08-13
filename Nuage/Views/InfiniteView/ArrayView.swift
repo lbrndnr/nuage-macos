@@ -27,6 +27,7 @@ struct ArrayView<ID, Element: Decodable&Identifiable, ContentView: View>: View {
             if elements.isEmpty {
                 ProgressView()
                     .progressViewStyle(.circular)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
             else {
                 content(elements, getNextPage)
