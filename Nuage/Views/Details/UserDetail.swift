@@ -12,6 +12,7 @@ import SoundCloud
 struct UserDetail: View {
     
     @State private var user: User
+    @State private var dataState: DataState = .initial
     @State private var selection: Tab = .stream
     @State private var subscriptions = Set<AnyCancellable>()
     
@@ -52,11 +53,15 @@ struct UserDetail: View {
 
             stream(for: selection)
         }
+        .id(dataState)
         .navigationTitle(user.username)
         .onAppear {
             SoundCloud.shared.get(.user(with: user.id))
                 .replaceError(with: user)
-                .assign(to: \.user, on: self)
+                .sink { user in
+                    self.user = user
+                    self.dataState = .loaded
+                }
                 .store(in: &subscriptions)
         }
     }
@@ -93,6 +98,11 @@ extension UserDetail {
         case likes
         case following
         case followers
+    }
+    
+    enum DataState: Int {
+        case initial
+        case loaded
     }
     
 }
