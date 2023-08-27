@@ -16,8 +16,8 @@ struct UserDetail: View {
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
-        VStack {
-            HStack(alignment: .top) {
+        VStack(spacing: 0) {
+            HStack(alignment: .top, spacing: 20) {
                 RemoteImage(url: user.avatarURL, cornerRadius: 50)
                     .frame(width: 100, height: 100)
                 
@@ -35,6 +35,7 @@ struct UserDetail: View {
                         Text(description.withAttributedLinks())
                     }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding()
             
@@ -47,6 +48,7 @@ struct UserDetail: View {
             .buttonStyle(.plain)
             
             Divider()
+                .padding(.top, 8)
 
             stream(for: selection)
         }

@@ -54,14 +54,7 @@ struct TrackDetail: View {
                     .frame(height: 80)
             }
             
-            HStack {
-                Button(action: { }) {
-                    Image(systemName: "heart")
-                }.buttonStyle(.borderless)
-                Button(action: { }) {
-                    Image(systemName: "arrow.triangle.2.circlepath")
-                }.buttonStyle(.borderless)
-            }
+            FeedbackStack(for: track)
             
             Text(duration)
                 .foregroundColor(Color(NSColor.secondaryLabelColor))
