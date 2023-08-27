@@ -12,35 +12,45 @@ import SoundCloud
 struct UserDetail: View {
     
     @State private var user: User
-    @State private var selection = 0
+    @State private var selection: Tab = .stream
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
         VStack {
-            HStack {
-                RemoteImage(url: user.avatarURL, cornerRadius: 25)
-                    .frame(width: 50, height: 50)
+            HStack(alignment: .top) {
+                RemoteImage(url: user.avatarURL, cornerRadius: 50)
+                    .frame(width: 100, height: 100)
+                
                 VStack(alignment: .leading) {
                     Text(user.username)
-                        .bold()
+                        .font(.title)
                         .lineLimit(1)
-                    Text(String(user.followerCount ?? 0))
+                    
+                    HStack {
+                        Text(String(user.followerCount ?? 0))
+                        Text(String(user.followingCount ?? 0))
+                    }
+                    
                     if let description = user.description {
-                        Text(description)
+                        Text(description.withAttributedLinks())
                     }
                 }
             }
-            Picker(selection: $selection, label: EmptyView()) {
-                Text("Stream").tag(0)
-                Text("Likes").tag(1)
-                Text("Following").tag(2)
-                Text("Followers").tag(3)
+            .padding()
+            
+            HStack(spacing: 40) {
+                button(for: .stream)
+                button(for: .likes)
+                button(for: .following)
+                button(for: .followers)
             }
-            .pickerStyle(SegmentedPickerStyle())
-            .frame(width: 400)
+            .buttonStyle(.plain)
+            
+            Divider()
 
             stream(for: selection)
         }
+        .navigationTitle(user.username)
         .onAppear {
             SoundCloud.shared.get(.user(with: user.id))
                 .replaceError(with: user)
@@ -49,17 +59,38 @@ struct UserDetail: View {
         }
     }
     
-    @ViewBuilder private func stream(for selection: Int) -> some View {
+    @ViewBuilder private func button(for tab: Tab) -> some View {
+        Button(action: { selection = tab }, label: {
+            let color: Color = selection == tab ? .primary : .secondary
+            
+            Text(tab.rawValue.capitalized)
+                .font(.title2)
+                .foregroundColor(color)
+        })
+    }
+    
+    @ViewBuilder private func stream(for selection: Tab) -> some View {
         switch selection {
-        case 1: TrackList(for: SoundCloud.shared.get(.trackLikes(of: user)))
-        case 2: UserGrid(for: SoundCloud.shared.get(.followings(of: user)))
-        case 3: UserGrid(for: SoundCloud.shared.get(.followers(of: user)))
-        default: PostList(for: SoundCloud.shared.get(.stream(of: user)))
+        case .stream: PostList(for: SoundCloud.shared.get(.stream(of: user)))
+        case .likes: TrackList(for: SoundCloud.shared.get(.trackLikes(of: user)))
+        case .following: UserGrid(for: SoundCloud.shared.get(.followings(of: user)))
+        case .followers: UserGrid(for: SoundCloud.shared.get(.followers(of: user)))
         }
     }
     
     init(user: User) {
         self._user = State(initialValue: user)
+    }
+    
+}
+
+extension UserDetail {
+    
+    enum Tab: String {
+        case stream
+        case likes
+        case following
+        case followers
     }
     
 }
