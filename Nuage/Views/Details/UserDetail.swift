@@ -11,15 +11,16 @@ import SoundCloud
 
 struct UserDetail: View {
     
-    @State private var user: User
-    @State private var dataState: DataState = .initial
+    @State var user: User
+    @State private var loadedUser: User?
     @State private var selection: Tab = .stream
     @State private var subscriptions = Set<AnyCancellable>()
     
     var body: some View {
+        let currentUser = loadedUser ?? user
         VStack(spacing: 0) {
             HStack(alignment: .top, spacing: 20) {
-                RemoteImage(url: user.avatarURL, cornerRadius: 50)
+                RemoteImage(url: currentUser.avatarURL, cornerRadius: 50)
                     .frame(width: 100, height: 100)
                 
                 VStack(alignment: .leading) {
@@ -28,15 +29,14 @@ struct UserDetail: View {
                         .lineLimit(1)
                     
                     HStack {
-                        Text(String(user.followerCount ?? 0))
-                        Text(String(user.followingCount ?? 0))
+                        Text("\(currentUser.followerCount ?? 0) Followers")
+                        Text("\(currentUser.followingCount ?? 0) Following")
                     }
                     
-                    if let description = user.description {
+                    if let description = currentUser.description {
                         Text(description.withAttributedLinks())
                     }
                 }
-                .id(dataState)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding()
@@ -58,10 +58,9 @@ struct UserDetail: View {
         .onAppear {
             SoundCloud.shared.get(.user(with: user.id))
                 .replaceError(with: user)
-                .sink { user in
-                    self.user = user
-                    self.dataState = .loaded
-                }
+                .map { Optional($0) }
+                .receive(on: RunLoop.main)
+                .assign(to: \.loadedUser, on: self)
                 .store(in: &subscriptions)
         }
     }
@@ -85,10 +84,6 @@ struct UserDetail: View {
         }
     }
     
-    init(user: User) {
-        self._user = State(initialValue: user)
-    }
-    
 }
 
 extension UserDetail {
@@ -98,11 +93,6 @@ extension UserDetail {
         case likes
         case following
         case followers
-    }
-    
-    enum DataState: Int {
-        case initial
-        case loaded
     }
     
 }
