@@ -36,6 +36,7 @@ struct UserDetail: View {
                         Text(description.withAttributedLinks())
                     }
                 }
+                .id(dataState)
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
             .padding()
@@ -53,7 +54,6 @@ struct UserDetail: View {
 
             stream(for: selection)
         }
-        .id(dataState)
         .navigationTitle(user.username)
         .onAppear {
             SoundCloud.shared.get(.user(with: user.id))

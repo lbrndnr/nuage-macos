@@ -134,7 +134,7 @@ class StreamPlayer: ObservableObject {
     func resume(from index: Int? = nil) {
         guard let idx = index ?? currentStreamIndex, idx < queue.count else { return }
         
-        let newStream = index.map { queue[queueOrder[$0]] }
+        let newStream = queue[queueOrder[idx]]
         if currentStream == newStream {
             player.play()
         }
