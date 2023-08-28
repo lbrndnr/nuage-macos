@@ -48,15 +48,25 @@ struct UserItem: View {
     var user: User
     
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             RemoteImage(url: user.avatarURL, cornerRadius: 50)
                 .frame(width: 100, height: 100)
-            VStack(alignment: .leading) {
-                Text(user.username)
-                    .bold()
-                    .lineLimit(1)
+            
+            Text(user.username)
+                .bold()
+                .lineLimit(1)
+            
+            HStack(spacing: 2) {
                 Text(String(user.followerCount ?? 0))
+                Image(systemName: "person.2.fill")
+                
+                Spacer()
+                    .frame(width: 8)
+                
+                Text(String(user.trackCount ?? 0))
+                Image(systemName: "waveform")
             }
+            .foregroundColor(.secondary)
         }
     }
 
