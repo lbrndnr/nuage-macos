@@ -7,14 +7,16 @@
 
 import SoundCloud
 
-let separator = "@@NUAGE@@"
+let userPlaylistSeparator = "@@USERPLAYLIST@@"
+let systemPlaylistSeparator = "@@SYSTEMPLAYLIST@@"
 
 enum SidebarItem: RawRepresentable {
     case stream
     case likes
     case history
     case following
-    case playlist(String, String)
+    case userPlaylist(String, String)
+    case systemPlaylist(String, String)
     
     init?(rawValue: String) {
         switch rawValue {
@@ -23,10 +25,18 @@ enum SidebarItem: RawRepresentable {
         case "history": self = .history
         case "following": self = .following
         default:
-            let components = rawValue.split(separator: separator)
-            guard components.count == 2 else { return nil }
-            
-            self = .playlist(String(components[0]), String(components[1]))
+            if rawValue.contains(userPlaylistSeparator) {
+                let components = rawValue.split(separator: userPlaylistSeparator)
+                guard components.count == 2 else { return nil }
+                
+                self = .userPlaylist(String(components[0]), String(components[1]))
+            }
+            else {
+                let components = rawValue.split(separator: systemPlaylistSeparator)
+                guard components.count == 2 else { return nil }
+                
+                self = .systemPlaylist(String(components[0]), String(components[1]))
+            }            
         }
     }
     
@@ -36,13 +46,15 @@ enum SidebarItem: RawRepresentable {
         case .likes: return "likes"
         case .history: return "history"
         case .following: return "following"
-        case .playlist(let name, let id): return name+separator+id
+        case .userPlaylist(let name, let id): return name+userPlaylistSeparator+id
+        case .systemPlaylist(let name, let id): return name+systemPlaylistSeparator+id
         }
     }
     
     var title: String {
         switch self {
-        case .playlist(let name, _): return name
+        case .userPlaylist(let name, _): return name
+        case .systemPlaylist(let name, _): return name
         default: return rawValue.capitalized
         }
     }
@@ -53,7 +65,7 @@ enum SidebarItem: RawRepresentable {
         case .likes: return "heart.fill"
         case .history: return "clock.fill"
         case .following: return "person.2.fill"
-        case .playlist(_, _): return nil
+        default: return nil
         }
     }
     
@@ -63,8 +75,11 @@ extension SidebarItem: Hashable {
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(title.hashValue)
-        if case .playlist(_, let id) = self {
+        if case .userPlaylist(_, let id) = self {
             hasher.combine(id.hashValue)
+        }
+        else if case .systemPlaylist(_, let urn) = self {
+            hasher.combine(urn.hashValue)
         }
     }
     
@@ -73,8 +88,11 @@ extension SidebarItem: Hashable {
 extension SidebarItem: Identifiable {
     
     var id: String {
-        if case .playlist(_, let id) = self {
+        if case .userPlaylist(_, let id) = self {
             return id
+        }
+        if case .systemPlaylist(_, let urn) = self {
+            return urn
         }
         return title
     }

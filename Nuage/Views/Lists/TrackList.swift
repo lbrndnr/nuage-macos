@@ -39,8 +39,18 @@ extension TrackList where Element == Track {
         self.init(publisher: .array(arrayPublisher, pagePublisher), transform: { $0 })
     }
     
-    init(for playlistID: String) {
-        let ids = SoundCloud.shared.get(.playlist(playlistID))
+    init(userPlaylistID: String) {
+        let ids = SoundCloud.shared.get(.userPlaylist(userPlaylistID))
+            .map { $0.trackIDs ?? [] }
+            .eraseToAnyPublisher()
+        let page = { ids in
+            return SoundCloud.shared.get(.tracks(ids))
+        }
+        self.init(for: ids, page: page)
+    }
+    
+    init(systemPlaylistURN: String) {
+        let ids = SoundCloud.shared.get(.systemPlaylist(systemPlaylistURN))
             .map { $0.trackIDs ?? [] }
             .eraseToAnyPublisher()
         let page = { ids in

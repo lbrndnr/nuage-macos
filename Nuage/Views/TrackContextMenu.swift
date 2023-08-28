@@ -51,7 +51,7 @@ private struct TrackContextMenu: ViewModifier {
                         Button(playlist.title) {
                             let newTrackID = Int(track.id)!
                             
-                            soundCloud.get(.playlist(playlist.id))
+                            soundCloud.get(.userPlaylist(playlist.id))
                                 .map { ($0.trackIDs ?? []).map { Int($0)! } }
                                 .flatMap { soundCloud.get(.set(playlist, trackIDs: $0 + [newTrackID])) }
                                 .receive(on: RunLoop.main)

@@ -23,8 +23,8 @@ struct URLDetail: View {
                 .playbackContext([track])
                 .playbackStart(at: track)
         case .user(let user): UserDetail(user: user)
-        case .userPlaylist(let playlist): TrackList(for: playlist.id)
-        case .systemPlaylist(let playlist): TrackList(for: playlist.id)
+        case .userPlaylist(let playlist): TrackList(userPlaylistID: playlist.id)
+        case .systemPlaylist(let playlist): TrackList(systemPlaylistURN: playlist.urn)
         }
     }
     

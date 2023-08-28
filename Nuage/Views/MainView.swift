@@ -84,7 +84,12 @@ struct MainView: View {
                         let isLiked = (playlist.userPlaylist?.secretToken == nil)
                         
                         if (isLiked && showLikedPlaylists) || (!isLiked && showCreatedPlaylists) {
-                            sidebarMenu(for: .playlist(playlist.title, playlist.id))
+                            if let playlist = playlist.userPlaylist {
+                                sidebarMenu(for: .userPlaylist(playlist.title, playlist.id))
+                            }
+                            else if let playlist = playlist.systemPlaylist {
+                                sidebarMenu(for: .systemPlaylist(playlist.title, playlist.id))
+                            }
                         }
                     }
                 }
@@ -123,8 +128,10 @@ struct MainView: View {
                     .flatMap { SoundCloud.shared.get(.followings(of: $0!), count: 50) }
                     .eraseToAnyPublisher()
                 UserGrid(for: following)
-            case .playlist(_, let id):
-                TrackList(for: id)
+            case .userPlaylist(_, let id):
+                TrackList(userPlaylistID: id)
+            case .systemPlaylist(_, let urn):
+                TrackList(systemPlaylistURN: urn)
             }
         }
             .navigationTitle(item.title)

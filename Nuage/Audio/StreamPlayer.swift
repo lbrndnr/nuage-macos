@@ -131,8 +131,8 @@ class StreamPlayer: ObservableObject {
         }
     }
     
-    func resume(from index: Int? = nil) {
-        guard let idx = index ?? currentStreamIndex, idx < queue.count else { return }
+    func resume(from startIndex: Int? = nil) {
+        guard let idx = startIndex ?? currentStreamIndex, idx < queue.count else { return }
         
         let newStream = queue[queueOrder[idx]]
         if currentStream == newStream {
