@@ -70,6 +70,13 @@ struct TrackDetail: View {
                     }
                 }
         }
+        .toolbar {
+            ToolbarItem(placement: .secondaryAction) {
+                NavigationLink(value: Station.track(track)) {
+                    Image(systemName: "dot.radiowaves.left.and.right")
+                }
+            }
+        }
         .padding(16)
         .navigationTitle(track.title)
     }

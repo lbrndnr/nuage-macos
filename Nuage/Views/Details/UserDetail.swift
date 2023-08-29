@@ -54,6 +54,13 @@ struct UserDetail: View {
 
             stream(for: selection)
         }
+        .toolbar {
+            ToolbarItem(placement: .secondaryAction) {
+                NavigationLink(value: Station.artist(user)) {
+                    Image(systemName: "dot.radiowaves.left.and.right")
+                }
+            }
+        }
         .navigationTitle(user.username)
         .onAppear {
             SoundCloud.shared.get(.user(with: user.id))

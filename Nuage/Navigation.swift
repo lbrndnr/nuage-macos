@@ -7,8 +7,8 @@
 
 import SoundCloud
 
-let userPlaylistSeparator = "@@USERPLAYLIST@@"
-let systemPlaylistSeparator = "@@SYSTEMPLAYLIST@@"
+private let userPlaylistSeparator = "@@USERPLAYLIST@@"
+private let systemPlaylistSeparator = "@@SYSTEMPLAYLIST@@"
 
 enum SidebarItem: RawRepresentable {
     case stream
@@ -97,4 +97,9 @@ extension SidebarItem: Identifiable {
         return title
     }
     
+}
+
+enum Station: Hashable {
+    case track(Track)
+    case artist(User)
 }

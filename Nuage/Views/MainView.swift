@@ -41,6 +41,12 @@ struct MainView: View {
                         .navigationDestinationWithPlaybackContext(for: Track.self) { TrackDetail(track: $0) }
                         .navigationDestination(for: User.self) { UserDetail(user: $0) }
                         .navigationDestination(for: URL.self) { URLDetail(url: $0) }
+                        .navigationDestination(for: Station.self) { station in
+                            switch station {
+                            case .track(let track): TrackList(request: .trackStation(basedOn: track))
+                            case .artist(let user): TrackList(request: .artistStation(basedOn: user))
+                            }
+                        }
                         .navigationDestination(isPresented: presentSearch) {
                             let search = soundCloud.get(.search(searchQuery))
                             SearchList(publisher: search)
@@ -129,9 +135,9 @@ struct MainView: View {
                     .eraseToAnyPublisher()
                 UserGrid(for: following)
             case .userPlaylist(_, let id):
-                TrackList(userPlaylistID: id)
+                TrackList(request: .userPlaylist(id))
             case .systemPlaylist(_, let urn):
-                TrackList(systemPlaylistURN: urn)
+                TrackList(request: .systemPlaylist(urn))
             }
         }
             .navigationTitle(item.title)
